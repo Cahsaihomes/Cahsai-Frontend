@@ -164,6 +164,7 @@ export default function PublicHomeFeed() {
             ) : (
               filteredWatchPosts.map((post) => (
                 <PropertyCard
+                postId={post.id}
                   key={post.id}
                   id={post.user?.id ?? post.id}
                   variant={
@@ -196,9 +197,9 @@ export default function PublicHomeFeed() {
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
                   }
-                  onOpenComments={() =>
-                    handleUnauthenticatedAction("comment")
-                  }
+                  // onOpenComments={() =>
+                  //   handleUnauthenticatedAction("comment")
+                  // }
                   onBookTour={() =>
                     handleUnauthenticatedAction("book a tour")
                   }

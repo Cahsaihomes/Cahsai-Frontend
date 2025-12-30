@@ -116,7 +116,7 @@ export default function LeadManagementPage() {
     queryFn: () => getTourLeadsService(),
   });
 
-  const leads: Lead[] = Array.isArray(data?.leads) ? data.leads : [];
+  const leads: Lead[] = data?.leads ?? [];
   const activeLeads = leads.filter((l) => l && l.activeLead);
   const fallbackLeads = leads.filter((l) => l && !l.activeLead);
   const leadsToDisplay = activeTab === "active" ? activeLeads : fallbackLeads;
