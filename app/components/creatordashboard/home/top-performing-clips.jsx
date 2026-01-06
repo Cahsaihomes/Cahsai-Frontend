@@ -33,21 +33,40 @@ const TopPerformingClips = () => {
         
       "
           >
-            {/* Image + Text Section */}
+            {/* Image/Video + Text Section */}
             <div className="flex flex-col lg:flex-row  lg:items-center lg:space-x-3 gap-2 lg:gap-0">
               <div className="w-full lg:w-[263px] h-[104px]">
-                {/* Show first image if images array exists, else fallback to clip.image */}
-                <Image
-                  src={
-                    Array.isArray(clip.images) && clip.images.length > 0
-                      ? clip.images[0]
-                      : clip.image
-                  }
-                  alt={clip.title}
-                  width={263}
-                  height={104}
-                  className="w-full lg:w-[263px] h-[104px] rounded-[8px] object-cover flex-shrink-0"
-                />
+                {/* Show video if video string exists */}
+                {clip.video && typeof clip.video === 'string' ? (
+                  <video
+                    src={clip.video}
+                    controls
+                    className="w-full lg:w-[263px] h-[104px] rounded-[8px] object-cover flex-shrink-0"
+                  />
+                ) : (
+                  /* Show first image if images array exists with valid src, else fallback to clip.image */
+                  Array.isArray(clip.images) && clip.images.length > 0 && clip.images[0] ? (
+                    <Image
+                      src={clip.images[0]}
+                      alt={clip.title}
+                      width={263}
+                      height={104}
+                      className="w-full lg:w-[263px] h-[104px] rounded-[8px] object-cover flex-shrink-0"
+                    />
+                  ) : clip.image && typeof clip.image === 'string' ? (
+                    <Image
+                      src={clip.image}
+                      alt={clip.title}
+                      width={263}
+                      height={104}
+                      className="w-full lg:w-[263px] h-[104px] rounded-[8px] object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-full lg:w-[263px] h-[104px] rounded-[8px] bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400 text-sm">No media</span>
+                    </div>
+                  )
+                )}
               </div>
 
               <div className="flex flex-col gap-2 flex-1">

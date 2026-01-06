@@ -39,6 +39,8 @@ export default function EditClipsPage() {
   const [sliderIndexes, setSliderIndexes] = useState<{
     [id: string]: number;
   }>({});
+  const [postTypeTab, setPostTypeTab] = useState<"listing" | "video">("listing");
+  
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -51,6 +53,18 @@ export default function EditClipsPage() {
       // Optionally handle error
     }
   };
+
+  // Filter clips based on postType tab
+  const filteredClips = clipsData.filter((clip) => {
+    if (postTypeTab === "listing") {
+      // Show all posts that are not LISTING_VIDEO
+      return clip.postType !== "LISTING_VIDEO";
+    } else if (postTypeTab === "video") {
+      // Show only LISTING_VIDEO posts
+      return clip.postType === "LISTING_VIDEO";
+    }
+    return true;
+  });
 
   const router = useRouter();
 
@@ -142,6 +156,30 @@ export default function EditClipsPage() {
             </div>
           </div>
 
+          {/* Post Type Tabs */}
+          <div className="flex gap-2 mb-6 border-b border-gray-200">
+            <button
+              onClick={() => setPostTypeTab("listing")}
+              className={`pb-2 px-4 font-medium text-sm transition-colors ${
+                postTypeTab === "listing"
+                  ? "border-b-2 border-[#6F8375] text-[#6F8375]"
+                  : "text-gray-600 hover:text-gray-800"
+              }`}
+            >
+              Listing Post ({clipsData.filter((c) => c.postType !== "LISTING_VIDEO").length})
+            </button>
+            <button
+              onClick={() => setPostTypeTab("video")}
+              className={`pb-2 px-4 font-medium text-sm transition-colors ${
+                postTypeTab === "video"
+                  ? "border-b-2 border-[#6F8375] text-[#6F8375]"
+                  : "text-gray-600 hover:text-gray-800"
+              }`}
+            >
+              Listing Video ({clipsData.filter((c) => c.postType === "LISTING_VIDEO").length})
+            </button>
+          </div>
+
           {/* Filters */}
           <div className="flex items-center justify-between mb-8">
             <Select value={filterBy} onValueChange={setFilterBy}>
@@ -176,7 +214,7 @@ export default function EditClipsPage() {
               // Helper to update index for a given card
               const setIndex = (id: string, idx: number) =>
                 setSliderIndexes((prev) => ({ ...prev, [id]: idx }));
-              return clipsData.map((clip) => {
+              return filteredClips.map((clip) => {
                 // Gather all media (images then videos)
                 const images = Array.isArray(clip.images) ? clip.images : [];
                 // Support both 'video' (string) and 'videos' (array)
@@ -319,165 +357,168 @@ export default function EditClipsPage() {
                           )}
                         </div>
                       </div>
-                      <CardContent className="p-3">
-                        {/* Price, Edit, and Delete */}
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-base font-semibold text-gray-900">
-                            $ {clip.price}
-                          </h3>
-                          <div className="flex gap-2">
-                            <Button
-                              onClick={() => editClick(clip.id)}
-                              variant="ghost"
-                              size="icon"
-                              className="h-6 w-6 text-gray-500 hover:text-gray-700"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"
-                              >
-                                <path
-                                  stroke="none"
-                                  d="M0 0h24v24H0z"
-                                  fill="none"
-                                />
-                                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-                                <path d="M13.5 6.5l4 4" />
-                              </svg>
-                            </Button>
-
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => {
-                                setOpen(true);
-                                setDeletedId(clip.id);
-                              }}
-                              className="h-6 w-6 text-red-400 hover:text-red-600"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                              >
-                                <path
-                                  stroke="none"
-                                  d="M0 0h24v24H0z"
-                                  fill="none"
-                                />
-                                <path d="M4 7l16 0" />
-                                <path d="M10 11l0 6" />
-                                <path d="M14 11l0 6" />
-                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                              </svg>
-                            </Button>
-                          </div>
-                        </div>
-                        {/* Location */}
-                        <div className="flex items-center text-sm text-gray-600 mb-3">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          <span className="text-xs text-gray-600 truncate">
-                            {clip.location}
-                          </span>
-                        </div>
-                        {/* Stats */}
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                          <div className="flex items-center gap-0.5">
-                            <Eye className="w-4 h-4 mr-1" />
-                            <span className="text-xs text-gray-600">
-                              {typeof clip.views === "number"
-                                ? clip.views.toLocaleString()
-                                : "0"}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-0.5">
-                            <button
-                              onClick={() => handleSave(clip.id)}
-                              title="Save post"
-                            >
-                              <Bookmark
-                                className={`w-4 h-4 mr-1 ${
-                                  savedIds.has(clip.id)
-                                    ? "text-[#6F8375] fill-[#6F8375]"
-                                    : "text-gray-500"
-                                }`}
-                                fill={
-                                  savedIds.has(clip.id) ? "#6F8375" : "none"
-                                }
-                              />
-                            </button>
-                            <span className="text-xs text-gray-600">
-                              {clip.saves || 0}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Share2 className="w-4 h-4 mr-1" />
-                            <span className="text-xs text-gray-600">
-                              {clip.shares || 0}
-                            </span>
-                          </div>
-                        </div>
-                        {/* Tags */}
-                        <div>
-                          <h3 className="text-sm font-medium text-gray-800 mb-2">
-                            Tags
-                          </h3>
-                          <div className="flex flex-wrap gap-2">
-                            {(clip.tags.slice(0, 4) as string[]).map(
-                              (tag: string, index: number) => (
-                                <Badge
-                                  key={index}
-                                  variant="secondary"
-                                  className="bg-gray-100 text-gray-700 hover:bg-gray-200  px-1.5 py-0.5 h-5 text-xs"
+                      {/* Only show details for non-LISTING_VIDEO posts */}
+                      {clip.postType !== "LISTING_VIDEO" && (
+                        <>
+                          <CardContent className="p-3">
+                            {/* Price, Edit, and Delete */}
+                            <div className="flex items-center justify-between mb-4">
+                              <h3 className="text-base font-semibold text-gray-900">
+                                $ {clip.price}
+                              </h3>
+                              <div className="flex gap-2">
+                                <Button
+                                  onClick={() => editClick(clip.id)}
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6 text-gray-500 hover:text-gray-700"
                                 >
-                                  {tag}
-                                </Badge>
-                              )
-                            )}
-                            {clip.tags.length > 4 && (
-                              <Badge
-                                variant="secondary"
-                                className="bg-gray-100 text-gray-700 hover:bg-gray-200 text-xs px-1.5 py-0.5 h-5"
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"
+                                  >
+                                    <path
+                                      stroke="none"
+                                      d="M0 0h24v24H0z"
+                                      fill="none"
+                                    />
+                                    <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                                    <path d="M13.5 6.5l4 4" />
+                                  </svg>
+                                </Button>
+
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setDeletedId(clip.id);
+                                  }}
+                                  className="h-6 w-6 text-red-400 hover:text-red-600"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                                  >
+                                    <path
+                                      stroke="none"
+                                      d="M0 0h24v24H0z"
+                                      fill="none"
+                                    />
+                                    <path d="M4 7l16 0" />
+                                    <path d="M10 11l0 6" />
+                                    <path d="M14 11l0 6" />
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                  </svg>
+                                </Button>
+                              </div>
+                            </div>
+                            {/* Location */}
+                            <div className="flex items-center text-sm text-gray-600 mb-3">
+                              <MapPin className="h-4 w-4 mr-1" />
+                              <span className="text-xs text-gray-600 truncate">
+                                {clip.location}
+                              </span>
+                            </div>
+                            {/* Stats */}
+                            <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                              <div className="flex items-center gap-0.5">
+                                <Eye className="w-4 h-4 mr-1" />
+                                <span className="text-xs text-gray-600">
+                                  {typeof clip.views === "number"
+                                    ? clip.views.toLocaleString()
+                                    : "0"}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-0.5">
+                                <button
+                                  onClick={() => handleSave(clip.id)}
+                                  title="Save post"
+                                >
+                                  <Bookmark
+                                    className={`w-4 h-4 mr-1 ${
+                                      savedIds.has(clip.id)
+                                        ? "text-[#6F8375] fill-[#6F8375]"
+                                        : "text-gray-500"
+                                    }`}
+                                    fill={
+                                      savedIds.has(clip.id) ? "#6F8375" : "none"
+                                    }
+                                  />
+                                </button>
+                                <span className="text-xs text-gray-600">
+                                  {clip.saves || 0}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Share2 className="w-4 h-4 mr-1" />
+                                <span className="text-xs text-gray-600">
+                                  {clip.shares || 0}
+                                </span>
+                              </div>
+                            </div>
+                            {/* Tags */}
+                            <div>
+                              <h3 className="text-sm font-medium text-gray-800 mb-2">
+                                Tags
+                              </h3>
+                              <div className="flex flex-wrap gap-2">
+                                {(clip.tags.slice(0, 4) as string[]).map(
+                                  (tag: string, index: number) => (
+                                    <Badge
+                                      key={index}
+                                      variant="secondary"
+                                      className="bg-gray-100 text-gray-700 hover:bg-gray-200  px-1.5 py-0.5 h-5 text-xs"
+                                    >
+                                      {tag}
+                                    </Badge>
+                                  )
+                                )}
+                                {clip.tags.length > 4 && (
+                                  <Badge
+                                    variant="secondary"
+                                    className="bg-gray-100 text-gray-700 hover:bg-gray-200 text-xs px-1.5 py-0.5 h-5"
+                                  >
+                                    +{clip.tags.length - 4}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                          </CardContent>
+                          <div className="px-3 pb-3">
+                            {!clip.isPromoted && (
+                              <button
+                                className="w-full flex items-center justify-center gap-2 text-white font-medium rounded-lg py-2 transition-colors duration-200 shadow-sm text-base border-0"
+                                style={{
+                                  marginTop: "8px",
+                                  background:
+                                    "linear-gradient(95.09deg, #69AD7D 0%, #3D6E4B 100%)",
+                                }}
+                                onClick={() => {
+                                  setBoostModalOpen(true);
+                                  setBoostPost(clip);
+                                }}
                               >
-                                +{clip.tags.length - 4}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                      </CardContent>
-                      <div className="px-3 pb-3">
-                        {!clip.isPromoted && (
-                          <button
-                            className="w-full flex items-center justify-center gap-2 text-white font-medium rounded-lg py-2 transition-colors duration-200 shadow-sm text-base border-0"
-                            style={{
-                              marginTop: "8px",
-                              background:
-                                "linear-gradient(95.09deg, #69AD7D 0%, #3D6E4B 100%)",
-                            }}
-                            onClick={() => {
-                              setBoostModalOpen(true);
-                              setBoostPost(clip);
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="18"
                               height="18"
                               viewBox="0 0 24 24"
                               fill="none"
@@ -498,6 +539,82 @@ export default function EditClipsPage() {
                           </button>
                         )}
                       </div>
+                        </>
+                      )}
+                      
+                      {/* For LISTING_VIDEO: show title and edit/delete buttons on same line */}
+                      {clip.postType === "LISTING_VIDEO" && (
+                        <>
+                          <CardContent className="p-3 flex items-center justify-between">
+                            <h3 className="text-base font-semibold text-gray-900">
+                              {clip.title}
+                            </h3>
+                            <div className="flex gap-2">
+                          <Button
+                            onClick={() => editClick(clip.id)}
+                            variant="ghost"
+                            size="sm"
+                            className="text-gray-500 hover:text-gray-700"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
+                              <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                              <path d="M13.5 6.5l4 4" />
+                            </svg>
+                          </Button>
+
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setOpen(true);
+                              setDeletedId(clip.id);
+                            }}
+                            className="text-red-400 hover:text-red-600"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
+                              <path d="M4 7l16 0" />
+                              <path d="M10 11l0 6" />
+                              <path d="M14 11l0 6" />
+                              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                            </svg>
+                          </Button>
+                            </div>
+                          </CardContent>
+                        </>
+                      )}
                       {/* Boost Post Modal */}
                       <BoostPostModal
                         isOpen={boostModalOpen}

@@ -30,6 +30,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         },
       })
   );
+  
 
   return (
     <ReduxProvider store={store}>

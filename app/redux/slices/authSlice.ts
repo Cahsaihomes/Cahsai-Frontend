@@ -55,6 +55,7 @@ export interface User {
   acceptedTerms?: boolean;
   avatarUrl?: string | null;
   isDeleted: boolean;
+  isRentalCompany?: boolean;
   profile_info?: ProfileInfo | null;
   paymentDetails?: PaymentDetails | null;
 }

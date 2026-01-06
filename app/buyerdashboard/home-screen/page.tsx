@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "@/hooks/post-service";
 import { Post } from "@/app/Utils/post-types";
+import { RootState } from "@/app/redux";
 
 import ButtonGroup from "@/components/ui/button-group";
 import PropertyCard from "@/components/ui/property-card";
@@ -67,9 +69,8 @@ export default function Home() {
   const [localSaved, setLocalSaved] = useState<{ [key: number]: boolean }>({});
   const { data: buyerLikes, refetch: likeRefetch } = useBuyerLikes();
 
-  // Get current user ID from your auth context/store
-  // Replace this with your actual auth implementation
-  const currentUserId = 1; // Example: get from useAuth() or similar
+  // Get current user ID from Redux
+  const currentUserId = useSelector((state: RootState) => state.auth.user?.id) || 0;
 
   const {
     data: posts,
@@ -128,6 +129,20 @@ export default function Home() {
 
   const filteredPosts =
     postsByPropertyType?.filter((post: any) => {
+      // Exclude LISTING_VIDEO posts from search homes tab
+      const postType = post.postType || post.post_type;
+      
+      // If postType is available, use it
+      if (postType === "LISTING_VIDEO") {
+        return false;
+      }
+
+      // Fallback: If postType is null/undefined, check if it's a creator video post
+      // Creator posts have video, no price, and minimal fields
+      if (!postType && post.video && !post.price) {
+        return false; // This is likely a creator LISTING_VIDEO post
+      }
+
       const fullName =
         `${post.user.first_name} ${post.user.last_name}`.toLowerCase();
       const searchLower = searchQuery.toLowerCase();
@@ -196,7 +211,7 @@ export default function Home() {
           ),
         );
 
-      return (
+      const result =
         matchesSearch &&
         matchesQuick &&
         matchesMore &&
@@ -205,10 +220,12 @@ export default function Home() {
         matchesSqft &&
         matchesCity &&
         matchesZip &&
-        matchesBtnFilters
-      );
+        matchesBtnFilters;
+
+      return result;
     }) || [];
 
+  
   if (isError) {
     return (
       <p className="text-center py-10 text-red-500">Failed to load posts.</p>

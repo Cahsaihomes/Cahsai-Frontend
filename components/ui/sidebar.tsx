@@ -304,7 +304,7 @@ export default function Sidebar() {
                                   }}
                                 >
                                   <div
-                                    className="w-10 h-10 flex items-center justify-center p-2 rounded-lg bg-[#0000001A]
+                                    className="w-10 h-10 flex items-center justify-center p-2 rounded-lg bg-[#0000001A] flex-shrink-0
                             [box-shadow:0px_0px_1px_0px_#9191911A_inset,
                             1px_1px_2px_0px_#91919117_inset,
                             3px_3px_2px_0px_#9191910D_inset,
@@ -319,7 +319,7 @@ export default function Sidebar() {
                                       className="object-contain"
                                     />
                                   </div>
-                                  {sub.label}
+                                  <span className="truncate">{sub.label}</span>
                                 </button>
                               );
                             })}

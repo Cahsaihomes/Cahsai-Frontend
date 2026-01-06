@@ -188,16 +188,35 @@ const ClipTable = () => {
                 {/* Clip Info */}
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    <Image
-                      src={Array.isArray(clip.images) && clip.images.length > 0 ? clip.images[0] : clip.image || "/images/placeholder.png"}
-                      alt={clip.title || "Clip"}
-                      width={150}
-                      height={105}
-                      className="rounded-lg object-cover w-[100px] h-[100px] lg:w-[150px] lgh-[105px] "
-                    />
+                    {/* Show video if exists */}
+                    {clip.video && typeof clip.video === 'string' ? (
+                      <video
+                        src={clip.video}
+                        controls
+                        className="rounded-lg object-cover w-[100px] h-[100px] lg:w-[150px] lg:h-[105px]"
+                      />
+                    ) : (
+                      /* Show image if exists and is valid */
+                      (Array.isArray(clip.images) && clip.images.length > 0 && clip.images[0]) || (clip.image && typeof clip.image === 'string') ? (
+                        <Image
+                          src={Array.isArray(clip.images) && clip.images.length > 0 ? clip.images[0] : clip.image}
+                          alt={clip.title || "Clip"}
+                          width={150}
+                          height={105}
+                          className="rounded-lg object-cover w-[100px] h-[100px] lg:w-[150px] lg:h-[105px]"
+                        />
+                      ) : (
+                        <div className="rounded-lg bg-gray-200 w-[100px] h-[100px] lg:w-[150px] lg:h-[105px] flex items-center justify-center">
+                          <span className="text-gray-400 text-xs">No media</span>
+                        </div>
+                      )
+                    )}
                     <div className="flex flex-col h-[105px] justify-between">
                       <span className="font-[500] text-[#434342] font-inter text-[18px]  lg:text-[24px]">
                         {clip.title}
+                      </span>
+                       <span className="font-[400] text-[#434342] font-inter text-[14px]  lg:text-[16px]">
+                        {clip.description}
                       </span>
                       <span className="text-[14px] lg:text-[16px] font-[400] font-inter text-[#717680]">
                         {formatPostedDate(clip.createdAt)}

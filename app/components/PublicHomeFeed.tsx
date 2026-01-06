@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "@/hooks/post-service";
 import { Post } from "@/app/Utils/post-types";
@@ -18,6 +18,11 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { IAProduct, useAffiliateProducts } from "@/hooks/useAffilateProduct";
+import AffilateProduct from "./Cards/affilateProduct";
+
+
+
 
 export default function PublicHomeFeed() {
   const router = useRouter();
@@ -39,6 +44,10 @@ export default function PublicHomeFeed() {
   const [selectedCity, setSelectedCity] = useState("");
   const [zipCode, setZipCode] = useState("");
 
+
+  const { data: affilateProduct, isLoading: isAffLoading, error } = useAffiliateProducts("laptop");
+
+
   const { data: posts = [], isLoading, isError } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: getAllPosts,
@@ -52,30 +61,30 @@ export default function PublicHomeFeed() {
     return true;
   });
 
-      function getListingBadgeText(
-      listingType?: "FOR_SALE" | "FOR_RENT" | "STAY",
-    ) {
-      switch (listingType) {
-        case "FOR_SALE":
-          return "FOR SALE";
-        case "FOR_RENT":
-          return "FOR RENT";
-        case "STAY":
-          return "SHORT-TERM STAY";
-        default:
-          return "FOR YOU";
-      }
+  function getListingBadgeText(
+    listingType?: "FOR_SALE" | "FOR_RENT" | "STAY",
+  ) {
+    switch (listingType) {
+      case "FOR_SALE":
+        return "FOR SALE";
+      case "FOR_RENT":
+        return "FOR RENT";
+      case "STAY":
+        return "SHORT-TERM STAY";
+      default:
+        return "FOR YOU";
     }
+  }
 
 
   const videoPosts = filteredByType.filter(
     (p) => typeof p.video === "string" && p.video.trim() !== "",
   );
 
-  const filteredWatchPosts = 
-  selectedFilters.length === 0
-    ? videoPosts
-    : videoPosts.filter((p) =>
+  const filteredWatchPosts =
+    selectedFilters.length === 0
+      ? videoPosts
+      : videoPosts.filter((p) =>
         p.homeStyle?.some((s) => selectedFilters.includes(s)) ||
         selectedFilters.includes("for sale") && p.listing_type === "FOR_SALE" ||
         selectedFilters.includes("for rent") && p.listing_type === "FOR_RENT" ||
@@ -85,9 +94,8 @@ export default function PublicHomeFeed() {
 
   const filteredPosts = filteredByType.filter((post) => {
     const search = searchQuery.toLowerCase();
-    const name = `${post.user?.first_name ?? ""} ${
-      post.user?.last_name ?? ""
-    }`.toLowerCase();
+    const name = `${post.user?.first_name ?? ""} ${post.user?.last_name ?? ""
+      }`.toLowerCase();
 
     const price = Number(post.price ?? 0);
 
@@ -156,6 +164,27 @@ export default function PublicHomeFeed() {
           </div>
         </div>
 
+        {/* AFFILIATE PRODUCTS */}
+        { activeButton === "search" && (<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 p-4 gap-4 col-span-2">
+          {isAffLoading ? (
+            <p className="flex justify-center mx-auto w-full">Loading affiliate products...</p>
+          ) : ((
+            affilateProduct?.map((product: IAProduct) => (
+              <AffilateProduct
+                key={product._id}
+                linkurl={product.linkurl}
+                productName={product.productname}
+                productPrice={product.price.amount}
+                Imageurl={product.imageurl}
+                merchantName={product.merchantname}
+                productCurrency={product.price.currency}
+                keywords={product.keywords}
+              />
+            ))
+          ))}
+        </div>
+        )}
+
         {/* WATCH */}
         {activeButton === "watch" && (
           <div className="grid gap-6 max-w-lg mx-auto px-3">
@@ -164,7 +193,6 @@ export default function PublicHomeFeed() {
             ) : (
               filteredWatchPosts.map((post) => (
                 <PropertyCard
-                postId={post.id}
                   key={post.id}
                   id={post.user?.id ?? post.id}
                   variant={
@@ -174,9 +202,8 @@ export default function PublicHomeFeed() {
                   }
                   imageUrl={post.images?.[0] || "/images/Rectangle.png"}
                   video={post.video ?? ""}
-                  name={`${post.user?.first_name ?? ""} ${
-                    post.user?.last_name ?? ""
-                  }`}
+                  name={`${post.user?.first_name ?? ""} ${post.user?.last_name ?? ""
+                    }`}
                   first_name={post.user?.first_name}
                   last_name={post.user?.last_name}
                   profile={post.user?.avatarUrl}
@@ -197,9 +224,9 @@ export default function PublicHomeFeed() {
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
                   }
-                  // onOpenComments={() =>
-                  //   handleUnauthenticatedAction("comment")
-                  // }
+                  onOpenComments={() =>
+                    handleUnauthenticatedAction("comment")
+                  }
                   onBookTour={() =>
                     handleUnauthenticatedAction("book a tour")
                   }
@@ -216,14 +243,13 @@ export default function PublicHomeFeed() {
               <DetailedListingCard
                 key={post.id}
                 id={post.id}
-                images={post.images ?? []} 
+                images={post.images ?? []}
                 video={post.video ?? ""}
                 title={post.title}
                 price={post.price}
                 tags={post.tags ?? []}
-                agentName={`${post.user?.first_name ?? ""} ${
-                  post.user?.last_name ?? ""
-                }`}
+                agentName={`${post.user?.first_name ?? ""} ${post.user?.last_name ?? ""
+                  }`}
                 agentAvatarUrl={post.user?.avatarUrl}
                 bedrooms={String(post.bedrooms ?? 0)}
                 bathrooms={String(post.bathrooms ?? 0)}

@@ -47,4 +47,7 @@ export interface Post {
   application_url?: string;
   manager_id?: number;
   is_verified_manager?: boolean;
+
+  // POST TYPE
+  postType?: "CREATE_LISTING" | "LISTING_VIDEO";
 }

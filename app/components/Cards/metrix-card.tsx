@@ -45,7 +45,7 @@ const MetrixCard = () => {
             <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
           </div>
           <div className="flex items-center justify-between">
-            <h3 className="text-[#434342] text-[24px] font-[500] font-inter">${stats?.totalEarnings ?? 0}</h3>
+            <h3 className="text-[#434342] text-[24px] font-[500] font-inter">${(stats?.totalEarnings ?? 0).toFixed(2)}</h3>
             <span className="text-[12px] text-[#434342]">This Month</span>
           </div>
         </div>

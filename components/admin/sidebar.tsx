@@ -16,6 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
+  Building,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
@@ -67,6 +68,11 @@ const sidebarItems = [
     icon: BarChart3,
   },
   {
+    title: 'Rental Applications',
+    href: '/admin/rental-applications',
+    icon: Building,
+  },
+  {
     title: 'Settings',
     href: '/admin/settings',
     icon: Settings,
@@ -100,21 +106,31 @@ export function Sidebar() {
   };
 
   return (
-    <div className={cn('flex h-screen flex-col border-r bg-white border-gray-200 transition-all duration-300', isCollapsed ? 'w-20' : 'w-64')}>
-      {/* Logo */}
-      <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
-        {!isCollapsed && <h1 className="text-lg font-bold text-gray-900">CAHSAI ADMIN</h1>}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="rounded-lg p-1.5 hover:bg-[#6F8375] text-black hover:text-white transition-colors"
-          title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-        </button>
-      </div>
+    <>
+      <style>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+      <div className={cn('flex h-screen flex-col border-r bg-white border-gray-200 transition-all duration-300', isCollapsed ? 'w-20' : 'w-64')}>
+        {/* Logo */}
+        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
+          {!isCollapsed && <h1 className="text-lg font-bold text-gray-900">CAHSAI ADMIN</h1>}
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="rounded-lg p-1.5 hover:bg-[#6F8375] text-black hover:text-white transition-colors"
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+          </button>
+        </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-4">
+        {/* Navigation */}
+        <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-4 hide-scrollbar">
         {sidebarItems.map((item) => {
           const Icon = item.icon;
           const isActive = 
@@ -178,5 +194,6 @@ export function Sidebar() {
         </AlertDialog>
       </div>
     </div>
+    </>
   );
 }

@@ -528,7 +528,10 @@ export const updateAdminConfig = async (config: {
 /**
  * Format currency with commas and dollar sign
  */
-export const formatCurrency = (value: number): string => {
+export const formatCurrency = (value: number | null | undefined): string => {
+  if (value === null || value === undefined) {
+    return "$0";
+  }
   return `$${value.toLocaleString()}`;
 };
 

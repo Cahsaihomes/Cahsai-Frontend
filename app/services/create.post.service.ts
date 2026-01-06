@@ -24,9 +24,30 @@ export interface CreatePostPayload {
   lease_term?: string | null;
   pet_policy?: string | null;
   furnished?: boolean;
+
+  // 🔹 PROPERTY LISTING FIELDS
+  street?: string;
+  unit?: string;
+  state?: string;
+  propertyType?: string;
+  lotSize?: string;
+  yearBuilt?: string;
+  features?: string[];
+  hoaFees?: string;
+  agentName?: string;
+  brokerageName?: string;
+  stateDisclosures?: string;
+
+  // 🔹 POST TYPE FIELDS
+  postType?: "CREATE_LISTING" | "LISTING_VIDEO";
+  linkedPostId?: string | null;
+  publishToWatchHomes?: boolean;
 }
 
-export const createPostService = async (data: CreatePostPayload) => {
+export const createPostService = async (
+  data: CreatePostPayload,
+  onProgress?: (progress: number, status: string) => void
+) => {
   const formData = new FormData();
 
   // Basic fields
@@ -73,6 +94,64 @@ export const createPostService = async (data: CreatePostPayload) => {
     formData.append("furnished", String(data.furnished));
   }
 
+  // 🔹 PROPERTY LISTING FIELDS
+  if (data.street) {
+    formData.append("street", data.street);
+  }
+
+  if (data.unit) {
+    formData.append("unit", data.unit);
+  }
+
+  if (data.state) {
+    formData.append("state", data.state);
+  }
+
+  if (data.propertyType) {
+    formData.append("propertyType", data.propertyType);
+  }
+
+  if (data.lotSize) {
+    formData.append("lotSize", data.lotSize);
+  }
+
+  if (data.yearBuilt) {
+    formData.append("yearBuilt", data.yearBuilt);
+  }
+
+  if (data.features?.length) {
+    formData.append("features", JSON.stringify(data.features));
+  }
+
+  if (data.hoaFees) {
+    formData.append("hoaFees", data.hoaFees);
+  }
+
+  if (data.agentName) {
+    formData.append("agentName", data.agentName);
+  }
+
+  if (data.brokerageName) {
+    formData.append("brokerageName", data.brokerageName);
+  }
+
+  if (data.stateDisclosures) {
+    formData.append("stateDisclosures", data.stateDisclosures);
+  }
+
+  // 🔹 POST TYPE FIELDS
+  if (data.postType) {
+    formData.append("postType", data.postType);
+  }
+
+  if (data.linkedPostId) {
+    formData.append("linkedPostId", data.linkedPostId);
+  }
+
+  if (typeof data.publishToWatchHomes === "boolean") {
+    formData.append("publishToWatchHomes", String(data.publishToWatchHomes));
+  }
+
   // Images
   if (data.post_images?.length) {
     data.post_images.forEach((file) => {
@@ -88,10 +167,20 @@ export const createPostService = async (data: CreatePostPayload) => {
   }
 
   try {
+  onProgress?.(30, "Preparing upload...");
   const response = await multipartPrivateAxios.post(
     "/posts/create-post",
-    formData
+    formData,
+    {
+      onUploadProgress: (progressEvent: any) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 70) / progressEvent.total + 30
+        );
+        onProgress?.(percentCompleted, `Uploading... ${percentCompleted}%`);
+      },
+    }
   );
+  onProgress?.(100, "Post created successfully!");
   return response.data;
 } catch (error: any) {
   console.error("❌ Create Post Error (frontend):", {
