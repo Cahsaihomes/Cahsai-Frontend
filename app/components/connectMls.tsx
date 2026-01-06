@@ -52,10 +52,10 @@ const ConnectMls = (props: Props) => {
 
     // many MLS token endpoints expect form-encoded client credentials
     const payload = {
-      MLS_GRANT_TYPE: "client_credentials",
-      MLS_CLIENT_ID: clientId,
-      MLS_CLIENT_SECRET: clientSecret,
-      MLS_SCOPE: "OData",
+      grant_type: "client_credentials",
+      client_id: clientId,
+      client_secret: clientSecret,
+      scope: "OData",
     };
 
     const tokenResult = await generateToken(payload);

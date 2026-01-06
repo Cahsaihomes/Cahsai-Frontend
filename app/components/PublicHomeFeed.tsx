@@ -195,6 +195,7 @@ export default function PublicHomeFeed() {
                 <PropertyCard
                   key={post.id}
                   id={post.user?.id ?? post.id}
+                  postId={post.id}
                   variant={
                     post.user?.role === "agent"
                       ? "Cahsai Agent"
@@ -223,9 +224,6 @@ export default function PublicHomeFeed() {
                   furnished={post.furnished}
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
-                  }
-                  onOpenComments={() =>
-                    handleUnauthenticatedAction("comment")
                   }
                   onBookTour={() =>
                     handleUnauthenticatedAction("book a tour")
