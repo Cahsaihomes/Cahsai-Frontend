@@ -10,7 +10,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
 }
 
 function PropertyDetailClient({ id }: { id: string }) {
-  const { token, properties, fetchProperties, loadingProperties } = useMlsToken();
+  const { token, properties, fetchProperties, fetchPropertyById, loadingProperties } = useMlsToken();
   const decodedId = decodeURIComponent(id);
   // helper to match a property by multiple possible keys
   const findInList = (val: string) => properties.find((p) => p.id === val || p.listingId === val || p.listingKey === val) ?? null;
@@ -23,6 +23,26 @@ function PropertyDetailClient({ id }: { id: string }) {
     const p = findInList(decodedId);
     if (p) setLocalProperty(p);
   }, [token, properties.length, properties, decodedId, fetchProperties]);
+
+  useEffect(() => {
+    // If property not in list, try single fetch by id, then re-check after fetching list
+    if (!localProperty && token) {
+      (async () => {
+        const r = await fetchPropertyById(decodedId);
+        if (r.ok && r.property) {
+          setLocalProperty(r.property);
+          return;
+        }
+        // try refreshing the list and look again
+        await fetchProperties();
+        const p = findInList(decodedId);
+        if (p) {
+          setLocalProperty(p);
+          return;
+        }
+      })();
+    }
+  }, [localProperty, token, decodedId, fetchPropertyById, fetchProperties]);
 
   if (!token) {
     return (
