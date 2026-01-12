@@ -200,7 +200,6 @@ export default function SignUpPage() {
               }}
               className="w-full"
               inputClassName="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
-              countrySelectProps={{ disableOptionsRemovingOnClose: true }}
               placeholder="+1 (555) 000-0000"
             />
             {errors.number && (
