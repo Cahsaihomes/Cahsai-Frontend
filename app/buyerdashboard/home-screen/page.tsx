@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "@/hooks/post-service";
@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import useMlsToken, { Property as MlsProperty } from "@/hooks/usemls";
+import MlsPropertyCard from "@/components/ui/mls-property-card";
 import ListingPanel from "@/components/ui/listingpanel";
 import DetailedListingCard from "@/components/ui/detailed-listing-card";
 import FeedFilter from "@/components/ui/feed-filter";
@@ -27,6 +29,7 @@ import { useBuyerLikes } from "@/hooks/useHooks";
 interface SelectedPost {
   id: number;
   userId: number;
+  agentId?: number;
   title: string;
   location: string;
   city: string;
@@ -37,6 +40,8 @@ interface SelectedPost {
   name: string;
   bedrooms: number;
   bathrooms: number;
+  contact?: string;
+  email?: string;
 }
 
 export default function Home() {
@@ -62,12 +67,29 @@ export default function Home() {
   const [activeBadgeFilters, setActiveBadgeFilters] = useState<string[]>([]);
   const [quickFilters, setQuickFilters] = useState<string[]>([]);
   const [moreFilters, setMoreFilters] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000000]);
-  const [sqftRange, setSqftRange] = useState<[number, number]>([0, 5000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000000000000000000000000000]);
+  const [sqftRange, setSqftRange] = useState<[number, number]>([0, 50000000000]);
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [zipCode, setZipCode] = useState<string>("");
   const [localSaved, setLocalSaved] = useState<{ [key: number]: boolean }>({});
   const { data: buyerLikes, refetch: likeRefetch } = useBuyerLikes();
+
+  const { token, savedProperties, fetchSavedProperties, loadingSaved } = useMlsToken();
+  const [showRawSaved, setShowRawSaved] = useState(false);
+
+  useEffect(() => {
+    // Fetch saved MLS properties when Search tab is active or when token changes
+    const run = async () => {
+      try {
+        if (activeButton !== "search") return;
+        const res = await fetchSavedProperties();
+        console.debug("fetchSavedProperties result:", res);
+      } catch (err) {
+        console.error("Error fetching saved MLS properties:", err);
+      }
+    };
+    run();
+  }, [fetchSavedProperties, activeButton, token]);
 
   // Get current user ID from Redux
   const currentUserId = useSelector((state: RootState) => state.auth.user?.id) || 0;
@@ -81,6 +103,8 @@ export default function Home() {
     queryKey: ["posts"],
     queryFn: getAllPosts,
   });
+
+ 
 
   // Filter posts by property type first
   const postsByPropertyType = posts?.filter((post) => {
@@ -127,20 +151,18 @@ export default function Home() {
         )
       : videoPosts;
 
+
+
   const filteredPosts =
     postsByPropertyType?.filter((post: any) => {
-      // Exclude LISTING_VIDEO posts from search homes tab
+      // Only show CREATE_LISTING posts in search homes tab
       const postType = post.postType || post.post_type;
       
-      // If postType is available, use it
-      if (postType === "LISTING_VIDEO") {
+     
+      
+      // Only include CREATE_LISTING posts
+      if (postType !== "CREATE_LISTING") {
         return false;
-      }
-
-      // Fallback: If postType is null/undefined, check if it's a creator video post
-      // Creator posts have video, no price, and minimal fields
-      if (!postType && post.video && !post.price) {
-        return false; // This is likely a creator LISTING_VIDEO post
       }
 
       const fullName =
@@ -148,6 +170,7 @@ export default function Home() {
       const searchLower = searchQuery.toLowerCase();
 
       const matchesSearch =
+        !searchQuery ||
         post.title?.toLowerCase().includes(searchLower) ||
         post.price?.toString().toLowerCase().includes(searchLower) ||
         post.zipCode?.toLowerCase().includes(searchLower) ||
@@ -222,9 +245,12 @@ export default function Home() {
         matchesZip &&
         matchesBtnFilters;
 
+     
+
       return result;
     }) || [];
 
+  
   
   if (isError) {
     return (
@@ -495,6 +521,8 @@ export default function Home() {
                             name: `${post.user.first_name} ${post.user.last_name}`,
                             bedrooms: post.bedrooms,
                             bathrooms: post.bathrooms,
+                            contact: post.user.contact,
+                            email: post.user.email,
                           });
                           setIsRequestTourDialogOpen(true);
                         }}
@@ -509,7 +537,7 @@ export default function Home() {
           {/* Search Listings → Detailed Cards */}
           {activeButton === "search" && (
             <div className="max-w-7xl mx-auto px-4 w-full">
-              {/* Search Row */}
+
               <div className="flex flex-wrap items-center lg:gap-3 gap-0 mb-6">
                 <div className="flex flex-row gap-2 w-full lg:max-w-[300px]">
                   <Input
@@ -543,7 +571,6 @@ export default function Home() {
                   ),
                 )}
               </div>
-
               {/* Cards Grid */}
               {isLoading ? (
                 <div className="flex justify-center items-center h-40">
@@ -555,6 +582,7 @@ export default function Home() {
                 </p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
+                  {/* Detail Cards from Posts */}
                   {filteredPosts?.map((post) => {
                     const isSaved =
                       localSaved[post.id] !== undefined
@@ -600,6 +628,8 @@ export default function Home() {
                             name: `${post.user.first_name} ${post.user.last_name}`,
                             bedrooms: post.bedrooms,
                             bathrooms: post.bathrooms,
+                            contact: post.user.contact,
+                            email: post.user.email,
                           });
                           setIsRequestTourDialogOpen(true);
                         }}
@@ -608,6 +638,62 @@ export default function Home() {
                       />
                     );
                   })}
+
+                  {/* MLS Properties - Inline with detail cards, no extra spacing */}
+                  {!loadingSaved && savedProperties && savedProperties.length > 0 && (
+                    <>
+                      {savedProperties.map((sp: MlsProperty) => {
+                        // Use agent info from property (extracted from agentDetail)
+                        const agentName = sp.agentName || "MLS Agent";
+                        const agentEmail = sp.agentEmail || "";
+                        const agentPhone = sp.agentPhone || "";
+                        
+                        const title = sp.address ||
+                          [sp.streetNumber, sp.streetName].filter(Boolean).join(" ") ||
+                          sp.city ||
+                          "Address unavailable";
+                        const location = sp.city || sp.address || "Location unavailable";
+
+                        return (
+                          <MlsPropertyCard
+                            key={sp.id}
+                            property={sp}
+                            onToggleSave={() => {
+                              // Handle toggle save for MLS property
+                              toast.success("Added to Dreamboard!");
+                            }}
+                            onBookTour={() => {
+                              // Set selected post with MLS property data
+                              // Convert agentId to number - handle string or numeric values
+                              const agentIdValue = sp.agentId
+                                ? (typeof sp.agentId === 'string' ? parseInt(sp.agentId, 10) : sp.agentId)
+                                : 0;
+                              
+                              setSelectedPost({
+                                id: typeof sp.id === 'string' ? parseInt(sp.id, 10) : sp.id,
+                                userId: 0,
+                                agentId: agentIdValue,
+                                title: title,
+                                location: location,
+                                city: sp.city || "",
+                                image: sp.image || "/images/Rectangle.png",
+                                profile_pic: sp.agentImage || "",
+                                first_name: agentName.split(" ")[0] || "MLS",
+                                last_name: agentName.split(" ")[1] || "Agent",
+                                name: agentName,
+                                bedrooms: sp.beds ?? 0,
+                                bathrooms: sp.baths ?? 0,
+                                contact: agentPhone,
+                                email: agentEmail,
+                              });
+                              setIsRequestTourDialogOpen(true);
+                            }}
+                            isLike={false}
+                          />
+                        );
+                      })}
+                    </>
+                  )}
                 </div>
               )}
             </div>

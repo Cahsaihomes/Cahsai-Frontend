@@ -12,17 +12,21 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { signupSuccess } from "@/app/redux/slices/authSlice";
 import { signup } from "@/app/services/auth.service";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [phone, setPhone] = useState("");
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
   });
@@ -185,14 +189,19 @@ export default function SignUpPage() {
               htmlFor="number"
               className="font-inter font-medium text-[16px] leading-6 text-[#414651]"
             >
-              Contact
+              Contact Number
             </label>
-            <input
-              id="number"
-              {...register("number")}
-              type="tel"
-              placeholder="Enter your Number"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            <PhoneInput
+              defaultCountry="us"
+              value={phone}
+              onChange={(value) => {
+                setPhone(value);
+                setValue("number", value);
+              }}
+              className="w-full"
+              inputClassName="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              countrySelectProps={{ disableOptionsRemovingOnClose: true }}
+              placeholder="+1 (555) 000-0000"
             />
             {errors.number && (
               <span className="text-sm text-red-500">

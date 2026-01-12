@@ -164,6 +164,47 @@ function PaymentFormContent({
         paymentMethodId: paymentMethod.id, // Send payment method ID to backend
       };
 
+      // Validate all required fields
+      if (!payload.postId) {
+        toast.error("Property ID is missing");
+        setLoading(false);
+        return;
+      }
+      
+      if (!payload.agentId) {
+        toast.error("Agent ID is missing");
+        setLoading(false);
+        return;
+      }
+      
+      if (!payload.date) {
+        toast.error("Date is missing");
+        setLoading(false);
+        return;
+      }
+      
+      if (!payload.time) {
+        toast.error("Time is missing");
+        setLoading(false);
+        return;
+      }
+
+      if (!payload.paymentMethodId) {
+        toast.error("Payment method is missing");
+        setLoading(false);
+        return;
+      }
+
+      // Debug: Log payload
+      console.log("Booking payload:", {
+        postId: payload.postId,
+        agentId: payload.agentId,
+        date: payload.date,
+        time: payload.time,
+        paymentMethodId: payload.paymentMethodId,
+        post: post,
+      });
+
       // Step 4: Send to backend (backend will confirm payment and create tour)
       const response = await bookTourService(payload, "", "");
 
@@ -537,24 +578,24 @@ export function RequestTourDialog({
             <div className="flex items-center gap-2">
               <Avatar className="h-10 w-10">
                 <AvatarImage
-                  src={post?.profile_pic || "/images/agent.png"}
+                  src={post?.profile_pic || post?.user?.avatarUrl || ""}
                   alt="Agent"
                 />
-                <AvatarFallback>{`${post?.first_name?.[0] || ""}${
-                  post?.last_name?.[0] || ""
+                <AvatarFallback>{`${post?.first_name?.[0] || post?.user?.first_name?.[0] || ""}${
+                  post?.last_name?.[0] || post?.user?.last_name?.[0] || ""
                 }`}</AvatarFallback>
               </Avatar>
               <span className="font-semibold text-gray-800 text-lg">
-                {post?.name}
+                {post?.name || `${post?.user?.first_name} ${post?.user?.last_name}`}
               </span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <Phone className="h-4 w-4" />
-              <span>{post?.phone || "N/A"}</span>
+              <span>{post?.contact ?? post?.user?.contact ?? "N/A"}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <Mail className="h-4 w-4" />
-              <span>{post?.email || "N/A"}</span>
+              <span>{post?.email ?? post?.user?.email ?? "N/A"}</span>
             </div>
             {/* Opt-in Checkbox for U.S. law compliance */}
             <div className="mt-4">
@@ -653,11 +694,11 @@ export function RequestTourDialog({
               </div>
               <div className="flex items-center gap-2 text-gray-600">
                 <Phone className="h-4 w-4" />
-                <span>{post?.phone || "+92 1221 0291"}</span>
+                <span>{post?.contact ?? post?.user?.contact ?? "+92 1221 0291"}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
                 <Mail className="h-4 w-4" />
-                <span>{post?.email || "sarah.johnson@gmail.com"}</span>
+                <span>{post?.email ?? post?.user?.email ?? "sarah.johnson@gmail.com"}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
                 <DollarSign className="h-4 w-4" />

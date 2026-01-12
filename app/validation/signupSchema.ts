@@ -9,8 +9,8 @@ export const signUpSchema = z
     number: z
       .string()
       .min(1, "Contact number is required")
-      .refine((val) => /^\d{11}$/.test(val), {
-        message: "Contact number must be 11 digits",
+      .refine((val) => /^\+?[0-9\s\-()]{10,}$/.test(val.replace(/\s/g, "")), {
+        message: "Please enter a valid phone number",
       }),
     password: z
       .string()

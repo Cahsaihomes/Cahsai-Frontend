@@ -1,9 +1,13 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { store } from "../redux";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ??
-  "http://localhost:5000/api";
+const API_BASE_URL = (() => {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) return process.env.NEXT_PUBLIC_API_BASE_URL;
+  // When running in the browser prefer the same origin so we avoid mixed-content/CORS issues
+  if (typeof window !== "undefined") return `${window.location.origin}/api`;
+  // Server/build-time fallback for local development
+  return "http://localhost:5000/api";
+})();
 
 export const publicAxios = axios.create({
   baseURL: API_BASE_URL,

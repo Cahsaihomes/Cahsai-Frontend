@@ -2,42 +2,73 @@
 
 import ChatReply from "@/components/ui/chatreply";
 import NotificationCard from "@/components/ui/notificationcard";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSocket } from "@/context/SocketContext";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/redux";
+
+interface NotificationData {
+  id: number;
+  agentName: string;
+  timeAgo: string;
+  message: string;
+  isOnline: boolean;
+  videoAttachments: Array<{
+    title: string;
+    size: string;
+    thumbnail: string;
+  }>;
+  hasReacted: boolean;
+  reactionCount: number;
+  fromUser?: {
+    id: number;
+    fullname: string;
+    profilePicture?: string;
+  };
+  createdAt?: string;
+}
 
 const ChatNotification = () => {
   const [showReply, setShowReply] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const { joinNotificationRoom, onNewNotification } = useSocket();
+  const user = useSelector((state: RootState) => state.auth.user);
 
-  const notifications = [
-    {
-      agentName: "Agent name",
-      timeAgo: "2 hours ago",
-      message:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      isOnline: true,
-      videoAttachments: [
-        {
-          title: "House Video",
-          size: "1.2 MB",
-          thumbnail:
-            "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
-        },
-        {
-          title: "Kitchen Video",
-          size: "900 KB",
-          thumbnail:
-            "https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
-        },
-        {
-          title: "Bedroom Video",
-          size: "1.1 MB",
-          thumbnail:
-            "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop",
-        },
-      ],
-      hasReacted: true,
-      reactionCount: 1,
-    },
-  ];
+  // Join notification room and listen for new notifications
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Join notification room for this user
+    joinNotificationRoom(user.id);
+
+    // Set up listener for new notifications
+    const handleNewNotification = (notification: any) => {
+      const timeAgo = notification.createdAt
+        ? new Date(notification.createdAt).toLocaleTimeString()
+        : "Just now";
+
+      const newNotification: NotificationData = {
+        id: notification.id,
+        agentName: notification.fromUser?.fullname || "Agent",
+        timeAgo: timeAgo,
+        message: notification.message,
+        isOnline: true,
+        videoAttachments: [],
+        hasReacted: false,
+        reactionCount: 0,
+        fromUser: notification.fromUser,
+        createdAt: notification.createdAt,
+      };
+
+      setNotifications((prev) => [newNotification, ...prev]);
+    };
+
+    onNewNotification(handleNewNotification);
+
+    return () => {
+      // Cleanup
+    };
+  }, [user?.id, joinNotificationRoom, onNewNotification]);
 
   return (
     <div className="w-full">
@@ -62,19 +93,25 @@ const ChatNotification = () => {
 
         {/* Notifications List */}
         <div className="space-y-6">
-          {notifications.map((notification, index) => (
-            <NotificationCard
-              key={index}
-              agentName={notification.agentName}
-              timeAgo={notification.timeAgo}
-              message={notification.message}
-              isOnline={notification.isOnline}
-              videoAttachments={notification.videoAttachments}
-              hasReacted={notification.hasReacted}
-              reactionCount={notification.reactionCount}
-              onReply={() => setShowReply(true)}
-            />
-          ))}
+          {notifications.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              <p>No notifications yet</p>
+            </div>
+          ) : (
+            notifications.map((notification) => (
+              <NotificationCard
+                key={notification.id}
+                agentName={notification.agentName}
+                timeAgo={notification.timeAgo}
+                message={notification.message}
+                isOnline={notification.isOnline}
+                videoAttachments={notification.videoAttachments}
+                hasReacted={notification.hasReacted}
+                reactionCount={notification.reactionCount}
+                onReply={() => setShowReply(true)}
+              />
+            ))
+          )}
         </div>
 
         {/* Chat Reply Modal */}

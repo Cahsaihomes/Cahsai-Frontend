@@ -126,11 +126,11 @@ export default function DetailedListingCard({
   };
 
   return (
-    <Card className="w-full max-w-[560px] lg:max-w-4xl rounded-xl border shadow-md overflow-hidden bg-white text-black">
+    <Card className="w-full max-w-[560px] lg:max-w-4xl rounded-xl border shadow-md overflow-hidden bg-white text-black flex flex-col h-full">
       {/* MAIN MEDIA CONTAINER */}
       <div
         ref={containerRef}
-        className="relative w-full h-[300px] cursor-pointer group"
+        className="relative w-full h-[300px] cursor-pointer group flex-shrink-0"
         onMouseEnter={video ? handleMouseEnter : undefined}
         onMouseLeave={video ? handleMouseLeave : undefined}
       >
@@ -231,7 +231,7 @@ export default function DetailedListingCard({
       )}
 
       {/* CONTENT */}
-      <CardContent className="p-4 space-y-2">
+      <CardContent className="p-4 space-y-2 flex-grow">
         {/* Tags or Amenity Badges */}
         <div className="flex gap-2 flex-wrap">
           {(isRental || isStay) && displayAmenities.length > 0
@@ -296,7 +296,7 @@ export default function DetailedListingCard({
       </CardContent>
 
       {/* FOOTER - Buttons */}
-      <CardFooter className="px-4 pb-4 flex gap-2">
+      <CardFooter className="px-4 pb-4 flex gap-2 flex-shrink-0 mt-auto">
         {(isRental || isStay) && (
           <>
             <Button

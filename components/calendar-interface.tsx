@@ -248,7 +248,8 @@ export default function Component() {
       {/* Day Tab */}
   {activeTab === "Days" && (
         <div className="space-y-4">
-          {(appointmentsData as TourAppointment[]).map((appointment) => (
+          {(appointmentsData as TourAppointment[]).length > 0 ? (
+            (appointmentsData as TourAppointment[]).map((appointment) => (
             <Card
               key={appointment.id}
               className="border border-gray-200 shadow-sm"
@@ -330,13 +331,20 @@ export default function Component() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          ))
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12">
+              <p className="text-lg text-gray-500 font-medium">No leads</p>
+              <p className="text-sm text-gray-400 mt-1">No appointments scheduled for this day</p>
+            </div>
+          )}
         </div>
       )}
       {/* Week Tab */}
       {activeTab === "Week" && (
         <div className="space-y-6">
-          {(appointmentsData as GroupedTours[]).map((group) => (
+          {(appointmentsData as GroupedTours[]).length > 0 ? (
+            (appointmentsData as GroupedTours[]).map((group) => (
             <div key={group.date}>
               {/* Date Heading */}
               <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
@@ -381,7 +389,13 @@ export default function Component() {
                 ))}
               </div>
             </div>
-          ))}
+          ))
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12">
+              <p className="text-lg text-gray-500 font-medium">No leads</p>
+              <p className="text-sm text-gray-400 mt-1">No appointments scheduled for this week</p>
+            </div>
+          )}
         </div>
       )}
 
@@ -434,7 +448,7 @@ export default function Component() {
             </div>
 
             {/* Selected Appointments */}
-            {selectedDateAppointments.length > 0 && (
+            {selectedDateAppointments.length > 0 ? (
               <div className="mt-6 sm:mt-8">
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">
                   Appointments for {headingDate} {selectedDate}
@@ -533,7 +547,12 @@ export default function Component() {
                   ))}
                 </div>
               </div>
-            )}
+            ) : selectedDate ? (
+              <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center py-12">
+                <p className="text-lg text-gray-500 font-medium">No leads</p>
+                <p className="text-sm text-gray-400 mt-1">No appointments scheduled for {headingDate.split(' ')[0]} {selectedDate}</p>
+              </div>
+            ) : null}
           </div>
         </div>
       )}

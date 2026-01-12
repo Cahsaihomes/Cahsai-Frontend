@@ -49,6 +49,13 @@ export const claimLead = async (leadId: string) => {
 	return response.data;
 }
 
+// Claim a lead with payment
+export const claimLeadWithPayment = async (leadId: string) => {
+	const response = await privateAxios.patch(`/tour/claim-tour/${leadId}`);
+	console.log("Claim Lead With Payment Response: ", response.data);
+	return response.data;
+}
+
 // cancel a lead
 
 // Cancel (reject) a lead

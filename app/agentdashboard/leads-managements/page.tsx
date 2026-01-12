@@ -2,11 +2,16 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "@/app/components/StripeWrapper";
+import { RootState } from "@/app/redux";
 import ActiveLeadCard from "@/components/ui/activeleadcard";
 import FallbackLeadCard from "@/components/ui/fallbackleadcard";
 import LeadDetailModal from "@/components/ui/leaddetailmodal";
-import { cancelLead, claimLead, updateLeadStatus } from "./../../services/leads.service";
+import ClaimLeadPaymentModal from "@/components/ui/claim-lead-payment-modal";
+import { cancelLead, claimLeadWithPayment, updateLeadStatus } from "./../../services/leads.service";
 import { toast } from "sonner";
 import { getTourLeadsService } from "@/app/services/getTourLeads.service";
 import { format, parseISO, formatDistanceToNow } from "date-fns";
@@ -51,11 +56,11 @@ function parseLeadDateTime(date: string, time: string) {
   return `${date}T${isoTime}`;
 }
 
-// Calculate remaining time using timerExpiresAt from API
+// Calculate remaining time using timerExpiresAt from API (default: 15 minutes = 900 seconds)
 function calculateRemainingTime(timerExpiresAt: string | null | undefined): number {
   if (!timerExpiresAt) {
-    console.warn("No timerExpiresAt found");
-    return 0;
+    console.warn("No timerExpiresAt found, using default 15 minutes");
+    return 900; // 15 minutes in seconds
   }
 
   try {
@@ -64,10 +69,10 @@ function calculateRemainingTime(timerExpiresAt: string | null | undefined): numb
     const remainingMs = expiryDate.getTime() - now.getTime();
     const remainingSeconds = Math.floor(remainingMs / 1000);
 
-    return Math.max(0, remainingSeconds);
+    return Math.max(900, remainingSeconds); // Minimum 15 minutes
   } catch (error) {
     console.error("Error calculating remaining time:", error);
-    return 0;
+    return 900; // Default 15 minutes on error
   }
 }
 
@@ -100,25 +105,47 @@ function getTimeAgo(createdAt?: string): string {
   }
 }
 
-export default function LeadManagementPage() {
+function LeadManagementPage() {
   const [activeTab, setActiveTab] = useState<"active" | "fallback">("active");
   const [showModal, setShowModal] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedLeadForPayment, setSelectedLeadForPayment] = useState<Lead | null>(null);
+  const [page, setPage] = useState(1);
   const router = useRouter();
   const queryClient = useQueryClient();
   const timerRefs = useRef<{ [key: number]: NodeJS.Timeout }>({});
   const [leadTimers, setLeadTimers] = useState<{ [key: number]: number }>({});
   const [claimingId, setClaimingId] = useState<string | number | null>(null);
+  const [claimedLeads, setClaimedLeads] = useState<Set<number>>(new Set());
+
+  // Get agentId from Redux store (user.id)
+  const user = useSelector((state: RootState) => state.auth.user);
+  const agentId = user?.id;
 
   // Fetch leads
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["agentTourLeads"],
-    queryFn: () => getTourLeadsService(),
+    queryKey: ["agentTourLeads", agentId, page],
+    queryFn: () => getTourLeadsService(agentId, page, 10000),
+    enabled: !!agentId, // Only fetch when agentId is available
   });
 
   const leads: Lead[] = data && Array.isArray(data.leads) ? data.leads : [];
-  const activeLeads = leads.filter((l) => l && l.activeLead);
-  const fallbackLeads = leads.filter((l) => l && !l.activeLead);
+  
+  // Debug: Log all received data
+  useEffect(() => {
+    if (data) {
+      console.log("📊 Raw API Response Data:", data);
+      console.log("📋 Total Leads:", leads.length);
+      console.log("✅ Active Leads (activeLead === true):", leads.filter(l => l?.activeLead === true).length);
+      console.log("❌ Fallback Leads (activeLead !== true):", leads.filter(l => l?.activeLead !== true).length);
+      console.log("🔍 First Lead Sample:", leads[0]);
+    }
+  }, [data, leads]);
+  
+  // Filter leads by activeLead field
+  const activeLeads = leads.filter((l) => l && l.activeLead === true);
+  const fallbackLeads = leads.filter((l) => l && l.activeLead !== true);
   const leadsToDisplay = activeTab === "active" ? activeLeads : fallbackLeads;
 
   // Initialize timers based on timerExpiresAt from API
@@ -136,12 +163,25 @@ export default function LeadManagementPage() {
         // Use timerExpiresAt from API to calculate remaining time
         const remainingTime = calculateRemainingTime(lead.timerExpiresAt);
         newTimers[lead.id] = remainingTime;
+        console.log(`⏱️ Lead ${lead.id}: timerExpiresAt=${lead.timerExpiresAt}, remainingTime=${remainingTime}s`);
       }
+    });
+
+    // Debug: Log timer initialization
+    console.log("🕐 Timer Initialization:", {
+      displayLeadsCount: displayLeads.length,
+      activeTab: activeTab,
+      newTimersCount: Object.keys(newTimers).length,
+      newTimers: newTimers,
+      sampleLead: displayLeads[0],
     });
 
     // Set initial timers if there are new leads
     if (Object.keys(newTimers).length > 0) {
+      console.log("✅ Setting new timers:", newTimers);
       setLeadTimers((prev) => ({ ...prev, ...newTimers }));
+    } else {
+      console.log("⚠️ No new timers to set - timers already initialized");
     }
 
     // Start countdown intervals
@@ -200,13 +240,16 @@ export default function LeadManagementPage() {
   const { mutate: claimLeadMutation } = useMutation({
     mutationFn: async (leadId: number | string) => {
       setClaimingId(leadId);
-      const res = await claimLead(String(leadId));
+      const res = await claimLeadWithPayment(String(leadId));
       if (res.status !== "success") {
         throw new Error(res.message || "Failed to claim lead.");
       }
       return res;
     },
     onSuccess: (_, leadId) => {
+      // Mark lead as claimed to stop timer
+      setClaimedLeads(prev => new Set(prev).add(leadId as number));
+      
       queryClient.setQueryData(["agentTourLeads"], (oldData: any) => {
         if (!oldData || !Array.isArray(oldData.leads)) return oldData;
         return {
@@ -251,6 +294,16 @@ export default function LeadManagementPage() {
   const handleViewDetails = (lead: Lead) => {
     setSelectedLead(lead);
     setShowModal(true);
+  };
+
+  const handleClaimWithPayment = (lead: Lead) => {
+    setSelectedLeadForPayment(lead);
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentSuccess = (leadId: string | number) => {
+    claimLeadMutation(leadId);
+    setShowPaymentModal(false);
   };
 
   const handleCallBuyer = (lead: Lead) => {
@@ -315,14 +368,16 @@ export default function LeadManagementPage() {
         {leadsToDisplay.length > 0 ? (
           leadsToDisplay.map((lead) => {
             // Format date and time
-            let formattedDate = lead.date;
-            let formattedTime = lead.time;
+            let formattedDate = lead.date || "Unknown Date";
+            let formattedTime = lead.time || "Unknown Time";
             const dateTimeString = parseLeadDateTime(lead.date, lead.time);
             if (dateTimeString) {
               try {
                 const parsedDate = parseISO(dateTimeString);
-                formattedDate = format(parsedDate, "EEE, MMM d");
-                formattedTime = format(parsedDate, "h:mm a");
+                if (parsedDate && !isNaN(parsedDate.getTime())) {
+                  formattedDate = format(parsedDate, "EEE, MMM d");
+                  formattedTime = format(parsedDate, "h:mm a");
+                }
               } catch (error) {
                 console.error("Date parsing error:", error);
               }
@@ -335,20 +390,35 @@ export default function LeadManagementPage() {
             const timerValue = leadTimers[lead.id];
             let timerDisplay = "Expired";
             
-            if (timerValue !== undefined && timerValue > 0) {
+            // Don't show timer or expired status for:
+            // 1. Leads that were just claimed (in claimedLeads Set)
+            // 2. Leads already in Active tab (already claimed in database)
+            if (claimedLeads.has(lead.id) || (activeTab === "active" && lead.activeLead)) {
+              timerDisplay = "Claimed";
+            } else if (timerValue !== undefined && timerValue > 0) {
               const min = Math.floor(timerValue / 60);
               const sec = timerValue % 60;
               timerDisplay = `${min.toString().padStart(2, "0")}:${sec
                 .toString()
                 .padStart(2, "0")}`;
             }
+            
+            // Debug: Log timer info
+            console.log(`📍 Lead ${lead.id} Display:`, {
+              timerExpiresAt: lead.timerExpiresAt,
+              timerValue: timerValue,
+              timerDisplay: timerDisplay,
+              activeTab: activeTab,
+              activeLead: lead.activeLead,
+              isClaimed: claimedLeads.has(lead.id),
+            });
 
             return activeTab === "active" ? (
               <ActiveLeadCard
                 key={lead.id}
                 leadId={String(lead.id)}
                 name={`${lead.buyer.first_name} ${lead.buyer.last_name}`}
-                price={`$${lead.post.price.toLocaleString()}`}
+                price={`$${(lead.post?.price || 0).toLocaleString()}`}
                 address={lead.post?.location || "Unknown Address"}
                 date={formattedDate}
                 time={formattedTime}
@@ -364,16 +434,17 @@ export default function LeadManagementPage() {
             ) : (
               <FallbackLeadCard
                 key={lead.id}
+                leadId={lead.id}
                 name={`${lead.buyer.first_name} ${lead.buyer.last_name}`}
-                price={`$${lead.post.price.toLocaleString()}`}
+                price={`$${(lead.post?.price || 0).toLocaleString()}`}
                 address={lead.post?.location || "Unknown Address"}
                 date={formattedDate}
                 time={formattedTime}
-                timer={timerDisplay}
                 claimPrice=""
                 dateTime={dateTimeString || ""}
                 onCancel={() => cancelLeadMutation(lead.id)}
-                onClaim={() => claimLeadMutation(lead.id)}
+                onClaim={() => handleClaimWithPayment(lead)}
+                onClaimWithPayment={() => handleClaimWithPayment(lead)}
                 claimLoading={claimingId === lead.id}
               />
             );
@@ -396,6 +467,36 @@ export default function LeadManagementPage() {
           lead={selectedLead}
         />
       )}
+
+      {/* Claim Lead Payment Modal */}
+      {selectedLeadForPayment && (
+        <ClaimLeadPaymentModal
+          isOpen={showPaymentModal}
+          onClose={() => {
+            setShowPaymentModal(false);
+            setSelectedLeadForPayment(null);
+          }}
+          leadId={selectedLeadForPayment.id}
+          agentId={selectedLeadForPayment.agentId}
+          propertyPrice={selectedLeadForPayment.post.price}
+          buyerName={`${selectedLeadForPayment.buyer.first_name} ${selectedLeadForPayment.buyer.last_name}`}
+          address={selectedLeadForPayment.post?.location || "Unknown Address"}
+          onPaymentSuccess={handlePaymentSuccess}
+          isLoading={claimingId === selectedLeadForPayment.id}
+        />
+      )}
     </div>
+  );
+}
+
+function LeadManagementContent() {
+  return <LeadManagementPage />;
+}
+
+export default function LeadManagementPageWrapper() {
+  return (
+    <Elements stripe={stripePromise}>
+      <LeadManagementContent />
+    </Elements>
   );
 }

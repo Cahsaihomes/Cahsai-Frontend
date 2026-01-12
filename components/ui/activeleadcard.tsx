@@ -86,46 +86,24 @@ export default function ActiveLeadCard({
   const isExpired = timer === "Expired" || timer === "00:00";
 
   return (
-    <div className="relative border border-gray-200 rounded-lg p-4 w-full shadow-sm bg-white hover:shadow-md transition-shadow">
-      {/* Timer Badge - Fixed positioning */}
-      <div className="absolute -top-2 -right-2 z-10">
-        <div className={`px-3 py-1.5 rounded-full text-xs font-semibold shadow-md ${
-          isExpired 
-            ? "bg-gray-500 text-white" 
-            : "bg-[#6F8375] text-white"
-        }`}>
-          {isExpired ? "Expired" : `${timer} left`}
-        </div>
-      </div>
-
-      {/* Name + Status + Menu */}
-      <div className="flex items-start justify-between mb-2 pr-16">
-        <div className="flex items-center gap-1.5 text-sm font-medium text-gray-900 min-w-0">
+    <div className="border border-gray-200 rounded-lg p-4 w-full shadow-sm bg-white hover:shadow-md transition-shadow">
+      {/* Top Row: Name + Menu */}
+      <div className="flex items-center justify-between mb-2 gap-3" ref={menuRef}>
+        <div className="flex items-center gap-1.5 text-sm font-medium text-gray-900 min-w-0 flex-1">
           <User size={14} className="flex-shrink-0" />
           <span className="truncate">{name}</span>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0" ref={menuRef}>
-          {status && (
-            <span
-              className={`px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-                statusColors[status] || "bg-gray-100 text-gray-700"
-              }`}
-            >
-              {status}
-            </span>
-          )}
-
-          {/* Three dots menu */}
-          <div className="relative">
-            <button
-              onClick={() => setMenuOpen((prev) => !prev)}
-              className="p-1 rounded hover:bg-gray-100 transition-colors"
-              aria-label="Status menu"
-              type="button"
-            >
-              <MoreVertical size={16} className="text-gray-600" />
-            </button>
+        {/* Three dots menu */}
+        <div className="relative flex-shrink-0">
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="p-1 rounded hover:bg-gray-100 transition-colors"
+            aria-label="Status menu"
+            type="button"
+          >
+            <MoreVertical size={16} className="text-gray-600" />
+          </button>
 
             {menuOpen && (
               <div className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-20">
@@ -150,7 +128,29 @@ export default function ActiveLeadCard({
                 </div>
               </div>
             )}
-          </div>
+        </div>
+      </div>
+
+      {/* Status + Timer Badge Row */}
+      <div className="flex items-center justify-between mb-3 gap-2">
+        
+        {/* <div className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
+          isExpired 
+            ? "bg-gray-500 text-white" 
+            : "bg-[#6F8375] text-white"
+        }`}>
+          {isExpired ? "Expired" : `${timer} left`}
+        </div> */}
+        <div>
+          {status && (
+            <span
+              className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${
+                statusColors[status] || "bg-gray-100 text-gray-700"
+              }`}
+            >
+              {status}
+            </span>
+          )}
         </div>
       </div>
 
@@ -185,10 +185,10 @@ export default function ActiveLeadCard({
         </button>
         <button
           onClick={onCallBuyer}
-          className="flex-1 bg-[#6F8375] text-white text-sm py-2 rounded-md hover:bg-[#5a6b60] transition-colors font-medium"
+          className="flex-1 bg-[#6F8375] text-white text-sm py-2 px-2 rounded-md hover:bg-[#5a6b60] transition-colors font-medium"
           type="button"
         >
-          Call Buyer
+          Message Buyer
         </button>
       </div>
     </div>

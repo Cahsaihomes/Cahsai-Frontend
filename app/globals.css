@@ -126,3 +126,115 @@ range-slider {
   display: none; /* Chrome, Safari, Opera */
 }
 
+/* Phone Input Styling */
+.react-international-phone-input {
+  width: 100% !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.375rem !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease-in-out !important;
+  background-color: white !important;
+  overflow: hidden !important;
+}
+
+.react-international-phone-input:focus-within {
+  outline: none !important;
+  border-color: #6F8375 !important;
+  box-shadow: 0 0 0 2px rgba(111, 131, 117, 0.2) !important;
+}
+
+/* Country Selector Button */
+.react-international-phone-input-country-selector {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+.react-international-phone-input-country-selector button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  border: none !important;
+  background: white !important;
+  padding: 0.5rem 0.75rem !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease-in-out !important;
+  border-right: 1px solid #e5e7eb !important;
+  height: 100% !important;
+  min-width: 80px !important;
+}
+
+.react-international-phone-input-country-selector button:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Flag Icon */
+.react-international-phone-input-country-selector button img {
+  width: 24px !important;
+  height: 18px !important;
+  border-radius: 3px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+
+/* Input Field */
+.react-international-phone-input input {
+  flex: 1 !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  background: transparent !important;
+  color: #1f2937 !important;
+  height: 100% !important;
+}
+
+.react-international-phone-input input::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Country Dropdown List */
+.react-international-phone-input-country-list {
+  max-height: 300px !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  background-color: white !important;
+  z-index: 1000 !important;
+  overflow-y: auto !important;
+}
+
+.react-international-phone-input-country-list-item {
+  padding: 0.75rem !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.react-international-phone-input-country-list-item:hover {
+  background-color: #f0fdf4 !important;
+}
+
+.react-international-phone-input-country-list-item-selected {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+  font-weight: 500 !important;
+}
+
+/* Country list item flag */
+.react-international-phone-input-country-list-item img {
+  width: 24px !important;
+  height: 18px !important;
+  border-radius: 3px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+

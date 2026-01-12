@@ -17,8 +17,22 @@ export interface GetTourLeadsResponse {
 }
 
 export const getTourLeadsService = async (
-  params?: GetTourLeadsPayload
+  agentId?: number | string,
+  page: number = 1,
+  limit: number = 10000
 ): Promise<GetTourLeadsResponse> => {
-  const response = await privateAxios.get("/tour/leads", params ? { params } : undefined);
+  // Get agentId from parameter
+  const id = agentId;
+  
+  if (!id) {
+    throw new Error("Agent ID is required to fetch leads");
+  }
+
+  const response = await privateAxios.get(`/tour/leads/${id}`, {
+    params: {
+      page,
+      limit,
+    },
+  });
   return response.data;
 };

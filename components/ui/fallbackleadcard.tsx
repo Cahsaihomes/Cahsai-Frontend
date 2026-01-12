@@ -3,32 +3,37 @@
 import { Clock, MapPin, User } from "lucide-react";
 
 interface FallbackLeadCardProps {
+  leadId?: string | number;
   name: string;
   price: string;
   address: string;
   date: string;
   time: string;
-  timer: string;
+  timer?: string;
   dateTime: string;
   claimPrice: string;
   onCancel: () => void;
   onClaim: () => void;
+  onClaimWithPayment?: () => void;
   claimLoading?: boolean;
 }
 
 export default function FallbackLeadCard({
+  leadId,
   name,
   price,
   address,
   date,
   time,
-  timer,
+  timer = "Pending",
   claimPrice,
   onCancel,
   onClaim,
+  onClaimWithPayment,
   claimLoading = false,
 }: FallbackLeadCardProps) {
-  const isExpired = timer === "Expired" || timer.includes("00:00");
+  const isExpired = timer === "Expired" || (timer && timer.includes("00:00"));
+  const handleClaimClick = onClaimWithPayment || onClaim;
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white hover:shadow-md transition-shadow relative">
@@ -78,11 +83,11 @@ export default function FallbackLeadCard({
         </button>
         <button
           type="button"
-          onClick={onClaim}
+          onClick={handleClaimClick}
           className={`flex-1 bg-[#6F8375] text-white rounded-lg py-2 text-sm hover:bg-[#5a6b60] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
             claimLoading ? "opacity-60" : ""
           }`}
-          disabled={claimLoading || isExpired}
+          disabled={!!(claimLoading || isExpired)}
         >
           {claimLoading ? (
             <span className="flex items-center justify-center gap-2">

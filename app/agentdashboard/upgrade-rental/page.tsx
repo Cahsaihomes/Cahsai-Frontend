@@ -58,6 +58,7 @@ interface FormData {
 export default function UpgradeRentalPage() {
   const user = useSelector((state: any) => state.auth.user);
   
+  
   const [isLoading, setIsLoading] = useState(false);
   const [applicationsDialogOpen, setApplicationsDialogOpen] = useState(false);
   const [applications, setApplications] = useState<any[]>([]);
@@ -65,7 +66,7 @@ export default function UpgradeRentalPage() {
   const [formData, setFormData] = useState<FormData>({
     fullName: user?.first_name && user?.last_name ? `${user.first_name} ${user.last_name}` : "",
     email: user?.email || "",
-    phoneNumber: user?.phoneNumber || "",
+    phoneNumber: user?.contact || "",
     dateOfBirth: "",
     currentAddress: "",
     desiredMoveInDate: "",
