@@ -10,6 +10,7 @@ export interface CreatePostPayload {
   location: string;
   bedrooms: string;
   bathrooms: string;
+  productLink?: string;
 
   tags?: string[];
   amenities?: string[];
@@ -59,6 +60,11 @@ export const createPostService = async (
   formData.append("location", data.location);
   formData.append("bedrooms", data.bedrooms);
   formData.append("bathrooms", data.bathrooms);
+
+  // Product Link
+  if (data.productLink) {
+    formData.append("productLink", data.productLink);
+  }
 
   // Optional arrays
   if (data.tags?.length) {

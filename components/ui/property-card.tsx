@@ -65,6 +65,7 @@ export interface PropertyCardProps {
   postId: number;
   currentUserId?: number;
   postOwnerId?: number;
+  productLink?: string;
 }
 
 export default function PropertyCard(props: PropertyCardProps) {
@@ -109,6 +110,7 @@ export default function PropertyCard(props: PropertyCardProps) {
     postId,
     currentUserId,
     postOwnerId,
+    productLink,
   } = props;
 
   const {
@@ -547,7 +549,7 @@ export default function PropertyCard(props: PropertyCardProps) {
               <span className="truncate max-w-[150px] sm:max-w-none">{location}</span>
             </div>
 
-            {isCreator && (
+            {/* {isCreator && (
               <Link href="/buyerdashboard/moodboards">
                 <Button
                   size="sm"
@@ -555,11 +557,23 @@ export default function PropertyCard(props: PropertyCardProps) {
                 >
                   <Bookmark className="w-4 h-4 mr-2" /> Dreamboard
                 </Button>
+                 
               </Link>
-            )}
+            
+            )} */}
+             {productLink && (
+                  <Button
+                    onClick={() => window.open(productLink, '_blank')}
+                    size="sm"
+                     className="rounded-md bg-[#6F8375] hover:bg-[#5b6c62] shadow-lg transition-all hover:scale-105"
+                  >
+                    Buy Product
+                  </Button>
+                )}
 
             {isAgent && (
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
+              
                 {(isRental || isStay) && (
                   <Button
                     onClick={onBookTour}

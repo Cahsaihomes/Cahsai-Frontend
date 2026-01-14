@@ -54,7 +54,7 @@ export default function LoginPage() {
         if (res.data.user.role === "creator") {
           router.push("/creatordashboard/home");
         }
-        if (res.data.user.role === "admin") {
+        if (res.data.user.role === "admin" || res.data.user.role === "finance_admin" || res.data.user.role === "moderator_admin") {
           router.push("/admin/dashboard");
         }
       } else {

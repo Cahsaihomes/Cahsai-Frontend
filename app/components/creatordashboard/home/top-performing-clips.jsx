@@ -84,11 +84,22 @@ const TopPerformingClips = () => {
               </div>
             </div>
 
-            {/* Analytics Button */}
-            <div className="lg:ml-10 ml-0">
-              <button className="font-[500] font-inter text-[#434342] text-[16px] whitespace-nowrap self-start sm:self-auto px-0 lg:px-3 py-2 sm:px-0 sm:py-0 border sm:border-0 rounded-md sm:rounded-none hover:bg-gray-50 sm:hover:bg-transparent transition-colors">
+            {/* Analytics & Product Button */}
+            <div className="lg:ml-10 ml-0 flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center">
+              {/* View Product Button */}
+              {clip.productLink && (
+                <button
+                  onClick={() => window.open(clip.productLink, '_blank')}
+                  className="font-[500] font-inter text-white text-[16px] whitespace-nowrap px-4 py-2 bg-[#6F8375] hover:bg-[#5a6a61] rounded-md transition-colors"
+                >
+                  View Product
+                </button>
+              )}
+              
+              {/* View Analytics Button */}
+              <button className="font-[500] font-inter text-[#434342] text-[16px] whitespace-nowrap px-3 py-2 border rounded-md hover:bg-gray-50 transition-colors flex items-center">
                 View Analytics{" "}
-                <ChevronRight size={24} className="inline-block ml-1" />
+                <ChevronRight size={20} className="ml-1" />
               </button>
             </div>
           </div>

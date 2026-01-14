@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Cahsai",
   description: "Cahsai",
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({

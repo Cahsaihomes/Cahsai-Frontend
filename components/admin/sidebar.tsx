@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -30,52 +30,69 @@ import {
 } from '@/components/ui/alert-dialog';
 import { cn } from '@/lib/utils';
 import { logoutApi } from '@/app/services/auth.service';
+import Cookies from 'js-cookie';
 
-const sidebarItems = [
+interface SidebarItem {
+  title: string;
+  href: string;
+  icon: any;
+  roles?: string[];
+}
+
+const sidebarItems: SidebarItem[] = [
   {
     title: 'Dashboard',
     href: '/admin',
     icon: LayoutDashboard,
+    roles: ['admin', 'finance_admin', 'moderator_admin'],
   },
   {
     title: 'Agent Management',
     href: '/admin/agent-management',
     icon: Users,
+    roles: ['admin'],
   },
   {
     title: 'Buyer Management',
     href: '/admin/buyer-management',
     icon: ShoppingCart,
+    roles: ['admin'],
   },
   {
     title: 'Creator Management',
     href: '/admin/creator-management',
     icon: Clapperboard,
+    roles: ['admin'],
   },
   {
     title: 'Lead Overview',
     href: '/admin/lead-overview',
     icon: TrendingUp,
+    roles: ['admin'],
   },
   {
     title: 'Payout Management',
     href: '/admin/payout-management',
     icon: DollarSign,
+    roles: ['admin', 'finance_admin'],
   },
   {
     title: 'Clips Management',
     href: '/admin/clip-management',
     icon: BarChart3,
+    roles: ['admin', 'moderator_admin'],
   },
   {
     title: 'Rental Applications',
     href: '/admin/rental-applications',
     icon: Building,
+    roles: ['admin'],
   },
   {
     title: 'Settings',
     href: '/admin/settings',
     icon: Settings,
+    roles: ['admin'],
   },
 ];
 
@@ -85,6 +102,13 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Get user role from cookies
+    const role = Cookies.get('role');
+    setUserRole(role || null);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -104,6 +128,12 @@ export function Sidebar() {
       setIsLoggingOut(false);
     }
   };
+
+  // Filter sidebar items based on user role
+  const filteredItems = sidebarItems.filter((item) => {
+    if (!item.roles) return true;
+    return userRole && item.roles.includes(userRole);
+  });
 
   return (
     <>
@@ -131,7 +161,7 @@ export function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-4 hide-scrollbar">
-        {sidebarItems.map((item) => {
+        {filteredItems.map((item) => {
           const Icon = item.icon;
           const isActive = 
             pathname === item.href || 

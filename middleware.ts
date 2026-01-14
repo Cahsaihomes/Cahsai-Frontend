@@ -25,6 +25,8 @@ const DASHBOARD_PATHS: Record<string, string> = {
   agent: "/agentdashboard/home",
   creator: "/creatordashboard/home",
   admin: "/admin/dashboard",
+  finance_admin: "/admin/dashboard",
+  moderator_admin: "/admin/dashboard",
 };
 
 export function middleware(req: NextRequest) {
@@ -85,8 +87,8 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Admin
-  if (pathname.startsWith("/admin") && (!token || role !== "admin")) {
+  // Admin (admin, finance_admin, moderator_admin)
+  if (pathname.startsWith("/admin") && (!token || !["admin", "finance_admin", "moderator_admin"].includes(role || ""))) {
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }

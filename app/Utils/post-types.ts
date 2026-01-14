@@ -50,4 +50,7 @@ export interface Post {
 
   // POST TYPE
   postType?: "CREATE_LISTING" | "LISTING_VIDEO";
+  
+  // PRODUCT LINK
+  productLink?: string;
 }

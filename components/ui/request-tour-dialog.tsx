@@ -591,11 +591,27 @@ export function RequestTourDialog({
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <Phone className="h-4 w-4" />
-              <span>{post?.contact ?? post?.user?.contact ?? "N/A"}</span>
+              <span>
+                {(() => {
+                  const phone = post?.contact ?? post?.user?.contact ?? "N/A";
+                  if (phone === "N/A") return "N/A";
+                  const last4 = phone.slice(-4);
+                  return `****${last4}`;
+                })()}
+              </span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <Mail className="h-4 w-4" />
-              <span>{post?.email ?? post?.user?.email ?? "N/A"}</span>
+              <span>
+                {(() => {
+                  const email = post?.email ?? post?.user?.email ?? "N/A";
+                  if (email === "N/A") return "N/A";
+                  const [localPart, domain] = email.split("@");
+                  if (!domain) return "N/A";
+                  const maskedLocal = localPart[0] + "*".repeat(Math.max(0, localPart.length - 1));
+                  return `${maskedLocal}@${domain}`;
+                })()}
+              </span>
             </div>
             {/* Opt-in Checkbox for U.S. law compliance */}
             <div className="mt-4">

@@ -504,6 +504,7 @@ export default function Home() {
                         pet_policy={post.pet_policy}
                         parking={post.parking}
                         furnished={post.furnished}
+                        productLink={post.productLink}
                         onOpenFullStory={() => setIsSignupDialogOpen(true)}
                         onToggleSave={() => handleToggleLikes(post.id, isSaved)}
                         isLike={isSaved}

@@ -19,6 +19,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [productLink, setProductLink] = useState("");
   const [postVideos, setPostVideos] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -86,6 +87,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
       title,
       description,
       location,
+      productLink,
       post_videos: postVideos,
       price: "",
       zipCode: "",
@@ -117,6 +119,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
         setTitle("");
         setDescription("");
         setLocation("");
+        setProductLink("");
         setPostVideos([]);
         setUploadProgress(0);
         setUploadStatus("");
@@ -132,7 +135,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
     }
   };
 
-  const isFormValid = title.trim() !== "" && description.trim() !== "" && location.trim() !== "" && postVideos.length > 0;
+  const isFormValid = title.trim() !== "" && description.trim() !== "" && location.trim() !== "" && productLink.trim() !== "" && postVideos.length > 0;
 
 
   return (
@@ -200,6 +203,21 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
               className="w-full"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+
+          {/* Product Link */}
+          <div>
+            <Label htmlFor="productLink" className="block text-sm font-medium text-gray-700 mb-2">
+              Product Link
+            </Label>
+            <Input
+              id="productLink"
+              placeholder="Enter Product Link (e.g., https://example.com/product)"
+              className="w-full"
+              type="url"
+              value={productLink}
+              onChange={(e) => setProductLink(e.target.value)}
             />
           </div>
 
