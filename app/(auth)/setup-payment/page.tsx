@@ -28,7 +28,7 @@ export default function CreateProfilePage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-[30px] font-[500] text-gray-900 mb-2">
-            Get Started with <span className="font-[600]">Cahsia</span>
+            Get Started with <span className="font-[600]">Cahsai</span>
           </h1>
           <p className="text-[#535862] text-[16px] font-[500]">
             Enter your MLS details to access qualified leads—no charges until
