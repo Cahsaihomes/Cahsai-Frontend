@@ -21,7 +21,7 @@ export default function ButtonGroup({
         className={cn(
           "rounded-lg px-6 py-3",
           activeButton === "watch"
-            ? "bg-[#6B8E6E] text-white hover:bg-[#6B8E6E]/90"
+            ? "bg-[#968470] text-white hover:bg-[#968470]/90"
             : "bg-transparent text-gray-800 border border-gray-200 hover:bg-gray-50"
         )}
       >
@@ -32,7 +32,7 @@ export default function ButtonGroup({
         className={cn(
           "rounded-lg px-6 py-3",
           activeButton === "search"
-            ? "bg-[#6B8E6E] text-white hover:bg-[#6B8E6E]/90"
+            ? "bg-[#968470] text-white hover:bg-[#968470]/90"
             : "bg-transparent text-gray-800 border border-gray-200 hover:bg-gray-50"
         )}
       >

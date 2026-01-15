@@ -61,7 +61,7 @@ export default function Header() {
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
             <Button
-              className="bg-[#6B8E6F] hover:bg-[#5a7a5e] text-white px-6 rounded-full"
+              className="bg-[#968470] hover:bg-[#968470] text-white px-6 rounded-full"
             >
               Join the Waitlist
             </Button>
@@ -120,7 +120,7 @@ export default function Header() {
                 How It Works
               </Link>
               <Button
-                className="w-full mt-4 bg-[#6B8E6F] hover:bg-[#5a7a5e] text-white rounded-full"
+                className="w-full mt-4 bg-[#968470] hover:bg-[#968470] text-white rounded-full"
                 onClick={() => setIsOpen(false)}
               >
                 Join the Waitlist

@@ -44,6 +44,7 @@ interface DetailedListingCardProps {
   monthly_rent?: number;
   amenities?: string[];
   title?: string;
+  buttonColor?: string;
 }
 
 export default function DetailedListingCard({
@@ -67,6 +68,7 @@ export default function DetailedListingCard({
   monthly_rent,
   amenities = [],
   title,
+  buttonColor,
 }: DetailedListingCardProps) {
   const router = useRouter();
 
@@ -301,13 +303,21 @@ export default function DetailedListingCard({
           <>
             <Button
               onClick={onBookTour}
-              className="flex-1 bg-[#5a6b60] hover:bg-[#4a5b50] text-white text-sm font-medium py-2 rounded-md"
+              className={`flex-1 ${
+                buttonColor
+                  ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
+                  : "bg-[#5a6b60] hover:bg-[#4a5b50]"
+              } text-white text-sm font-medium py-2 rounded-md`}
             >
               Apply Now
             </Button>
             <Button
               onClick={onBookTour}
-              className="flex-1 bg-[#6B8E6E] hover:bg-[#5e7d5f] text-white text-sm font-medium py-2 rounded-md"
+              className={`flex-1 ${
+                buttonColor
+                  ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
+                  : "bg-[#6B8E6E] hover:bg-[#5e7d5f]"
+              } text-white text-sm font-medium py-2 rounded-md`}
             >
               Schedule Tour
             </Button>
@@ -317,7 +327,11 @@ export default function DetailedListingCard({
         {!isRental && !isStay && (
           <Button
             onClick={onBookTour}
-            className="w-full bg-[#6B8E6E] hover:bg-[#5e7d5f] text-white text-sm font-medium py-2 rounded-md"
+            className={`w-full ${
+              buttonColor
+                ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
+                : "bg-[#6B8E6E] hover:bg-[#5e7d5f]"
+            } text-white text-sm font-medium py-2 rounded-md`}
           >
             Book a tour
           </Button>

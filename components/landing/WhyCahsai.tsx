@@ -50,13 +50,13 @@ export default function WhyCahsai() {
           </div>
 
           {/* Cahsai */}
-          <div className="bg-[#6BC5861A] rounded-lg p-4 sm:p-6 lg:p-8 shadow-md">
+          <div className="bg-[#9684701A] rounded-lg p-4 sm:p-6 lg:p-8 shadow-md">
             <h3 className="text-lg sm:text-xl lg:text-2xl text-black mb-4 sm:mb-6">Cahsai</h3>
             <ul className="space-y-3 sm:space-y-4">
               {cahsai.map((item, index) => (
                 <li key={index} className="flex items-start gap-2 sm:gap-3">
                   <div className="mt-1 flex-shrink-0">
-                    <Check className="w-4 sm:w-5 h-4 sm:h-5 text-green-500" />
+                    <Check className="w-4 sm:w-5 h-4 sm:h-5 text-[#968470]" />
                   </div>
                   <span className="text-xs sm:text-sm md:text-base text-black">{item}</span>
                 </li>

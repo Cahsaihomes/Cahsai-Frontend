@@ -51,7 +51,7 @@ export default function Hero() {
           <Button
           onClick={() => { window.location.href = '/watch-homes'; }}
             size="lg"
-            className="bg-[#6F8375] hover:bg-[#5a7a5e] text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-xl flex items-center gap-2"
+            className="bg-[#968470] hover:bg-[#968470] text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-xl flex items-center gap-2"
           >
             <Play className="w-4 sm:w-5 h-4 sm:h-5" />
             Watch Homes

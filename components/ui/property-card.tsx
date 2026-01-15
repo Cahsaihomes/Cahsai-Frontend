@@ -66,6 +66,7 @@ export interface PropertyCardProps {
   currentUserId?: number;
   postOwnerId?: number;
   productLink?: string;
+  buttonColor?: string;
 }
 
 export default function PropertyCard(props: PropertyCardProps) {
@@ -579,7 +580,11 @@ export default function PropertyCard(props: PropertyCardProps) {
                     onClick={onBookTour}
                     size="sm"
                     variant="secondary"
-                    className="rounded-md text-white bg-[#5a6b60] hover:bg-[#4a5b50] shadow-lg transition-all hover:scale-105"
+                    className={`rounded-md text-white ${
+                      props.buttonColor
+                        ? `bg-[${props.buttonColor}] hover:bg-[${props.buttonColor}]/80`
+                        : "bg-[#5a6b60] hover:bg-[#4a5b50]"
+                    } shadow-lg transition-all hover:scale-105`}
                   >
                     Apply Now
                   </Button>
@@ -588,7 +593,11 @@ export default function PropertyCard(props: PropertyCardProps) {
                   onClick={onBookTour}
                   size="sm"
                   variant="secondary"
-                  className="rounded-md text-white bg-[#6F8375] hover:bg-[#5b6c62] shadow-lg transition-all hover:scale-105"
+                  className={`rounded-md text-white ${
+                    props.buttonColor
+                      ? `bg-[${props.buttonColor}] hover:bg-[${props.buttonColor}]/80`
+                      : "bg-[#6F8375] hover:bg-[#5b6c62]"
+                  } shadow-lg transition-all hover:scale-105`}
                 >
                   {isRental || isStay ? "Schedule Tour" : "Book Tour"}
                 </Button>

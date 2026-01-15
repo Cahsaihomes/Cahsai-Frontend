@@ -34,7 +34,7 @@ export default function CTASection() {
           <Button
             onClick={() => window.open('https://calendar.app.google/6MKxgCzHDVYW2hzE7', '_blank')}
             size="lg"
-            className="bg-[#6B8E6F] hover:bg-[#5a7a5e] cursor-pointer text-white px-6 sm:px-8 rounded-full text-sm sm:text-base transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1"
+            className="bg-[#968470] hover:bg-[#968470] cursor-pointer text-white px-6 sm:px-8 rounded-full text-sm sm:text-base transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1"
           >
             Book a Demo
           </Button>

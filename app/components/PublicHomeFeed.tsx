@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
+import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "@/hooks/post-service";
 import { Post } from "@/app/Utils/post-types";
@@ -124,13 +125,19 @@ export default function PublicHomeFeed() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#F9F6F1]">
+    <div className="h-screen flex flex-col bg-white">
       {/* HEADER */}
-      <div className="bg-white border-b px-4 py-3 flex justify-between">
-        <h1 className="text-2xl font-bold text-[#6F8375]">CAHSAI</h1>
+      <div className="sticky top-0 z-30 border-b border-white/40 bg-white/60 backdrop-blur-2xl shadow-sm px-4 py-3 flex justify-between items-center">
+        <Image
+          src="/images/cahsai-logo1.png"
+          alt="Cahsai Logo"
+          width={100}
+          height={50}
+          className="h-7 w-auto"
+        />
         <div className="flex gap-2">
-          <Button onClick={() => router.push("/login")}>Login</Button>
-          <Button onClick={() => router.push("/landing-page")}>Signup</Button>
+          <Button className="bg-[#968470] hover:bg-[#968470]" onClick={() => router.push("/login")}>Login</Button>
+          <Button className="bg-[#968470] hover:bg-[#968470]" onClick={() => router.push("/landing-page")}>Signup</Button>
         </div>
       </div>
 
@@ -154,7 +161,7 @@ export default function PublicHomeFeed() {
                 className={cn(
                   "px-5 py-2 rounded-md text-sm",
                   propertyType === type
-                    ? "bg-[#6F8375] text-white"
+                    ? "bg-[#968470] text-white"
                     : "text-gray-700",
                 )}
               >
@@ -222,6 +229,7 @@ export default function PublicHomeFeed() {
                   pet_policy={post.pet_policy}
                   parking={post.parking}
                   furnished={post.furnished}
+                  buttonColor="#968470"
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
                   }
@@ -259,10 +267,10 @@ export default function PublicHomeFeed() {
                     ? "PROMOTED"
                     : getListingBadgeText(post.listing_type)
                 }
-
                 listing_type={post.listing_type}
                 monthly_rent={post.monthly_rent}
                 amenities={post.amenities}
+                buttonColor="#968470"
                 onBookTour={() =>
                   handleUnauthenticatedAction("book a tour")
                 }

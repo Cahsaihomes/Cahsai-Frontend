@@ -40,9 +40,9 @@ export default function Features() {
           {features.map((feature) => (
             <div
               key={feature.number}
-              className="bg-white border-b-2 border-[#6B8E6F] p-4 sm:p-6 lg:p-8 hover:shadow-lg transition-shadow rounded-lg"
+              className="bg-white border-b-2 border-[#968470] p-4 sm:p-6 lg:p-8 hover:shadow-lg transition-shadow rounded-lg"
             >
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#6B8E6F] mb-3 sm:mb-4">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#968470] mb-3 sm:mb-4">
                 {feature.number}
               </div>
               <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">

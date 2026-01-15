@@ -13,22 +13,22 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12 pb-12 border-b border-gray-800">
           {/* Left Section - Company Info */}
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-6">
               <Image 
-                src="/images/logo.svg" 
+                src="/images/cahsai-logo1.png" 
                 alt="Cahsai Logo" 
                 width={250} 
                 height={250}
               />
              
             </div>
-            <div className="text-sm text-gray-400 space-y-3 mb-6">
+            <div className="text-sm text-[#737373] space-y-3 mb-6">
               <div>
-                <p className="font-semibold text-gray-300 mb-1">Address:</p>
+                <p className="font-semibold text-white mb-1">Address:</p>
                 <p>1281 Win Hentschel Blvd West Lafayette, IN 47906</p>
               </div>
               <div>
-                <p className="font-semibold text-gray-300 mb-1">Contact:</p>
+                <p className="font-semibold text-white mb-1">Contact:</p>
                 <p>hello@cahsai.com</p>
                 <p>765-701-3623</p>
               </div>
@@ -39,28 +39,32 @@ export default function Footer() {
               <Link
                 href="https://www.facebook.com/profile.php?id=61583246883561"
                 aria-label="Facebook"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                className="hover:text-white transition-colors text-[#737373]"
               >
                 <Facebook className="w-5 h-5" />
               </Link>
               <Link
                 href="https://www.instagram.com/cahsaihomes/"
                 aria-label="Instagram"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                className="hover:text-white transition-colors text-[#737373]"
               >
                 <Instagram className="w-5 h-5" />
               </Link>
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/cahsai-homes-73b209393"
                 aria-label="LinkedIn"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                className="hover:text-white transition-colors text-[#737373]"
               >
                 <Linkedin className="w-5 h-5" />
               </Link>
               <Link
                 href="https://www.tiktok.com/@cahsaihomes?is_from_webapp=1&sender_device=pc"
                 aria-label="TikTok"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                className="hover:text-white transition-colors text-[#737373]"
               >
                 <TikTokIcon size={20} />
               </Link>
@@ -71,16 +75,16 @@ export default function Footer() {
           <div className="pl-20">
             <h4 className="text-white font-semibold mb-4">Platform</h4>
             <nav className="space-y-2 text-sm">
-              <Link href="/buyers" className="text-gray-400 hover:text-white block">
+              <Link href="/buyers" className="text-[#737373] hover:text-white block">
                 For Buyers
               </Link>
-              <Link href="/agents" className="text-gray-400 hover:text-white block">
+              <Link href="/agents" className="text-[#737373] hover:text-white block">
                 For Agents
               </Link>
-              <Link href="/creators" className="text-gray-400 hover:text-white block">
+              <Link href="/creators" className="text-[#737373] hover:text-white block">
                 For Creators
               </Link>
-              <Link href="/hosts" className="text-gray-400 hover:text-white block">
+              <Link href="/hosts" className="text-[#737373] hover:text-white block">
                 For Hosts
               </Link>
             </nav>
@@ -90,16 +94,16 @@ export default function Footer() {
           <div className="pl-20">
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <nav className="space-y-2 text-sm">
-              <Link href="/about" className="text-gray-400 hover:text-white block">
+              <Link href="/about" className="text-[#737373] hover:text-white block">
                 About
               </Link>
-              <Link href="/careers" className="text-gray-400 hover:text-white block">
+              <Link href="/careers" className="text-[#737373] hover:text-white block">
                 Careers
               </Link>
-              <Link href="/press" className="text-gray-400 hover:text-white block">
+              <Link href="/press" className="text-[#737373] hover:text-white block">
                 Press
               </Link>
-              <Link href="/blogs" className="text-gray-400 hover:text-white block">
+              <Link href="/blogs" className="text-[#737373] hover:text-white block">
                 Blogs
               </Link>
             </nav>
@@ -109,16 +113,16 @@ export default function Footer() {
           <div className="pl-20">
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <nav className="space-y-2 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white block">
+              <Link href="/privacy" className="text-[#737373] hover:text-white block">
                 Privacy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white block">
+              <Link href="/terms" className="text-[#737373] hover:text-white block">
                 Terms
               </Link>
-              <Link href="/accessibility" className="text-gray-400 hover:text-white block">
+              <Link href="/accessibility" className="text-[#737373] hover:text-white block">
                 Accessibility
               </Link>
-              <Link href="/licenses" className="text-gray-400 hover:text-white block">
+              <Link href="/licenses" className="text-[#737373] hover:text-white block">
                 Licenses
               </Link>
             </nav>
@@ -127,26 +131,26 @@ export default function Footer() {
 
         {/* Equal Housing Opportunity Section */}
         <div className="mb-12 pb-12 border-b border-gray-800">
-          <div className="bg-gray-900 bg-opacity-50 p-6 rounded-lg">
+          <div className="bg-black bg-opacity-50 p-6 rounded-lg border border-white/25">
             <div className="flex items-start gap-4">
               <Home className="w-6 h-6 text-white flex-shrink-0 mt-1" />
               <div className="text-sm">
                 <p className="text-white font-semibold mb-2">Equal Housing Opportunity</p>
-                <p className="text-gray-400 mb-2">
-                  Cahsai, Inc. — Broker of Record: Jared Ramsey
+                <p className="text-[#737373] mb-2">
+                 <span className="font-bold text-white">Cahsai,</span> Inc. — Broker of Record: Jared Ramsey
                 </p>
-                <p className="text-gray-400 mb-2">
+                <p className="text-[#737373] mb-2">
                   Licensed Real Estate Brokerage — Indiana | Indiana Managing Broker License # REBTOD953
                 </p>
-                <p className="text-gray-400 mb-2">
-                  <span className="font-semibold">Accessibility:</span> Cahsai is committed to ensuring digital accessibility for all users. To request an accommodation, email{" "}
-                  <Link href="mailto:accessibility@cahsai.com" className="text-blue-400 hover:text-blue-300">
+                <p className="text-[#737373] mb-2">
+                  <span className="font-bold text-white">Accessibility:</span> Cahsai is committed to ensuring digital accessibility for all users. To request an accommodation, email{" "}
+                  <Link href="mailto:accessibility@cahsai.com" className="text-white hover:text-blue-300">
                     accessibility@cahsai.com
                   </Link>
                   .
                 </p>
-                <p className="text-gray-400">
-                  <span className="font-semibold">Consumer Notice:</span> For licensing verification or consumer inquiries, visit the Indiana Real Estate Commission website.
+                <p className="text-[#737373]">
+                  <span className="font-bold text-white">Consumer Notice:</span> For licensing verification or consumer inquiries, visit the Indiana Real Estate Commission website.
                 </p>
               </div>
             </div>
@@ -154,17 +158,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm text-gray-500 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm text-[#737373] gap-4 ">
           <p>© {new Date().getFullYear()} Cahsai, Inc. All rights reserved.</p>
 
-          <div className="flex gap-6 flex-wrap justify-center">
-            <Link href="/privacy" className="hover:text-gray-300">
+          <div className="flex gap-6 flex-wrap justify-center text-[#737373]">
+            <Link href="/privacy" className="hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-gray-300">
+            <Link href="/terms" className="hover:text-white">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="hover:text-gray-300">
+            <Link href="/cookies" className="hover:text-white">
               Cookies Settings
             </Link>
           </div>
