@@ -445,7 +445,7 @@ export default function PropertyCard(props: PropertyCardProps) {
 
 {/* Fallback to listing type badge if no topBadgeText */}
 {!topBadgeText && (isRental || isStay) && (
-  <div className="absolute top-3 left-3 z-20 bg-[#968470] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">>
+  <div className="absolute top-3 left-3 z-20 bg-[#968470] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
     {isRental ? "FOR RENT" : "SHORT-TERM STAY"}
   </div>
 )}

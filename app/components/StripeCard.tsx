@@ -62,7 +62,7 @@ const StripeCard = () => {
               </DropdownMenu>
             </div>
             <div className="flex justify-center border border-gray-300 rounded-md p-3">
-              <Button className="inline-flex items-center justify-center bg-[#968470] hover:bg-[#7a6d5e] text-white">>
+              <Button className="inline-flex items-center justify-center bg-[#968470] hover:bg-[#7a6d5e] text-white">
                 Add Account
               </Button>
             </div>
