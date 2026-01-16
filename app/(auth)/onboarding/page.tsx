@@ -52,7 +52,7 @@ export default function AccountSuccessPage() {
           onClick={() => {
             router.push("/login");
           }}
-          className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
+          className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
         >
           Continue
         </button>

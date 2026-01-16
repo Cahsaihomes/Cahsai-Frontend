@@ -199,7 +199,7 @@ const ConnectMls = (props: Props) => {
               <div
                 className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg transition-all ${
                   activeStep >= s.step
-                    ? "bg-[#6F8375] text-white"
+                    ? "bg-[#968470] text-white"
                     : "bg-gray-200 text-gray-600"
                 }`}
               >
@@ -212,7 +212,7 @@ const ConnectMls = (props: Props) => {
                 <ChevronRight
                   size={24}
                   className={`ml-auto mr-4 ${
-                    activeStep > s.step ? "text-[#6F8375]" : "text-gray-300"
+                    activeStep > s.step ? "text-[#968470]" : "text-gray-300"
                   }`}
                 />
               )}
@@ -256,21 +256,21 @@ const ConnectMls = (props: Props) => {
               <Button
                 onClick={handleGetToken}
                 disabled={loading || !clientId || !clientSecret}
-                className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white"
+                className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white"
               >
                 {loading ? "Getting Token..." : "Get Token"}
               </Button>
             </div>
           ) : (
-            <div className="bg-[#E8F1E8] border border-[#6F8375] rounded p-4">
-              <p className="text-[#6F8375] text-sm">
+            <div className="bg-[#E8F1E8] border border-[#968470] rounded p-4">
+              <p className="text-[#968470] text-sm">
                 ✓ Token acquired successfully! Proceed to Step 2.
               </p>
               <Button
                 variant="outline"
                 onClick={handleDisconnect}
                 disabled={reconnecting}
-                className="mt-4 w-full border-[#6F8375] text-[#6F8375] hover:bg-[#6F8375] hover:text-white"
+                className="mt-4 w-full border-[#968470] text-[#968470] hover:bg-[#968470] hover:text-white"
               >
                 {reconnecting ? "Disconnecting..." : "Disconnect & Start Over"}
               </Button>
@@ -303,14 +303,14 @@ const ConnectMls = (props: Props) => {
                 </div>
               )}
               {/* {agentId && (
-                <div className="bg-[#E8F1E8] border border-[#6F8375] rounded p-3 mb-4">
-                  <p className="text-[#6F8375] text-xs font-bold">✓ Agent ID: {agentId}</p>
+                <div className="bg-[#E8F1E8] border border-[#968470] rounded p-3 mb-4">
+                  <p className="text-[#968470] text-xs font-bold">✓ Agent ID: {agentId}</p>
                 </div>
               )} */}
               <Button
                 onClick={handleFetchAndSave}
                 disabled={loadingProperties || !agentId || !token}
-                className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white disabled:bg-gray-400"
+                className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white disabled:bg-gray-400"
               >
                 {loadingProperties ? "Fetching & Saving..." : "Fetch & Save Properties"}
               </Button>
@@ -332,8 +332,8 @@ const ConnectMls = (props: Props) => {
               )}
             </div>
           ) : (
-            <div className="bg-[#E8F1E8] border border-[#6F8375] rounded p-4">
-              <p className="text-[#6F8375] text-sm">
+            <div className="bg-[#E8F1E8] border border-[#968470] rounded p-4">
+              <p className="text-[#968470] text-sm">
                 ✓ {properties.length} properties fetched and saved! Proceed to Step 3.
               </p>
             </div>
@@ -357,7 +357,7 @@ const ConnectMls = (props: Props) => {
               <Button
                 onClick={handleViewSaved}
                 disabled={loadingSaved}
-                className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white"
+                className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white"
               >
                 {loadingSaved ? "Loading..." : "View Saved Properties"}
               </Button>
@@ -389,7 +389,7 @@ const ConnectMls = (props: Props) => {
                         <td className="p-3">{p.beds ?? "-"}</td>
                         <td className="p-3">{p.baths ?? "-"}</td>
                         <td className="p-3">
-                          <span className="text-xs bg-[#E8F1E8] text-[#6F8375] px-3 py-1 rounded-full font-semibold">
+                          <span className="text-xs bg-[#F0F4F0] text-[#968470] px-3 py-1 rounded-full font-semibold">
                             {p.mlsStatus ? p.mlsStatus.toUpperCase() : "LISTING"}
                           </span>
                         </td>
@@ -460,16 +460,16 @@ const ConnectMls = (props: Props) => {
       {activeStep === 4 && token && (
         <div className="space-y-6">
           {/* Connected Header */}
-          <div className="flex items-center justify-between bg-[#E8F1E8] border border-[#6F8375] rounded-lg p-4">
+          <div className="flex items-center justify-between bg-[#F0F4F0] border border-[#968470] rounded-lg p-4">
             <div>
-              <h2 className="text-xl font-bold text-[#6F8375]"> MLS Connected</h2>
-              {/* <p className="text-sm text-[#5a6b60]">Agent ID: {agentId}</p> */}
+              <h2 className="text-xl font-bold text-[#968470]"> MLS Connected</h2>
+              {/* <p className="text-sm text-[#7a6d5e]">Agent ID: {agentId}</p> */}
             </div>
             <div className="flex gap-2">
               <Button
                 onClick={() => fetchSavedProperties(agentId)}
                 disabled={loadingSaved}
-                className="bg-[#6F8375] hover:bg-[#5a6b60] text-white"
+                className="bg-[#968470] hover:bg-[#7a6d5e] text-white"
               >
                 {loadingSaved ? "Refreshing..." : "Refresh Properties"}
               </Button>
@@ -477,7 +477,7 @@ const ConnectMls = (props: Props) => {
                 onClick={handleDisconnect}
                 disabled={reconnecting}
                 variant="outline"
-                className="border-[#6F8375] text-[#6F8375] hover:bg-[#6F8375] hover:text-white"
+                className="border-[#968470] text-[#968470] hover:bg-[#968470] hover:text-white"
               >
                 {reconnecting ? "Disconnecting..." : "Disconnect"}
               </Button>
@@ -513,7 +513,7 @@ const ConnectMls = (props: Props) => {
                     {/* View Details Button Overlay */}
                     <Button
                       onClick={() => setSelectedProperty(p)}
-                      className="absolute bottom-4 left-4 right-4 bg-[#6F8375] hover:bg-[#5a6b60] text-white"
+                      className="absolute bottom-4 left-4 right-4 bg-[#968470] hover:bg-[#7a6d5e] text-white"
                     >
                       View Details
                     </Button>

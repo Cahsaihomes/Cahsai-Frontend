@@ -93,7 +93,7 @@ export default function CreateNewPasswordPage() {
                 id="newPassword"
                 {...reset("password")}
                 placeholder="Enter new password"
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               />
               <button
                 type="button"
@@ -132,7 +132,7 @@ export default function CreateNewPasswordPage() {
                 id="confirmPassword"
                 {...reset("confirmPassword")}
                 placeholder="Confirm new password"
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               />
               <button
                 type="button"
@@ -157,7 +157,7 @@ export default function CreateNewPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full cursor-pointer flex items-center justify-center bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200
+            className={`w-full cursor-pointer flex items-center justify-center bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200
                  ${loading ? "cursor-not-allowed opacity-70" : ""}
                 `}
           >

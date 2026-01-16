@@ -344,7 +344,7 @@ function LeadManagementPage() {
             onClick={() => setActiveTab("active")}
             className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
               activeTab === "active"
-                ? "bg-[#6F8375] text-white shadow-sm"
+                ? "bg-[#968470] text-white shadow-sm"
                 : "bg-gray-100 text-gray-500"
             }`}
           >
@@ -354,7 +354,7 @@ function LeadManagementPage() {
             onClick={() => setActiveTab("fallback")}
             className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
               activeTab === "fallback"
-                ? "bg-[#6F8375] text-white shadow-sm"
+                ? "bg-[#968470] text-white shadow-sm"
                 : "bg-gray-100 text-gray-500"
             }`}
           >

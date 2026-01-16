@@ -121,7 +121,7 @@ export default function LoginPage() {
               id="email"
               {...login("email")}
               placeholder="Enter your email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.email && (
               <span className="text-sm text-red-500">
@@ -144,7 +144,7 @@ export default function LoginPage() {
                 id="password"
                 {...login("password")}
                 placeholder="Enter password"
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               />
               <button
                 type="button"
@@ -168,7 +168,7 @@ export default function LoginPage() {
             <div className="text-right mt-2">
               <span
                 onClick={() => router.push("/forgot-password")}
-                className="text-sm cursor-pointer text-gray-700 hover:text-[#6F8375] hover:underline"
+                className="text-sm cursor-pointer text-gray-700 hover:text-[#968470] hover:underline"
               >
                 Forgot password
               </span>
@@ -179,8 +179,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            // className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 mt-8"
-            className={`w-full flex items-center justify-center gap-2 bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+            // className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 mt-8"
+            className={`w-full flex items-center justify-center gap-2 bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
               loading ? "cursor-not-allowed opacity-70" : ""
             }`}
           >
@@ -200,7 +200,7 @@ export default function LoginPage() {
             Don&apos;t have an account?{" "}
             <span
               onClick={() => router.push("/landing-page")}
-              className="text-[#6F8375] hover:underline cursor-pointer"
+              className="text-[#968470] hover:underline cursor-pointer"
             >
               Sign Up
             </span>

@@ -26,7 +26,7 @@ const DriyvinAI = () => {
           {/* Plan Card 1 */}
           <div className="w-full md:w-1/2 lg:w-[362px] lg:h-[700px] rounded-[16px] bg-white shadow-[0px_8px_80px_0px_#A7A7A73D] p-6 lg:p-8 flex flex-col gap-6 lg:gap-8">
             {/* Plan Title */}
-            <span className="font-inter font-medium text-base lg:text-[16px] text-[#6F8375]">
+            <span className="font-inter font-medium text-base lg:text-[16px] text-[#968470]">
               Basic Access
             </span>
 
@@ -87,7 +87,7 @@ const DriyvinAI = () => {
           </div>
 
           {/* Plan Card 2 */}
-          <div className="w-full md:w-1/2 lg:w-[362px] lg:h-[751px] rounded-[16px] bg-[#6F8375] shadow-[0px_8px_80px_0px_#05796B52] p-6 lg:p-8 flex flex-col gap-6 lg:gap-8">
+          <div className="w-full md:w-1/2 lg:w-[362px] lg:h-[751px] rounded-[16px] bg-[#968470] shadow-[0px_8px_80px_0px_#05796B52] p-6 lg:p-8 flex flex-col gap-6 lg:gap-8">
             <span className="font-inter font-medium text-base lg:text-[16px] text-white">
               DRYVIN PRO
             </span>

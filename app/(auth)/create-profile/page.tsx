@@ -142,7 +142,7 @@ export default function CreateProfilePage() {
                 className="w-[124px] h-[124px] rounded-full mx-auto mb-2 object-cover"
               />
               {/* Upload Button */}
-              <label className="absolute bottom-0 right-[40%] bg-[#6F8375] text-white w-9 h-9 flex items-center justify-center rounded-full border-2 border-white cursor-pointer">
+              <label className="absolute bottom-0 right-[40%] bg-[#968470] text-white w-9 h-9 flex items-center justify-center rounded-full border-2 border-white cursor-pointer">
                 <Upload size={20} />
                 <input
                   type="file"
@@ -169,7 +169,7 @@ export default function CreateProfilePage() {
               id="linkedin"
               {...register("linkedin")}
               placeholder="Enter your LinkedIn URL"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.linkedin && (
               <span className="text-sm text-red-500">
@@ -188,7 +188,7 @@ export default function CreateProfilePage() {
               id="instagram"
               {...register("instagram")}
               placeholder="Enter your Instagram Username"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
           </div>
 
@@ -203,7 +203,7 @@ export default function CreateProfilePage() {
                 <input
                   {...register(`areasServed.${index}.value` as const)}
                   placeholder="Enter ZIP code"
-                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
                   defaultValue={field.value}
                 />
 
@@ -211,7 +211,7 @@ export default function CreateProfilePage() {
                   <button
                     type="button"
                     onClick={() => append({ value: "" })}
-                    className="p-2 text-[#717680] hover:text-[#6F8375]"
+                    className="p-2 text-[#717680] hover:text-[#968470]"
                   >
                     <Plus size={20} />
                   </button>
@@ -257,7 +257,7 @@ export default function CreateProfilePage() {
                     onClick={() => toggleSpecialization(tag)}
                     className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
                       isSelected
-                        ? "bg-[#6F8375] text-white"
+                        ? "bg-[#968470] text-white"
                         : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
@@ -277,7 +277,7 @@ export default function CreateProfilePage() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full flex items-center justify-center gap-2 bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+            className={`w-full flex items-center justify-center gap-2 bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
               loading ? "cursor-not-allowed opacity-70" : ""
             }`}
           >
@@ -294,7 +294,7 @@ export default function CreateProfilePage() {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               Already have an account?{" "}
-              <Link href="/login" className="text-[#6F8375] hover:underline">
+              <Link href="/login" className="text-[#968470] hover:underline">
                 Login
               </Link>
             </p>

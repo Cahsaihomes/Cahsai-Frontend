@@ -177,7 +177,7 @@
                           handleReply(comment.id);
                         }
                       }}
-                      className="w-full border rounded-md px-3 py-2 pr-28 text-sm focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+                      className="w-full border rounded-md px-3 py-2 pr-28 text-sm focus:outline-none focus:ring-2 focus:ring-[#968470]"
                       disabled={submitting}
                     />
                     <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -195,7 +195,7 @@
                   <div className="flex gap-2">
                     <Button
                       onClick={() => handleReply(comment.id)}
-                      className="bg-[#6F8375] text-white hover:bg-[#5b6c62] text-sm px-4 py-1"
+                      className="bg-[#968470] text-white hover:bg-[#7a6d5e] text-sm px-4 py-1"
                       disabled={submitting || !replyText.trim()}
                       size="sm"
                     >
@@ -272,7 +272,7 @@
                         handleAddComment();
                       }
                     }}
-                    className="w-full border rounded-md px-3 py-2 pr-28 text-sm focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+                    className="w-full border rounded-md px-3 py-2 pr-28 text-sm focus:outline-none focus:ring-2 focus:ring-[#968470]"
                     disabled={submitting}
                   />
 
@@ -293,7 +293,7 @@
                 {/* Comment button below input */}
                 <Button
                   onClick={handleAddComment}
-                  className="w-full bg-[#6F8375] text-white hover:bg-[#5b6c62]"
+                  className="w-full bg-[#968470] text-white hover:bg-[#7a6d5e]"
                   disabled={submitting || !newComment.trim()}
                 >
                   {submitting ? (

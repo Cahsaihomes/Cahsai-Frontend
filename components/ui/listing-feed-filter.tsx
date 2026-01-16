@@ -203,7 +203,7 @@ export default function ListingFeedFilter({
                 value={tempZip}
                 onChange={(e) => setTempZip(e.target.value)}
                 placeholder="Zip code"
-                className="mt-1 rounded-md border border-gray-300 focus:border-[#6F8375] focus:ring-[#6F8375"
+                className="mt-1 rounded-md border border-gray-300 focus:border-[#968470] focus:ring-[#968470"
               />
             </div>
             <div>
@@ -216,7 +216,7 @@ export default function ListingFeedFilter({
               <Select value={tempCity} onValueChange={setTempCity}>
                 <SelectTrigger
                   id="city"
-                  className="mt-1 rounded-md  border-gray-300 focus:border-[#6F8375] focus:ring-[#6F8375"
+                  className="mt-1 rounded-md  border-gray-300 focus:border-[#968470] focus:ring-[#968470"
                 >
                   <SelectValue placeholder="City name" />
                 </SelectTrigger>
@@ -282,7 +282,7 @@ export default function ListingFeedFilter({
         <DialogFooter className="pt-4 border-t border-gray-200">
           <Button
             type="button"
-            className="w-full bg-[#6F8375] hover:bg-[#6F8375]/90 text-white py-2 rounded-md"
+            className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white py-2 rounded-md"
             onClick={handleApply}
           >
             Apply

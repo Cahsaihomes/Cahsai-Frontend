@@ -200,7 +200,7 @@ export default function ClaimLeadPaymentModal({
             </div>
             <div className="flex justify-between items-center">
               <p className="text-xs text-gray-600">Claim Fee (0.02%):</p>
-              <p className="text-base font-bold text-[#6F8375]">
+              <p className="text-base font-bold text-[#968470]">
                 ${finalClaimFee.toFixed(2)}
               </p>
             </div>
@@ -224,7 +224,7 @@ export default function ClaimLeadPaymentModal({
               placeholder="John Doe"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               disabled={processing || isLoading}
             />
           </div>
@@ -234,7 +234,7 @@ export default function ClaimLeadPaymentModal({
             <label className="block text-xs font-medium text-gray-700">
               Card Details
             </label>
-            <div className="border border-gray-300 rounded-lg p-2.5 focus-within:ring-2 focus-within:ring-[#6F8375] focus-within:border-transparent bg-white">
+            <div className="border border-gray-300 rounded-lg p-2.5 focus-within:ring-2 focus-within:ring-[#968470] focus-within:border-transparent bg-white">
               <CardElement
                 onChange={handleCardChange}
                 options={{
@@ -298,7 +298,7 @@ export default function ClaimLeadPaymentModal({
           <button
             type="submit"
             disabled={processing || isLoading || !cardComplete || !cardholderName.trim()}
-            className="w-full bg-[#6F8375] text-white rounded-lg py-2 font-medium hover:bg-[#5a6b60] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
+            className="w-full bg-[#968470] text-white rounded-lg py-2 font-medium hover:bg-[#7a6d5e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
           >
             {processing || isLoading ? (
               <>

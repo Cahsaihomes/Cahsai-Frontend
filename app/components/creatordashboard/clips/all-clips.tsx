@@ -286,7 +286,7 @@ function Dropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative">
-        <Listbox.Button className="relative w-full cursor-pointer rounded-md border bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6F8375] sm:text-sm">
+        <Listbox.Button className="relative w-full cursor-pointer rounded-md border bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-[#968470] sm:text-sm">
           <span className="block truncate text-[#717680]">{value.label}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronsUpDown className="h-5 w-5 text-gray-400" />
@@ -313,7 +313,7 @@ function Dropdown({
                     {option.label}
                   </span>
                   {selected ? (
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#6F8375]">
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#968470]">
                       <Check className="h-5 w-5" />
                     </span>
                   ) : null}

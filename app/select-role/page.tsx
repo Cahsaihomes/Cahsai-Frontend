@@ -64,10 +64,10 @@ const SelectRolePage: FC = () => {
             </p>
             <div
               onClick={() => router.push(role.path)}
-              className="w-8 h-8 rounded-full border border-[#6F8375] flex items-center justify-center 
+              className="w-8 h-8 rounded-full border border-[#968470] flex items-center justify-center 
              cursor-pointer group"
             >
-              <ArrowRight className="w-4 h-4 text-[#6F8375] transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 text-[#968470] transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
             </div>
           </div>
         ))}
@@ -77,7 +77,7 @@ const SelectRolePage: FC = () => {
           <button
             type="button"
             onClick={() => router.push("/login")}
-            className="cursor-pointer bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium px-6 py-2 rounded-md transition-colors duration-200"
+            className="cursor-pointer bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium px-6 py-2 rounded-md transition-colors duration-200"
           >
             Login
           </button>
@@ -98,7 +98,7 @@ const SelectRolePage: FC = () => {
           <button
             type="button"
             onClick={() => router.push("/login")}
-            className="cursor-pointer bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium px-6 py-2 rounded-md transition-colors duration-200"
+            className="cursor-pointer bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium px-6 py-2 rounded-md transition-colors duration-200"
           >
             Login
           </button>

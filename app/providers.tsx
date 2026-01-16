@@ -13,7 +13,7 @@ import { SocketProvider } from "../context/SocketContext";
 function AppLoader() {
   return (
     <div className="flex items-center justify-center h-screen bg-[#f9f7f3]">
-      <div className="w-10 h-10 border-4 border-[#6F8375] border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 }

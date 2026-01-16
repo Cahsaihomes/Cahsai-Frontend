@@ -132,7 +132,7 @@ export function PayoutManagement() {
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 text-[#6F8375] animate-spin" />
+            <Loader2 className="h-8 w-8 text-[#968470] animate-spin" />
             <p className="text-gray-600">Loading payouts...</p>
           </div>
         </div>
@@ -207,8 +207,8 @@ export function PayoutManagement() {
             variant={filterStatus === status ? 'default' : 'outline'}
             className={
               filterStatus === status
-                ? 'bg-[#6F8375] text-white border-[#6F8375]'
-                : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white hover:border-[#6F8375]'
+                ? 'bg-[#968470] text-white border-[#968470]'
+                : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white hover:border-[#968470]'
             }
           >
             {status === 'on-hold' ? 'On Hold' : status.charAt(0).toUpperCase() + status.slice(1)}
@@ -272,7 +272,7 @@ export function PayoutManagement() {
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 variant="outline"
-                className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
               >
                 ← Previous
               </Button>
@@ -285,8 +285,8 @@ export function PayoutManagement() {
                     variant={currentPage === page ? 'default' : 'outline'}
                     className={
                       currentPage === page
-                        ? 'bg-[#6F8375] text-white border-[#6F8375] min-w-10 h-10 rounded-full'
-                        : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white min-w-10 h-10 rounded-full'
+                        ? 'bg-[#968470] text-white border-[#968470] min-w-10 h-10 rounded-full'
+                        : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white min-w-10 h-10 rounded-full'
                     }
                   >
                     {page}
@@ -298,7 +298,7 @@ export function PayoutManagement() {
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 variant="outline"
-                className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
               >
                 Next →
               </Button>

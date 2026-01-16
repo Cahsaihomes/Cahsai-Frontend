@@ -280,7 +280,7 @@ export function Settings() {
       {loading ? (
         <Card className="bg-white p-6 rounded-2xl shadow-md border-0">
           <div className="flex items-center justify-center h-96">
-            <Loader2 size={32} className="animate-spin text-[#6F8375]" />
+            <Loader2 size={32} className="animate-spin text-[#968470]" />
           </div>
         </Card>
       ) : error ? (
@@ -337,7 +337,7 @@ export function Settings() {
           <Button 
             onClick={handleSaveConfig}
             disabled={saving}
-            className="bg-[#6F8375] text-white hover:bg-gray-900 disabled:bg-gray-400"
+            className="bg-[#968470] text-white hover:bg-[#7a6d5e] disabled:bg-gray-400"
           >
             {saving ? (
               <>
@@ -366,7 +366,7 @@ export function Settings() {
             <button
               onClick={() => setAutoApprove(!autoApprove)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                autoApprove ? 'bg-[#6F8375]' : 'bg-gray-300'
+                autoApprove ? 'bg-[#968470]' : 'bg-gray-300'
               }`}
             >
               <span
@@ -385,7 +385,7 @@ export function Settings() {
             <button
               onClick={() => setCreatorVerification(!creatorVerification)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                creatorVerification ? 'bg-[#6F8375]' : 'bg-gray-300'
+                creatorVerification ? 'bg-[#968470]' : 'bg-gray-300'
               }`}
             >
               <span
@@ -404,7 +404,7 @@ export function Settings() {
             <button
               onClick={() => setLeadExpiration(!leadExpiration)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                leadExpiration ? 'bg-[#6F8375]' : 'bg-gray-300'
+                leadExpiration ? 'bg-[#968470]' : 'bg-gray-300'
               }`}
             >
               <span
@@ -426,7 +426,7 @@ export function Settings() {
         <CardContent className="space-y-6 p-0">
           {loadingAdmins ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={32} className="animate-spin text-[#6F8375]" />
+              <Loader2 size={32} className="animate-spin text-[#968470]" />
             </div>
           ) : (
             <>
@@ -495,7 +495,7 @@ export function Settings() {
 
           <Button 
             onClick={() => setIsAddAdminOpen(true)}
-            className="w-full mt-4 bg-[#6F8375] text-white hover:bg-[#5b6c62]"
+            className="w-full mt-4 bg-[#968470] text-white hover:bg-[#5b6c62]"
           >
             Add New Admin
           </Button>
@@ -593,7 +593,7 @@ export function Settings() {
             <Button
               onClick={handleAddAdmin}
               disabled={submittingAdmin}
-              className="bg-[#6F8375] text-white hover:bg-[#5b6c62]"
+              className="bg-[#968470] text-white hover:bg-[#5b6c62]"
             >
               {submittingAdmin ? (
                 <>

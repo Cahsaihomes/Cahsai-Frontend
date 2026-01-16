@@ -68,7 +68,7 @@ const VideoAnalytics = () => {
                         <div className="flex items-center space-x-1 sm:space-x-1.5 text-xs sm:text-sm text-gray-500">
                             <Heart
                                 className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500"
-                                fill="#6f8375"
+                                fill="#968470"
                                 strokeWidth={0}
                             />
                             <span>1.2k</span>
@@ -76,7 +76,7 @@ const VideoAnalytics = () => {
                             <span>458</span>
                             <Bookmark
                                 className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500"
-                                fill="#6f8375"
+                                fill="#968470"
                                 strokeWidth={0}
                             />
                             <span>326</span>
@@ -108,7 +108,7 @@ const VideoAnalytics = () => {
                         {/* Week Button */}
                         <button
                             className={`px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md ml-1 flex-1 sm:flex-none transition-colors ${timeframe === "week"
-                                ? "bg-[#6f8375] text-white"
+                                ? "bg-[#968470] text-white"
                                 : "bg-white text-gray-700"
                                 }`}
                             onClick={() => setTimeframe("week")}
@@ -120,7 +120,7 @@ const VideoAnalytics = () => {
                         <div className="relative flex-1 sm:flex-none">
                             <button
                                 className={`px-2 sm:px-4 py-2 text-xs sm:text-sm min-w-[80px] sm:min-w-[120px] text-center rounded-md transition-colors w-full ${timeframe === "month"
-                                    ? "bg-[#6f8375] text-white"
+                                    ? "bg-[#968470] text-white"
                                     : "bg-white text-gray-700"
                                     }`}
                                 onClick={() => {
@@ -155,8 +155,8 @@ const VideoAnalytics = () => {
                                                 setShowMonthDropdown(false);
                                             }}
                                             className={`px-2 sm:px-3 py-2 cursor-pointer transition-colors text-xs sm:text-sm ${selectedMonth === month
-                                                ? "bg-[#6f8375] text-white"
-                                                : "hover:bg-[#6f8375] hover:text-white text-gray-700"
+                                                ? "bg-[#968470] text-white"
+                                                : "hover:bg-[#968470] hover:text-white text-gray-700"
                                                 }`}
                                         >
                                             {month}
@@ -170,7 +170,7 @@ const VideoAnalytics = () => {
                         <div className="relative flex-1 sm:flex-none">
                             <button
                                 className={`px-2 sm:px-4 py-2 text-xs sm:text-sm min-w-[70px] sm:min-w-[100px] text-center rounded-md transition-colors flex items-center justify-between w-full ${timeframe === "year"
-                                    ? "bg-[#6f8375] text-white"
+                                    ? "bg-[#968470] text-white"
                                     : "bg-white text-gray-700"
                                     }`}
                                 onClick={() => {
@@ -193,8 +193,8 @@ const VideoAnalytics = () => {
                                                 setShowYearDropdown(false);
                                             }}
                                             className={`px-2 sm:px-3 py-2 cursor-pointer transition-colors text-xs sm:text-sm ${year === yr
-                                                ? "bg-[#6f8375] text-white"
-                                                : "hover:bg-[#6f8375] hover:text-white text-gray-700"
+                                                ? "bg-[#968470] text-white"
+                                                : "hover:bg-[#968470] hover:text-white text-gray-700"
                                                 }`}
                                         >
                                             {yr}
@@ -221,8 +221,8 @@ const VideoAnalytics = () => {
                         >
                             <defs>
                                 <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#6f8375" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#6f8375" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#968470" stopOpacity={0.3} />
+                                    <stop offset="95%" stopColor="#968470" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
 
@@ -240,7 +240,7 @@ const VideoAnalytics = () => {
                             <Area
                                 type="monotone"
                                 dataKey="views"
-                                stroke="#6f8375"
+                                stroke="#968470"
                                 fill="url(#colorViews)"
                                 strokeWidth={2}
                             />
@@ -263,14 +263,14 @@ const VideoAnalytics = () => {
                                                 x2={x}
                                                 y1={y}
                                                 y2={yScale(0)}
-                                                stroke="#6f8375"
+                                                stroke="#968470"
                                                 strokeDasharray="4 4"
                                             />
                                             <circle
                                                 cx={x}
                                                 cy={y}
                                                 r={4}
-                                                fill="#6f8375"
+                                                fill="#968470"
                                                 stroke="#fff"
                                                 strokeWidth={2}
                                             />
@@ -283,7 +283,7 @@ const VideoAnalytics = () => {
 
                     {activePoint && (
                         <div
-                            className="absolute bg-[#6f8375] text-white text-xs font-medium px-2 sm:px-3 py-1 rounded-md shadow-md pointer-events-none"
+                            className="absolute bg-[#968470] text-white text-xs font-medium px-2 sm:px-3 py-1 rounded-md shadow-md pointer-events-none"
                             style={{
                                 top: `${Math.max(10, (1 - activePoint.views / 120) * 100)}%`,
                                 left: `${(data.findIndex((d) => d.day === activePoint.day) /

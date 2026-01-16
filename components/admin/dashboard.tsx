@@ -45,7 +45,7 @@ const agentActivityData = [
 ];
 
 const userDistributionData = [
-  { name: 'Buyers', value: 5200, color: '#6F8375' },
+  { name: 'Buyers', value: 5200, color: '#968470' },
   { name: 'Agents', value: 3100, color: '#8FA89F' },
   { name: 'Creators', value: 4243, color: '#5A6B64' },
 ];
@@ -127,7 +127,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
 
   // Dynamic user distribution data
   const dynamicUserDistribution = stats ? [
-    { name: 'Buyers', value: stats.totalBuyers, color: '#6F8375' },
+    { name: 'Buyers', value: stats.totalBuyers, color: '#968470' },
     { name: 'Agents', value: stats.totalAgents, color: '#8FA89F' },
     { name: 'Creators', value: stats.totalCreators, color: '#5A6B64' },
   ] : userDistributionData;
@@ -169,7 +169,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     return (
       <div className="p-8 bg-[#F9F6F1] min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 text-[#6F8375] animate-spin" />
+          <Loader2 className="h-8 w-8 text-[#968470] animate-spin" />
           <p className="text-gray-600">Loading dashboard stats...</p>
         </div>
       </div>
@@ -252,7 +252,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                     <YAxis stroke="#9ca3af" />
                     <Tooltip contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', color: '#000000' }} />
                     <Legend />
-                    <Line type="monotone" dataKey="leads" stroke="#6F8375" strokeWidth={2} />
+                    <Line type="monotone" dataKey="leads" stroke="#968470" strokeWidth={2} />
                     <Line type="monotone" dataKey="tours" stroke="#8FA89F" strokeWidth={2} />
                     <Line type="monotone" dataKey="conversions" stroke="#5A6B64" strokeWidth={2} />
                   </LineChart>
@@ -311,7 +311,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                     onClick={() => setActiveTab('creators')}
                     className={`px-4 py-2 rounded-lg font-medium transition-all ${
                       activeTab === 'creators'
-                        ? 'bg-[#6F8375] text-white shadow-md'
+                        ? 'bg-[#968470] text-white shadow-md'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
@@ -321,7 +321,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                     onClick={() => setActiveTab('agents')}
                     className={`px-4 py-2 rounded-lg font-medium transition-all ${
                       activeTab === 'agents'
-                        ? 'bg-[#6F8375] text-white shadow-md'
+                        ? 'bg-[#968470] text-white shadow-md'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >

@@ -107,7 +107,7 @@ const IdentityCards: React.FC<IdentityCardsProps> = ({
               <Upload className="w-6 h-6 text-gray-400 mb-2" />
               <p className="text-sm text-gray-600">
                 Drop your file here, or{" "}
-                <span className="text-[#6F8375] font-medium underline">
+                <span className="text-[#968470] font-medium underline">
                   Browse
                 </span>
               </p>

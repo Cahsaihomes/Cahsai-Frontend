@@ -22,7 +22,7 @@ export default function NotificationsPage() {
               <Switch
                 checked={allNotifications}
                 onCheckedChange={setAllNotifications}
-                className="data-[state=checked]:bg-[#6F8375] scale-75"
+                className="data-[state=checked]:bg-[#968470] scale-75"
               />
             </div>
           </CardContent>
@@ -38,7 +38,7 @@ export default function NotificationsPage() {
               <Switch
                 checked={pushNotifications}
                 onCheckedChange={setPushNotifications}
-                className="data-[state=checked]:bg-[#6F8375] scale-75"
+                className="data-[state=checked]:bg-[#968470] scale-75"
               />
             </div>
           </CardContent>

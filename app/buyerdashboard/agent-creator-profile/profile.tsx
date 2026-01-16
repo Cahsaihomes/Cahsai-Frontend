@@ -118,7 +118,7 @@ function AgentCreatorPageInner() {
         </div>
         <div className="flex gap-6">
           <Button
-            className={`px-10 py-2 text-base rounded-lg ${isFollowing ? 'bg-white text-black border border-[#6F8375] hover:text-white' : 'bg-[#6F8375] text-white '} `}
+            className={`px-10 py-2 text-base rounded-lg ${isFollowing ? 'bg-white text-black border border-[#968470] hover:text-white' : 'bg-[#968470] text-white '} `}
             disabled={loadingFollow}
             onClick={handleFollowUnfollow}
           >

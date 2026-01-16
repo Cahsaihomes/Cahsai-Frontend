@@ -23,7 +23,7 @@ const NotificationPreferences = () => {
                 <Switch
                   checked={allNotifications}
                   onCheckedChange={setAllNotifications}
-                  className="data-[state=checked]:bg-[#6F8375] scale-75"
+                  className="data-[state=checked]:bg-[#968470] scale-75"
                 />
               </div>
             </CardContent>
@@ -41,7 +41,7 @@ const NotificationPreferences = () => {
                 <Switch
                   checked={pushNotifications}
                   onCheckedChange={setPushNotifications}
-                  className="data-[state=checked]:bg-[#6F8375] scale-75"
+                  className="data-[state=checked]:bg-[#968470] scale-75"
                 />
               </div>
             </CardContent>
@@ -59,7 +59,7 @@ const NotificationPreferences = () => {
                 <Switch
                   checked={emailNotifications}
                   onCheckedChange={setEmailNotifications}
-                  className="data-[state=checked]:bg-[#6F8375] scale-75"
+                  className="data-[state=checked]:bg-[#968470] scale-75"
                 />
               </div>
             </CardContent>

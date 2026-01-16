@@ -118,7 +118,7 @@ DetailedBookingCard({
                 {data?.post?.tags?.map((tag: string, index: number) => (
                   <Badge
                     key={index}
-                    className="bg-white hover:bg-[#5A7A5A] text-black px-3 py-1 rounded-md"
+                    className="bg-white hover:bg-[#968470]/10 text-black px-3 py-1 rounded-md hover:text-[#968470]"
                   >
                     {tag}
                   </Badge>

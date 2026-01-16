@@ -137,7 +137,7 @@ export default function ActiveLeadCard({
         {/* <div className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
           isExpired 
             ? "bg-gray-500 text-white" 
-            : "bg-[#6F8375] text-white"
+            : "bg-[#968470] text-white"
         }`}>
           {isExpired ? "Expired" : `${timer} left`}
         </div> */}
@@ -185,7 +185,7 @@ export default function ActiveLeadCard({
         </button>
         <button
           onClick={onCallBuyer}
-          className="flex-1 bg-[#6F8375] text-white text-sm py-2 px-2 rounded-md hover:bg-[#5a6b60] transition-colors font-medium"
+          className="flex-1 bg-[#968470] text-white text-sm py-2 px-2 rounded-md hover:bg-[#7a6d5e] transition-colors font-medium"
           type="button"
         >
           Message Buyer

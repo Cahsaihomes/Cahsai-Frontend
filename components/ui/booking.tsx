@@ -149,7 +149,7 @@ export default function BookingCard({
             </Button>
           )}
           <Button
-            className="flex-1 bg-[#6B8E6B] hover:bg-[#5A7A5A] text-white"
+            className="flex-1 bg-[#968470] hover:bg-[#7a6d5e] text-white"
             onClick={onDetailClick}
           >
             Detail

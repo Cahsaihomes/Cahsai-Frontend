@@ -235,7 +235,7 @@ const ChangePassword = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full h-12 bg-[#6F8375] hover:bg-[#6F8375] text-white font-medium rounded-md
+                className={`w-full h-12 bg-[#968470] hover:bg-[#968470] text-white font-medium rounded-md
                     ${isLoading ? "cursor-not-allowed opacity-70" : ""}
                 
                   `}

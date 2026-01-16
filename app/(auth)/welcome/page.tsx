@@ -48,7 +48,7 @@ export default function OnboardingSlider() {
             <div
               key={index}
               className={`rounded-full cursor-pointer transition-all duration-300 ${
-                index === currentSlide ? "bg-[#6F8375]" : "bg-gray-300"
+                index === currentSlide ? "bg-[#968470]" : "bg-gray-300"
               }`}
               style={{
                 width: index === currentSlide ? "28px" : "4px",
@@ -65,14 +65,14 @@ export default function OnboardingSlider() {
         </h1>
 
         {/* Description */}
-        <p className="text-[#6F8375] text-sm leading-relaxed mb-8 px-2">
+        <p className="text-black text-sm leading-relaxed mb-8 px-2">
           {slides[currentSlide].text}
         </p>
 
         {/* Get Started Button */}
         <button
           type="button"
-          className="w-full bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
+          className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
           onClick={() => {
             if (currentSlide === slides.length - 1) {
               router.push(`/signup?role=${role}`);

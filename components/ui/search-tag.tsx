@@ -48,7 +48,7 @@ export default function SearchInputWithTags({
         <Input
           type="text"
           placeholder="Search"
-          className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-12 focus:border-[#6F8375] focus:ring-[#6F8375]"
+          className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-12 focus:border-[#968470] focus:ring-[#968470]"
         />
         <Button
           variant="ghost"

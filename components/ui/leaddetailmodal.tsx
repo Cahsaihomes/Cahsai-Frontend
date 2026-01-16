@@ -107,7 +107,7 @@ export default function LeadDetailModal({ isOpen, onClose, lead }: LeadDetailMod
                   <span className="text-sm text-gray-500 w-24">Phone:</span>
                   <a
                     href={`tel:${lead.buyer.phone}`}
-                    className="text-sm font-medium text-[#6F8375] hover:underline flex items-center gap-1"
+                    className="text-sm font-medium text-[#968470] hover:underline flex items-center gap-1"
                   >
                     <Phone size={14} />
                     {lead.buyer.phone}
@@ -119,7 +119,7 @@ export default function LeadDetailModal({ isOpen, onClose, lead }: LeadDetailMod
                   <span className="text-sm text-gray-500 w-24">Email:</span>
                   <a
                     href={`mailto:${lead.buyer.email}`}
-                    className="text-sm font-medium text-[#6F8375] hover:underline flex items-center gap-1"
+                    className="text-sm font-medium text-[#968470] hover:underline flex items-center gap-1"
                   >
                     <Mail size={14} />
                     {lead.buyer.email}
@@ -195,7 +195,7 @@ export default function LeadDetailModal({ isOpen, onClose, lead }: LeadDetailMod
           {lead.buyer.phone && (
             <a
               href={`tel:${lead.buyer.phone}`}
-              className="flex-1 bg-[#6F8375] text-white py-2.5 rounded-lg hover:bg-[#5a6b60] transition-colors font-medium text-center flex items-center justify-center gap-2"
+              className="flex-1 bg-[#968470] text-white py-2.5 rounded-lg hover:bg-[#7a6d5e] transition-colors font-medium text-center flex items-center justify-center gap-2"
             >
               <Phone size={16} />
               Call Buyer

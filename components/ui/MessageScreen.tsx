@@ -305,9 +305,9 @@ export default function MessageScreen({ messages, currentUserId, receiverId, roo
               contacts.map((m) => (
                 <div
                   key={m.id}
-                  className={`flex items-start gap-3 px-3 py-3 cursor-pointer hover:bg-[#DFE2E0] ${
+                  className={`flex items-start gap-3 px-3 py-3 cursor-pointer hover:bg-[#f5f1f0] ${
                     activeMessage === m.id
-                      ? "bg-[#DFE2E0] border-l-2 border-[#6F8375]"
+                      ? "bg-[#f5f1f0] border-l-2 border-[#968470]"
                       : ""
                   }`}
                   onClick={() => {
@@ -478,7 +478,7 @@ export default function MessageScreen({ messages, currentUserId, receiverId, roo
                 </button>
               </div>
               <button
-                className="p-2 bg-[#6F8375] text-white rounded hover:bg-[#40bcd8]"
+                className="p-2 bg-[#968470] text-white rounded hover:bg-[#7a6d5e]"
                 onClick={handleSendMessage}
                 disabled={!messageInput.trim()}
               >

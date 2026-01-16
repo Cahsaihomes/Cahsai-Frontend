@@ -103,7 +103,7 @@ export default function SubscriptionModal({ onClose }: Props) {
                   placeholder="Olivia Rhye"
                   onChange={(e) => setCard({ ...card, name: e.target.value })}
                   className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-        focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+        focus:outline-none focus:ring-2 focus:ring-[#968470]"
                 />
               </div>
 
@@ -115,7 +115,7 @@ export default function SubscriptionModal({ onClose }: Props) {
                   value={card.expiry}
                   onChange={(e) => setCard({ ...card, expiry: e.target.value })}
                   className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-        focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+        focus:outline-none focus:ring-2 focus:ring-[#968470]"
                 />
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function SubscriptionModal({ onClose }: Props) {
                   />
                   <select
                     className="mt-1 w-full rounded-md border border-gray-300 pl-14 pr-3 py-2 text-sm 
-        focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+        focus:outline-none focus:ring-2 focus:ring-[#968470]"
                   >
                     <option value="">Card number</option>
                     <option value="visa">Visa</option>
@@ -151,7 +151,7 @@ export default function SubscriptionModal({ onClose }: Props) {
                   value={card.cvv}
                   onChange={(e) => setCard({ ...card, cvv: e.target.value })}
                   className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-        focus:outline-none focus:ring-2 focus:ring-[#6F8375]"
+        focus:outline-none focus:ring-2 focus:ring-[#968470]"
                 />
               </div>
             </div>
@@ -168,8 +168,8 @@ export default function SubscriptionModal({ onClose }: Props) {
               </button>
               <button
                 type="submit"
-                className="flex-1 px-6 py-2 rounded-md bg-[#6F8375] text-white text-sm 
-    font-medium hover:bg-[#6F8375]"
+                className="flex-1 px-6 py-2 rounded-md bg-[#968470] text-white text-sm 
+    font-medium hover:bg-[#7a6d5e]"
               >
                 Get Access
               </button>

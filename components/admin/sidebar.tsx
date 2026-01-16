@@ -152,7 +152,7 @@ export function Sidebar() {
           {!isCollapsed && <h1 className="text-lg font-bold text-gray-900">CAHSAI ADMIN</h1>}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="rounded-lg p-1.5 hover:bg-[#6F8375] text-black hover:text-white transition-colors"
+            className="rounded-lg p-1.5 hover:bg-[#968470] text-black hover:text-white transition-colors"
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
@@ -175,7 +175,7 @@ export function Sidebar() {
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-[#6F8375] text-white'
+                  ? 'bg-[#968470] text-white'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
               )}
             >

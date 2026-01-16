@@ -104,7 +104,7 @@ html, body {
 /* globals.css */
 range-slider {
   --range-slider-bg: #e5e7eb; /* track background (gray-200) */
-  --range-slider-connect-bg: #6f8375; /* selected range green */
+  --range-slider-connect-bg: #968470; /* selected range brand */
   --range-slider-thumb-bg: #fff; /* thumb color */
   --range-slider-thumb-border: 1px solid #9ca3af; /* gray-400 border */
   --range-slider-thumb-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
@@ -112,11 +112,11 @@ range-slider {
   --range-slider-thumb-size: 20px;
 }
 .range-slider .range-slider__range {
-  background-color: #6f8375 !important;
+  background-color: #968470 !important;
 }
 .range-slider .range-slider__thumb {
   background-color: white !important;
-  border: 1px solid #6f8375 !important;
+  border: 1px solid #968470 !important;
 }
 /* Hide scrollbars utility */
 .hide-scrollbar {
@@ -142,7 +142,7 @@ range-slider {
 
 .react-international-phone-input:focus-within {
   outline: none !important;
-  border-color: #6F8375 !important;
+  border-color: #968470 !important;
   box-shadow: 0 0 0 2px rgba(111, 131, 117, 0.2) !important;
 }
 

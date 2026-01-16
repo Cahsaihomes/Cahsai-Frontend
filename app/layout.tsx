@@ -10,7 +10,7 @@ export const metadata = {
   title: "Cahsai",
   description: "Cahsai",
   icons: {
-    icon: "/images/logo.png",
+    icon: "/favicon.ico",
   },
 };
 

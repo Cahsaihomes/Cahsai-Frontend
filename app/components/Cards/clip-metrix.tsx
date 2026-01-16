@@ -51,11 +51,11 @@ const VideoMetrixCard = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
             <h3 className="text-xl sm:text-2xl font-semibold">{stats?.engagementScore ?? 0}</h3>
             <div className="flex items-center text-[12px] gap-1 text-[#434342]">
-              <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="#6f8375" strokeWidth={0} />
+              <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="#968470" strokeWidth={0} />
               <span>{stats?.totalLikes ?? 0}</span>
               <Share2 className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" />
               <span>{stats?.totalShares ?? 0}</span>
-              <Bookmark className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="#6f8375" strokeWidth={0} />
+              <Bookmark className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="#968470" strokeWidth={0} />
               <span>{stats?.totalSaves ?? 0}</span>
             </div>
           </div>

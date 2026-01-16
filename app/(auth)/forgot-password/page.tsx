@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
               id="email"
               {...forgot("email")}
               placeholder="Enter your email"
-              className="w-full text-[#717680] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full text-[#717680] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
              
             />
             {errors.email && (
@@ -108,7 +108,7 @@ export default function ForgotPasswordPage() {
             </button>
             <button
               type="submit"
-              className={`flex-1 bg-[#6F8375] flex items-center justify-center hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+              className={`flex-1 bg-[#968470] flex items-center justify-center hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
                 loading ? "cursor-not-allowed opacity-70" : ""
               }`}
               disabled={loading}

@@ -168,8 +168,8 @@ export default function Component() {
               onClick={() => setActiveTab(tab)}
               className={`flex-1 sm:flex-none rounded-md px-4 sm:px-6 text-sm sm:text-base transition-colors ${
                 activeTab === tab
-                  ? "bg-[#6F8375] text-white hover:bg-[#6F8375]"
-                  : "text-gray-600 hover:text-white hover:bg-[#6F8375]"
+                  ? "bg-[#968470] text-white hover:bg-[#968470]"
+                  : "text-gray-600 hover:text-white hover:bg-[#968470]"
               }`}
             >
               {tab}
@@ -290,8 +290,8 @@ export default function Component() {
                     <Badge
                       className={
                         appointment.status === "Confirmed"
-                          ? "bg-green-100 text-[#6F8375]"
-                          : "bg-green-100 text-[#6F8375]"
+                          ? "bg-green-100 text-[#968470]"
+                          : "bg-green-100 text-[#968470]"
                       }
                     >
                       {appointment.status}
@@ -369,7 +369,7 @@ export default function Component() {
                         <Badge
                           className={
                             appointment.status === "Confirmed"
-                              ? "bg-green-100 text-[#6F8375]"
+                              ? "bg-green-100 text-[#968470]"
                               : "bg-gray-100 text-gray-700"
                           }
                         >
@@ -432,7 +432,7 @@ export default function Component() {
                     onClick={() => setSelectedDate(date)}
                     className={`p-2 sm:p-4 border rounded-lg text-center cursor-pointer ${
                       selectedDate === date
-                        ? "bg-[#6F8375] text-white border-[#6F8375]"
+                        ? "bg-[#968470] text-white border-[#968470]"
                         : hasAppointment
                         ? "bg-green-50 border-green-200"
                         : "bg-gray-50 border-gray-200"
@@ -497,7 +497,7 @@ export default function Component() {
                               }
                               className={
                                 appointment.status === "Confirmed"
-                                  ? "bg-green-100 text-[#6F8375]"
+                                  ? "bg-green-100 text-[#968470]"
                                   : "bg-gray-100 text-gray-700"
                               }
                             >

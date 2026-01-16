@@ -14,7 +14,7 @@ export function FilterChip({ label, isSelected, onClick }: FilterChipProps) {
       className={cn(
         "rounded-full px-4 py-2 text-sm transition-colors",
         isSelected
-          ? "bg-[#6F8375] text-white hover:bg-[#6F8375]/90"
+          ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
           : "bg-gray-100 text-gray-800 hover:bg-gray-200",
       )}
       onClick={onClick}

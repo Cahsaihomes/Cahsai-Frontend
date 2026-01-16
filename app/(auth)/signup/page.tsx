@@ -118,7 +118,7 @@ export default function SignUpPage() {
               {...register("firstName")}
               placeholder="Enter your First Name"
               // className="border w-full p-2 rounded text-[#717680]"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.firstName && (
               <span className="text-sm text-red-500">
@@ -137,7 +137,7 @@ export default function SignUpPage() {
               id="lastName"
               {...register("lastName")}
               placeholder="Enter your Last Name"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.lastName && (
               <span className="text-sm text-red-500">
@@ -156,7 +156,7 @@ export default function SignUpPage() {
               id="userName"
               {...register("userName")}
               placeholder="Enter your User Name"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.userName && (
               <span className="text-sm text-red-500">
@@ -176,7 +176,7 @@ export default function SignUpPage() {
               {...register("email")}
               type="email"
               placeholder="Enter your email"
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
             {errors.email && (
               <span className="text-sm text-red-500">
@@ -199,7 +199,7 @@ export default function SignUpPage() {
                 setValue("number", value);
               }}
               className="w-full"
-              inputClassName="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              inputClassName="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               placeholder="+1 (555) 000-0000"
             />
             {errors.number && (
@@ -222,7 +222,7 @@ export default function SignUpPage() {
                 {...register("password")}
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a password"
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               />
               <button
                 type="button"
@@ -261,7 +261,7 @@ export default function SignUpPage() {
                 {...register("confirmPassword")}
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm your password"
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
               />
               <button
                 type="button"
@@ -301,8 +301,8 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={loading}
-            // className="w-full cursor-pointer bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
-            className={`w-full flex items-center justify-center gap-2 bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+            // className="w-full cursor-pointer bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200"
+            className={`w-full flex items-center justify-center gap-2 bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
               loading ? "cursor-not-allowed opacity-70" : ""
             }`}
           >
@@ -320,7 +320,7 @@ export default function SignUpPage() {
               Already have an account?{" "}
               <span
                 onClick={() => router.push("/login")}
-                className="text-[#6F8375] hover:underline cursor-pointer"
+                className="text-[#968470] hover:underline cursor-pointer"
               >
                 Login
               </span>

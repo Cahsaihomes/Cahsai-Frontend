@@ -152,7 +152,7 @@ export default function RatingForm({
           <CardFooter className="px-4 pt-7 pb-4">
             <Button
               type="button"
-              className="w-full bg-[#6B8E6B] hover:bg-[#5A7A5A] text-white text-base cursor-pointer"
+              className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white text-base cursor-pointer"
               onClick={handleSubmit}
               disabled={rating === 0 || loading}
             >

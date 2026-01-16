@@ -180,7 +180,7 @@ export function RentalApplicationsAdmin() {
               }}
               className={`px-4 py-3 font-medium text-sm whitespace-nowrap transition-colors border-b-2 ${
                 activeTab === tab.id
-                  ? 'border-[#6F8375] text-[#6F8375]'
+                  ? 'border-[#968470] text-[#968470]'
                   : 'border-transparent text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -206,7 +206,7 @@ export function RentalApplicationsAdmin() {
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="flex flex-col items-center gap-3">
-              <Loader2 className="h-8 w-8 text-[#6F8375] animate-spin" />
+              <Loader2 className="h-8 w-8 text-[#968470] animate-spin" />
               <p className="text-gray-600">Loading applications...</p>
             </div>
           </div>
@@ -338,7 +338,7 @@ export function RentalApplicationsAdmin() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => setPreviewDoc({ url: selectedApplication.governmentId, name: 'Government ID' })}
-                        className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                       >
                         <Eye className="h-4 w-4" />
                         Preview
@@ -346,7 +346,7 @@ export function RentalApplicationsAdmin() {
                       <a
                         href={selectedApplication.governmentId}
                         download
-                        className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                       >
                         <Download className="h-4 w-4" />
                         Download
@@ -359,7 +359,7 @@ export function RentalApplicationsAdmin() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => setPreviewDoc({ url: selectedApplication.proofOfIncomeFile, name: 'Proof of Income' })}
-                        className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                       >
                         <Eye className="h-4 w-4" />
                         Preview
@@ -367,7 +367,7 @@ export function RentalApplicationsAdmin() {
                       <a
                         href={selectedApplication.proofOfIncomeFile}
                         download
-                        className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                       >
                         <Download className="h-4 w-4" />
                         Download
@@ -381,7 +381,7 @@ export function RentalApplicationsAdmin() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setPreviewDoc({ url: selectedApplication.studentLetter!, name: 'Student Letter' })}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Eye className="h-4 w-4" />
                           Preview
@@ -389,7 +389,7 @@ export function RentalApplicationsAdmin() {
                         <a
                           href={selectedApplication.studentLetter}
                           download
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Download className="h-4 w-4" />
                           Download
@@ -404,7 +404,7 @@ export function RentalApplicationsAdmin() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setPreviewDoc({ url: selectedApplication.guarantorDocs!, name: 'Guarantor Docs' })}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Eye className="h-4 w-4" />
                           Preview
@@ -412,7 +412,7 @@ export function RentalApplicationsAdmin() {
                         <a
                           href={selectedApplication.guarantorDocs}
                           download
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Download className="h-4 w-4" />
                           Download
@@ -427,7 +427,7 @@ export function RentalApplicationsAdmin() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setPreviewDoc({ url: selectedApplication.petVaccinationRecords!, name: 'Pet Vaccination Records' })}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Eye className="h-4 w-4" />
                           Preview
@@ -435,7 +435,7 @@ export function RentalApplicationsAdmin() {
                         <a
                           href={selectedApplication.petVaccinationRecords}
                           download
-                          className="inline-flex items-center gap-2 px-3 py-2 text-[#6F8375] hover:bg-[#6F8375] hover:text-white rounded-md transition-colors text-sm font-medium"
+                          className="inline-flex items-center gap-2 px-3 py-2 text-[#968470] hover:bg-[#968470] hover:text-white rounded-md transition-colors text-sm font-medium"
                         >
                           <Download className="h-4 w-4" />
                           Download
@@ -454,7 +454,7 @@ export function RentalApplicationsAdmin() {
                     <Button
                       onClick={() => handleStatusUpdate(selectedApplication.id, 'approved')}
                       disabled={statusUpdateLoading}
-                      className="flex-1 bg-[#6F8375] hover:bg-[#5a6b63] text-white"
+                      className="flex-1 bg-[#968470] hover:bg-[#5a6b63] text-white"
                     >
                       {statusUpdateLoading ? (
                         <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -593,7 +593,7 @@ export function RentalApplicationsAdmin() {
                     <a
                       href={previewDoc.url}
                       download
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#6F8375] text-white rounded-lg hover:bg-[#5a6b63] transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#968470] text-white rounded-lg hover:bg-[#5a6b63] transition-colors"
                     >
                       <Download className="h-4 w-4" />
                       Download File

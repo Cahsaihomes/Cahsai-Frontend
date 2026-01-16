@@ -205,7 +205,7 @@ const EditProfile = () => {
               type="button"
               size="icon"
               onClick={handleEditClick}
-              className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-[#6F8375] hover:bg-[#5a6b61]"
+              className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-[#968470] hover:bg-[#7a6d5e]"
             >
               <Edit className="h-4 w-4 text-white" />
             </Button>
@@ -352,7 +352,7 @@ const EditProfile = () => {
           <Button
             type="submit"
             disabled={!hasChanges}
-            className="w-full bg-[#6F8375] hover:bg-[#6F8375] text-white py-2 px-4 rounded-md font-medium transition-colors mt-3"
+            className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white py-2 px-4 rounded-md font-medium transition-colors mt-3"
           >
             Save Profile
           </Button>

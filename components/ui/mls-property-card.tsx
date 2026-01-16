@@ -140,7 +140,7 @@ const MlsPropertyCard: React.FC<Props> = ({
       <CardContent className="p-4 space-y-2 flex-grow">
         {/* Property Type Badge */}
         <div className="flex gap-2 flex-wrap">
-          <Badge className="bg-[#6B8E6E] text-white text-xs px-2 py-0.5 rounded">
+          <Badge className="bg-[#968470] text-white text-xs px-2 py-0.5 rounded">
             {propertyType}
           </Badge>
           {raw.propertySubType && (
@@ -165,7 +165,7 @@ const MlsPropertyCard: React.FC<Props> = ({
             {agentImage ? (
               <AvatarImage src={agentImage} alt={agentName} />
             ) : null}
-            <AvatarFallback className="bg-[#6B8E6E] text-white text-xs font-semibold">
+            <AvatarFallback className="bg-[#968470] text-white text-xs font-semibold">
               {getAgentInitials()}
             </AvatarFallback>
           </Avatar>
@@ -194,7 +194,7 @@ const MlsPropertyCard: React.FC<Props> = ({
       <CardFooter className="px-4 pb-4 flex gap-2 flex-shrink-0 mt-auto">
         <Button
           onClick={onBookTour}
-          className="w-full bg-[#6B8E6E] hover:bg-[#5e7d5f] text-white text-sm font-medium py-2 rounded-md"
+          className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white text-sm font-medium py-2 rounded-md"
         >
           Book a tour
         </Button>

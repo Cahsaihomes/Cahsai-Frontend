@@ -95,7 +95,7 @@ const ChartTooltipContent = ({
 }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#6F8375] text-white text-xs rounded px-2 py-1 shadow">
+      <div className="bg-[#968470] text-white text-xs rounded px-2 py-1 shadow">
         {payload[0].value}
       </div>
     );
@@ -109,7 +109,7 @@ const salesData = [
   { name: "Social Media", value: 5, ring: "outer", color: "#E9E9E9" },
 
   // Middle ring
-  { name: "Social Media", value: 90, ring: "middle", color: "#6F8375" },
+  { name: "Social Media", value: 90, ring: "middle", color: "#968470" },
   { name: "Social Media", value: 10, ring: "middle", color: "#E9E9E9" },
 
   // Inner ring
@@ -178,7 +178,7 @@ const salesChartConfig = {
   },
 };
 
-const circleColors = ["#E4C79D", "#6C9898", "#B9B9B3", "#6F8375"];
+const circleColors = ["#E4C79D", "#6C9898", "#B9B9B3", "#968470"];
 
 export default function Dashboard() {
   const [view, setView] = useState<"week" | "month">("week");
@@ -286,7 +286,7 @@ export default function Dashboard() {
             </div>
             <Button
               onClick={handleClick}
-              className="bg-[#6F8375] hover:bg-[#6F8375] text-white"
+              className="bg-[#968470] hover:bg-[#968470] text-white"
             >
               <Upload className="h-4 w-4 mr-2" />
               Upload Post
@@ -351,7 +351,7 @@ export default function Dashboard() {
                   onClick={() => setView("week")}
                   className={`px-4 py-1 rounded-md text-sm font-medium focus:outline-none transition-all ${
                     view === "week"
-                      ? "bg-[#6F8375] text-white shadow"
+                      ? "bg-[#968470] text-white shadow"
                       : "bg-transparent text-gray-700"
                   }`}
                   style={{ minWidth: 60 }}
@@ -362,7 +362,7 @@ export default function Dashboard() {
                   onClick={() => setView("month")}
                   className={`px-4 py-1 rounded-md text-sm font-medium focus:outline-none transition-all ${
                     view === "month"
-                      ? "bg-[#6F8375] text-white shadow"
+                      ? "bg-[#968470] text-white shadow"
                       : "bg-transparent text-gray-700"
                   }`}
                   style={{ minWidth: 60 }}
@@ -378,7 +378,7 @@ export default function Dashboard() {
                           type="button"
                         >
                           {selectedYear}
-                          <ChevronDown className="w-5 h-5 text-[#6F8375]" />
+                          <ChevronDown className="w-5 h-5 text-[#968470]" />
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="min-w-[6rem]">
@@ -388,12 +388,12 @@ export default function Dashboard() {
                             onSelect={() => setSelectedYear(year)}
                             className={`px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:bg-blue-50 ${
                               selectedYear === year
-                                ? "bg-gray-100 text-[#6F8375]"
+                                ? "bg-gray-100 text-[#968470]"
                                 : ""
                             }`}
                           >
                             {selectedYear === year && (
-                              <Check className="w-4 h-4 mr-2 text-[#6F8375] inline" />
+                              <Check className="w-4 h-4 mr-2 text-[#968470] inline" />
                             )}
                             {year}
                           </DropdownMenuItem>
@@ -426,10 +426,10 @@ export default function Dashboard() {
                     >
                       <stop
                         offset="0%"
-                        stopColor="#6F8375"
+                        stopColor="#968470"
                         stopOpacity={0.18}
                       />
-                      <stop offset="100%" stopColor="#6F8375" stopOpacity={0} />
+                      <stop offset="100%" stopColor="#968470" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="label" axisLine={false} tickLine={false} />
@@ -437,23 +437,23 @@ export default function Dashboard() {
                   <Area
                     type="monotone"
                     dataKey="value"
-                    stroke="#6F8375"
+                    stroke="#968470"
                     strokeWidth={3}
                     fill="url(#areaGradient)"
                     dot={false}
-                    activeDot={{ r: 6, fill: "#6F8375" }}
+                    activeDot={{ r: 6, fill: "#968470" }}
                   />
                   {hoveredIndex !== null && (
                     <ReferenceLine
                       x={(analyticsData ?? staticData)[hoveredIndex]?.label}
                       strokeDasharray="3 3"
-                      stroke="#6F8375"
+                      stroke="#968470"
                     />
                   )}
                   <RechartsTooltip
                     content={({ active, payload }) =>
                       active && payload?.length ? (
-                        <div className="bg-[#6F8375] text-white px-2 py-1 text-xs rounded shadow">
+                        <div className="bg-[#968470] text-white px-2 py-1 text-xs rounded shadow">
                           {payload[0].value}
                         </div>
                       ) : null

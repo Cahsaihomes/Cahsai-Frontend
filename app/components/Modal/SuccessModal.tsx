@@ -69,7 +69,7 @@ export default function SuccessModal({ onClose }: { onClose: () => void }) {
         {/* Done Button */}
         <button
           onClick={onClose}
-          className="w-full mt-6 bg-[#6F8375] text-white py-2 rounded-md hover:bg-[#6F8375] transition"
+          className="w-full mt-6 bg-[#968470] text-white py-2 rounded-md hover:bg-[#7a6d5e] transition"
         >
           Done
         </button>

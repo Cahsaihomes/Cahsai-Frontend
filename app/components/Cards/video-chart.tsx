@@ -52,7 +52,7 @@ interface CustomTooltipProps {
 const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#6F8375] text-white px-3 py-2 rounded-lg shadow-lg border-0">
+      <div className="bg-[#968470] text-white px-3 py-2 rounded-lg shadow-lg border-0">
         <p className="font-semibold">{payload[0].value}</p>
       </div>
     );
@@ -108,7 +108,7 @@ export default function VideoChart() {
               onClick={() => setActiveFilter(filter)}
               className={`px-3 rounded-[7px] text-sm w-[77px] font-medium transition-colors h-[32px] ${
                 activeFilter === filter
-                  ? "bg-[#6F8375] text-white"
+                  ? "bg-[#968470] text-white"
                   : "text-[#717680] hover:text-gray-800"
               }`}
             >
@@ -118,7 +118,7 @@ export default function VideoChart() {
           <select
             value={year}
             onChange={e => setYear(e.target.value)}
-            className="w-[88px] h-[32px] px-[14px] text-center align-middle font-inter text-[12px] font-normal leading-[20px] text-[#252B37] bg-white border border-[#E9EAEB] rounded-md hover:text-[#6F8375] focus:text-[#6F8375] cursor-pointer"
+            className="w-[88px] h-[32px] px-[14px] text-center align-middle font-inter text-[12px] font-normal leading-[20px] text-[#252B37] bg-white border border-[#E9EAEB] rounded-md hover:text-[#968470] focus:text-[#968470] cursor-pointer"
           >
             <option value="2023">2023</option>
             <option value="2024">2024</option>
@@ -136,8 +136,8 @@ export default function VideoChart() {
             >
               <defs>
                 <linearGradient id="colorSeekers" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6F8375" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#6F8375" stopOpacity={0.1} />
+                  <stop offset="5%" stopColor="#968470" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#968470" stopOpacity={0.1} />
                 </linearGradient>
               </defs>
 
@@ -155,7 +155,7 @@ export default function VideoChart() {
               <Area
                 type="monotone"
                 dataKey="count"
-                stroke="#6F8375"
+                stroke="#968470"
                 strokeWidth={3}
                 fillOpacity={1}
                 fill="url(#colorSeekers)"

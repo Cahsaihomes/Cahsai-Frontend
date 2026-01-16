@@ -135,7 +135,7 @@ export default function DashboardPage() {
 
             {/* Add Account Button */}
             <div className="flex justify-center border border-gray-300 rounded-md p-3">
-              <Button className="inline-flex items-center justify-center bg-[#6F8375] hover:bg-[#5a6b61] text-white">
+              <Button className="inline-flex items-center justify-center bg-[#968470] hover:bg-[#7a6d5e] text-white">
                 Add Account
               </Button>
             </div>

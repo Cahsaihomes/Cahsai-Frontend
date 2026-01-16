@@ -144,7 +144,7 @@ const PaymentSetupForm = () => {
 
           <select
             {...register("brokerageName")}
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           >
             <option value="">Select your Brokerage</option>
             <option value="Compass">Compass</option>
@@ -164,7 +164,7 @@ const PaymentSetupForm = () => {
               {...register("customBrokerage", {
                 required: "Please enter your brokerage name",
               })}
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
             />
           )}
 
@@ -188,7 +188,7 @@ const PaymentSetupForm = () => {
           <input
             {...register("licenseNumber")}
             placeholder="Enter your MLS license number"
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           />
           {errors.licenseNumber && (
             <span className="text-sm text-red-500">
@@ -204,7 +204,7 @@ const PaymentSetupForm = () => {
           </label>
           <select
             {...register("mlsAssociation")}
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           >
             <option value="">Select MLS Association</option>
             <option value="CRMLS">CRMLS (California)</option>
@@ -230,7 +230,7 @@ const PaymentSetupForm = () => {
           <label className="font-medium text-[16px] leading-6 text-[#414651]">
             Card Number
           </label>
-          <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-[#6F8375] text-sm focus-within:border-[#6F8375] transition-all">
+          <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-[#968470] text-sm focus-within:border-[#968470] transition-all">
             <CardNumberElement
               options={{
                 style: {
@@ -262,7 +262,7 @@ const PaymentSetupForm = () => {
               Expiry Date
             </label>
 
-            <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-[#6F8375] text-sm focus-within:border-[#6F8375] transition-all">
+            <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-[#968470] text-sm focus-within:border-[#968470] transition-all">
               <CardExpiryElement
                 options={{
                   style: {
@@ -289,7 +289,7 @@ const PaymentSetupForm = () => {
               CVV
             </label>
 
-            <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-[#6F8375] text-sm focus-within:border-[#6F8375] transition-all">
+            <div className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-[#968470] text-sm focus-within:border-[#968470] transition-all">
               <CardCvcElement
                 options={{
                   style: {
@@ -319,7 +319,7 @@ const PaymentSetupForm = () => {
           <input
             {...register("cardHolderName")}
             placeholder="e.g., 501 Market Street, San Francisco"
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           />
           {errors.cardHolderName && (
             <span className="text-sm text-red-500">
@@ -335,7 +335,7 @@ const PaymentSetupForm = () => {
           <input
             {...register("billing")}
             placeholder="e.g., 501 Market Street, San Francisco"
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent text-sm"
+            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           />
           {errors.billing && (
             <span className="text-sm text-red-500">
@@ -348,7 +348,7 @@ const PaymentSetupForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full flex items-center justify-center gap-2 bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+          className={`w-full flex items-center justify-center gap-2 bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
             loading ? "cursor-not-allowed opacity-70" : ""
           }`}
         >
@@ -367,7 +367,7 @@ const PaymentSetupForm = () => {
             Already have an account?{" "}
             <span
               onClick={() => router.push("/login")}
-              className="text-[#6F8375] hover:underline cursor-pointer"
+              className="text-[#968470] hover:underline cursor-pointer"
             >
               Login
             </span>

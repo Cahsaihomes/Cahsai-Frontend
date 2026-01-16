@@ -46,7 +46,7 @@ export default function CreatorClipsPage() {
                 </button>
                 <button
                   onClick={() => setShowUploadPost(true)}
-                  className="bg-[#6f8375] text-white px-4 py-2 rounded-md shadow-sm whitespace-nowrap w-full sm:w-auto flex  gap-x-1 items-center"
+                  className="bg-[#968470] text-white px-4 py-2 rounded-md shadow-sm whitespace-nowrap w-full sm:w-auto flex  gap-x-1 items-center"
                 >
                   <span>
                     <Plus className="h-4 w-4 mr-2" />{" "}

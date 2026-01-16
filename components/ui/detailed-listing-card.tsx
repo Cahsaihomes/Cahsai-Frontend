@@ -185,7 +185,7 @@ export default function DetailedListingCard({
         {/* Badges */}
         {topBadgeText && (
           <div className="absolute top-2 left-6">
-            <Badge className="bg-[#D4EDDA] text-[#28A745] text-xs rounded-full px-2 py-0.5">
+            <Badge className="bg-[#968470] text-white text-xs rounded-full px-2 py-0.5">
               {topBadgeText}
             </Badge>
           </div>
@@ -240,7 +240,7 @@ export default function DetailedListingCard({
             ? displayAmenities.map((amenity, index) => (
                 <Badge
                   key={index}
-                  className="bg-[#6B8E6E] text-white text-xs px-2 py-0.5 rounded"
+                  className="bg-[#968470] text-white text-xs px-2 py-0.5 rounded"
                 >
                   {amenity}
                 </Badge>
@@ -248,7 +248,7 @@ export default function DetailedListingCard({
             : tags.map((tag, index) => (
                 <Badge
                   key={index}
-                  className="bg-gray-100 text-gray-700 text-xs hover:bg-[#6B8E6E] hover:text-white cursor-pointer px-2 py-0.5 rounded"
+                  className="bg-gray-100 text-gray-700 text-xs hover:bg-[#968470] hover:text-white cursor-pointer px-2 py-0.5 rounded"
                 >
                   {tag}
                 </Badge>
@@ -306,7 +306,7 @@ export default function DetailedListingCard({
               className={`flex-1 ${
                 buttonColor
                   ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
-                  : "bg-[#5a6b60] hover:bg-[#4a5b50]"
+                  : "bg-[#968470] hover:bg-[#7a6d5e]"
               } text-white text-sm font-medium py-2 rounded-md`}
             >
               Apply Now
@@ -316,7 +316,7 @@ export default function DetailedListingCard({
               className={`flex-1 ${
                 buttonColor
                   ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
-                  : "bg-[#6B8E6E] hover:bg-[#5e7d5f]"
+                  : "bg-[#968470] hover:bg-[#7a6d5e]"
               } text-white text-sm font-medium py-2 rounded-md`}
             >
               Schedule Tour
@@ -330,7 +330,7 @@ export default function DetailedListingCard({
             className={`w-full ${
               buttonColor
                 ? `bg-[${buttonColor}] hover:bg-[${buttonColor}]/80`
-                : "bg-[#6B8E6E] hover:bg-[#5e7d5f]"
+                : "bg-[#968470] hover:bg-[#7a6d5e]"
             } text-white text-sm font-medium py-2 rounded-md`}
           >
             Book a tour

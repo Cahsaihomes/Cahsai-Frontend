@@ -103,7 +103,7 @@ const ChatReply: React.FC<ChatReplyProps> = ({ onClose }) => {
             placeholder="Write Reply"
             className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-200 resize-none"
           />
-          <button className="w-full bg-[#6F8375] text-white py-2.5 rounded font-medium hover:bg-[#5c6d62] transition-colors">
+          <button className="w-full bg-[#968470] text-white py-2.5 rounded font-medium hover:bg-[#7a6d5e] transition-colors">
             Send
           </button>
           <div className="text-center text-xs text-gray-400 mt-1">

@@ -154,7 +154,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
           className={`px-6 text-white ${
             loading || !isFormValid
               ? "bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-not-allowed"
-              : "bg-[#6F8375] hover:bg-[#5a6a61] active:bg-[#4a5a51]"
+              : "bg-[#968470] hover:bg-[#5a6a61] active:bg-[#4a5a51]"
           }`}
           onClick={handleCreatePost}
           disabled={loading || !isFormValid}
@@ -169,7 +169,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-700">{uploadStatus}</span>
-              <span className="text-sm font-medium text-[#6F8375]">{uploadProgress}%</span>
+              <span className="text-sm font-medium text-[#968470]">{uploadProgress}%</span>
             </div>
             <Progress value={uploadProgress} className="h-2" />
           </div>
@@ -312,7 +312,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
                 <p className="text-lg font-medium text-gray-900 mb-2">
                   Drop your file here, or{" "}
                   <span
-                    className="text-[#6F8375] underline cursor-pointer"
+                    className="text-[#968470] underline cursor-pointer"
                     onClick={handleBrowseClick}
                   >
                     Browse

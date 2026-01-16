@@ -208,7 +208,7 @@ export function ClipsManagement() {
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 text-[#6F8375] animate-spin" />
+            <Loader2 className="h-8 w-8 text-[#968470] animate-spin" />
             <p className="text-gray-600">Loading clips...</p>
           </div>
         </div>
@@ -292,7 +292,7 @@ export function ClipsManagement() {
                     }}
                     disabled={currentImageIndex === 0}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50"
                   >
                     <ChevronLeft size={18} />
                     Previous
@@ -309,7 +309,7 @@ export function ClipsManagement() {
                     }}
                     disabled={currentImageIndex >= ((selectedClip.imagesUrl.length || 0) + (selectedClip.videoUrl ? 1 : 0) - 1)}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50"
                   >
                     Next
                     <ChevronRight size={18} />
@@ -323,7 +323,7 @@ export function ClipsManagement() {
                       key={idx}
                       onClick={() => setCurrentImageIndex(idx)}
                       className={`flex-shrink-0 w-20 h-20 rounded border-2 overflow-hidden ${
-                        currentImageIndex === idx ? 'border-[#6F8375]' : 'border-gray-300'
+                        currentImageIndex === idx ? 'border-[#968470]' : 'border-gray-300'
                       }`}
                     >
                       <img
@@ -337,7 +337,7 @@ export function ClipsManagement() {
                     <button
                       onClick={() => setCurrentImageIndex(selectedClip.imagesUrl.length)}
                       className={`flex-shrink-0 w-20 h-20 rounded border-2 overflow-hidden flex items-center justify-center ${
-                        currentImageIndex === selectedClip.imagesUrl.length ? 'border-[#6F8375]' : 'border-gray-300'
+                        currentImageIndex === selectedClip.imagesUrl.length ? 'border-[#968470]' : 'border-gray-300'
                       } bg-black`}
                     >
                       <span className="text-white text-xs">Video</span>
@@ -444,8 +444,8 @@ export function ClipsManagement() {
                 variant={activeTab === status ? 'default' : 'outline'}
                 className={
                   activeTab === status
-                    ? 'bg-[#6F8375] text-white border-[#6F8375]'
-                    : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white hover:border-[#6F8375]'
+                    ? 'bg-[#968470] text-white border-[#968470]'
+                    : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white hover:border-[#968470]'
                 }
               >
                 {status === 'pending-review' ? 'Pending Review' : status === 'flagged' ? 'Flagged' : status.charAt(0).toUpperCase() + status.slice(1)}
@@ -525,7 +525,7 @@ export function ClipsManagement() {
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
                   >
                     ← Previous
                   </Button>
@@ -538,8 +538,8 @@ export function ClipsManagement() {
                         variant={currentPage === page ? 'default' : 'outline'}
                         className={
                           currentPage === page
-                            ? 'bg-[#6F8375] text-white border-[#6F8375] min-w-10 h-10 rounded-full'
-                            : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white min-w-10 h-10 rounded-full'
+                            ? 'bg-[#968470] text-white border-[#968470] min-w-10 h-10 rounded-full'
+                            : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white min-w-10 h-10 rounded-full'
                         }
                       >
                         {page}
@@ -551,7 +551,7 @@ export function ClipsManagement() {
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
                   >
                     Next →
                   </Button>

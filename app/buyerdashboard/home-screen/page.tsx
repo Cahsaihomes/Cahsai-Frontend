@@ -327,7 +327,7 @@ export default function Home() {
                   className={cn(
                     "px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-l-lg transition-colors whitespace-nowrap",
                     activeButton === "watch"
-                      ? "bg-[#6F8375] text-white"
+                      ? "bg-[#968470] text-white"
                       : "text-gray-700 hover:bg-gray-100",
                   )}
                 >
@@ -339,7 +339,7 @@ export default function Home() {
                   className={cn(
                     "px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap",
                     activeButton === "search"
-                      ? "bg-[#6F8375] text-white"
+                      ? "bg-[#968470] text-white"
                       : "text-gray-700 hover:bg-gray-100",
                   )}
                 >
@@ -401,7 +401,7 @@ export default function Home() {
                         className={cn(
                           "px-4 sm:px-6 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all",
                           propertyType === "sale"
-                            ? "bg-[#6F8375] text-white shadow"
+                            ? "bg-[#968470] text-white shadow"
                             : "text-gray-800 hover:bg-white/70",
                         )}
                       >
@@ -416,7 +416,7 @@ export default function Home() {
                         className={cn(
                           "px-4 sm:px-6 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all",
                           propertyType === "rent"
-                            ? "bg-[#6F8375] text-white shadow"
+                            ? "bg-[#968470] text-white shadow"
                             : "text-gray-800 hover:bg-white/70",
                         )}
                       >
@@ -431,7 +431,7 @@ export default function Home() {
                         className={cn(
                           "px-4 sm:px-6 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all",
                           propertyType === "stays"
-                            ? "bg-[#6F8375] text-white shadow"
+                            ? "bg-[#968470] text-white shadow"
                             : "text-gray-800 hover:bg-white/70",
                         )}
                       >
@@ -558,7 +558,7 @@ export default function Home() {
                           ? "default"
                           : "outline"
                       }
-                      className="cursor-pointer mt-2 lg:mt-0 bg-white border-gray-300 text-gray-800 hover:bg-[#6F8375] hover:text-white"
+                      className="cursor-pointer mt-2 lg:mt-0 bg-white border-gray-300 text-gray-800 hover:bg-[#968470] hover:text-white"
                       onClick={() => {
                         setActiveBadgeFilters((prev) =>
                           prev.includes(badge)
@@ -705,7 +705,7 @@ export default function Home() {
         <div className="text-center mt-8 mb-6">
           <Button
             variant="outline"
-            className="bg-white border-2 border-[#6F8375] text-[#6F8375] hover:bg-[#6F8375] hover:text-white px-8 py-2 rounded-lg font-medium transition-colors"
+            className="bg-white border-2 border-[#968470] text-[#968470] hover:bg-[#968470] hover:text-white px-8 py-2 rounded-lg font-medium transition-colors"
           >
             Add to Dreamboard
           </Button>

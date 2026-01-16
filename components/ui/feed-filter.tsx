@@ -81,7 +81,7 @@ export default function FeedFilter({
         <DialogFooter className="border-gray-200">
           <Button
             type="submit"
-            className="w-full bg-[#6F8375] hover:bg-[#6F8375]/90 text-white py-2 rounded-md"
+            className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white py-2 rounded-md"
             onClick={handleApply}
           >
             Apply

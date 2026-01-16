@@ -84,7 +84,7 @@ export default function FallbackLeadCard({
         <button
           type="button"
           onClick={handleClaimClick}
-          className={`flex-1 bg-[#6F8375] text-white rounded-lg py-2 text-sm hover:bg-[#5a6b60] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
+          className={`flex-1 bg-[#968470] text-white rounded-lg py-2 text-sm hover:bg-[#7a6d5e] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
             claimLoading ? "opacity-60" : ""
           }`}
           disabled={!!(claimLoading || isExpired)}

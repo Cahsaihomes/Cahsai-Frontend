@@ -502,7 +502,7 @@ export default function AgentUploadPage() {
           className={`px-6 text-white ${
             loading || !isFormValid
               ? "bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-not-allowed"
-              : "bg-[#6F8375] hover:bg-[#5a6a61] active:bg-[#4a5a51]"
+              : "bg-[#968470] hover:bg-[#5a6a61] active:bg-[#4a5a51]"
           }`}
           onClick={handleCreatePost}
           disabled={loading || !isFormValid}
@@ -517,7 +517,7 @@ export default function AgentUploadPage() {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-700">{uploadStatus}</span>
-              <span className="text-sm font-medium text-[#6F8375]">{uploadProgress}%</span>
+              <span className="text-sm font-medium text-[#968470]">{uploadProgress}%</span>
             </div>
             <Progress value={uploadProgress} className="h-2" />
           </div>
@@ -584,7 +584,7 @@ export default function AgentUploadPage() {
                                     src={URL.createObjectURL(file)}
                                     alt={file.name}
                                     className={`object-cover rounded border cursor-pointer ${
-                                      currentMedia === idx ? "ring-2 ring-[#6F8375]" : ""
+                                      currentMedia === idx ? "ring-2 ring-[#968470]" : ""
                                     }`}
                                     style={{ width: 48, height: 48 }}
                                     onClick={() => setCurrentMedia(idx)}
@@ -593,7 +593,7 @@ export default function AgentUploadPage() {
                                   <video
                                     src={URL.createObjectURL(file)}
                                     className={`object-cover rounded border cursor-pointer ${
-                                      currentMedia === idx ? "ring-2 ring-[#6F8375]" : ""
+                                      currentMedia === idx ? "ring-2 ring-[#968470]" : ""
                                     }`}
                                     style={{ width: 48, height: 48 }}
                                     onClick={() => setCurrentMedia(idx)}
@@ -640,7 +640,7 @@ export default function AgentUploadPage() {
                 <p className="text-lg font-medium text-gray-900 mb-2">
                   Drop your file here, or{" "}
                   <span
-                    className="text-[#6F8375] underline cursor-pointer"
+                    className="text-[#968470] underline cursor-pointer"
                     onClick={handleBrowseClick}
                   >
                     Browse
@@ -666,7 +666,7 @@ export default function AgentUploadPage() {
                 onClick={() => setPostType("CREATE_LISTING")}
                 className={`flex-1 ${
                   postType === "CREATE_LISTING"
-                    ? "bg-[#6F8375] text-white hover:bg-[#5a6b60]"
+                    ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
                     : "bg-white border-gray-300 text-gray-700"
                 }`}
               >
@@ -678,7 +678,7 @@ export default function AgentUploadPage() {
                 onClick={() => setPostType("LISTING_VIDEO")}
                 className={`flex-1 ${
                   postType === "LISTING_VIDEO"
-                    ? "bg-[#6F8375] text-white hover:bg-[#5a6b60]"
+                    ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
                     : "bg-white border-gray-300 text-gray-700"
                 }`}
               >
@@ -751,7 +751,7 @@ export default function AgentUploadPage() {
                 onClick={() => setListingType("FOR_SALE")}
                 className={`flex-1 ${
                   listingType === "FOR_SALE"
-                    ? "bg-[#6F8375] text-white hover:bg-[#5a6b60]"
+                    ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
                     : "bg-white border-gray-300 text-gray-700"
                 }`}
               >
@@ -765,7 +765,7 @@ export default function AgentUploadPage() {
                 title={!isRentalCompany ? "Upgrade to Rental Company to access this option" : ""}
                 className={`flex-1 ${
                   listingType === "FOR_RENT"
-                    ? "bg-[#6F8375] text-white hover:bg-[#5a6b60]"
+                    ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
                     : "bg-white border-gray-300 text-gray-700"
                 } ${!isRentalCompany ? "opacity-50 cursor-not-allowed" : ""}`}
               >
@@ -779,7 +779,7 @@ export default function AgentUploadPage() {
                 title={!isRentalCompany ? "Upgrade to Rental Company to access this option" : ""}
                 className={`flex-1 ${
                   listingType === "STAY"
-                    ? "bg-[#6F8375] text-white hover:bg-[#5a6b60]"
+                    ? "bg-[#968470] text-white hover:bg-[#7a6d5e]"
                     : "bg-white border-gray-300 text-gray-700"
                 } ${!isRentalCompany ? "opacity-50 cursor-not-allowed" : ""}`}
               >
@@ -844,7 +844,7 @@ export default function AgentUploadPage() {
                   id="furnished"
                   checked={furnished}
                   onChange={(e) => setFurnished(e.target.checked)}
-                  className="w-4 h-4 text-[#6F8375] border-gray-300 rounded focus:ring-[#6F8375]"
+                  className="w-4 h-4 text-[#968470] border-gray-300 rounded focus:ring-[#968470]"
                 />
                 <Label htmlFor="furnished" className="text-sm font-medium text-gray-700">
                   Furnished
@@ -986,7 +986,7 @@ export default function AgentUploadPage() {
                   onClick={() => toggleHomeStyle(style)}
                   className={`px-3 py-1 rounded-full border text-xs transition-colors ${
                     homeStyle.includes(style)
-                      ? "bg-[#6F8375] text-white border-[#6F8375]"
+                      ? "bg-[#968470] text-white border-[#968470]"
                       : "bg-white border-gray-300 text-gray-700 hover:bg-gray-100"
                   }`}
                 >
@@ -1081,7 +1081,7 @@ export default function AgentUploadPage() {
                   onClick={() => toggleTag(tag)}
                   className={`text-xs px-3 py-1 rounded-full border ${
                     selectedTags.includes(tag)
-                      ? "bg-[#6F8375] text-white border-[#6F8375]"
+                      ? "bg-[#968470] text-white border-[#968470]"
                       : "bg-white border-gray-300 text-gray-600 hover:bg-gray-100"
                   }`}
                 >

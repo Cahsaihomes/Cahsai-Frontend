@@ -149,7 +149,7 @@ export function BuyerManagement() {
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="flex flex-col items-center gap-3">
-              <Loader2 className="h-8 w-8 text-[#6F8375] animate-spin" />
+              <Loader2 className="h-8 w-8 text-[#968470] animate-spin" />
               <p className="text-gray-600">Loading buyers...</p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export function BuyerManagement() {
               <div>
                 <h3 className="text-lg font-semibold text-black mb-4">Assigned Agent</h3>
                 {selectedBuyer && selectedBuyer.assignedAgent && Object.keys(selectedBuyer.assignedAgent).length > 0 ? (
-                  <div className="p-4 bg-white rounded-lg shadow-md border-l-4 border-[#6F8375]">
+                  <div className="p-4 bg-white rounded-lg shadow-md border-l-4 border-[#968470]">
                     <div className="mb-3">
                       <p className="text-xs text-gray-600 font-semibold uppercase">Agent Name</p>
                       <p className="text-lg font-semibold text-black">{selectedBuyer.assignedAgent.name}</p>
@@ -278,8 +278,8 @@ export function BuyerManagement() {
                 variant={activeTab === tab ? 'default' : 'outline'}
                 className={
                   activeTab === tab
-                    ? 'bg-[#6F8375] text-white border-[#6F8375]'
-                    : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white hover:border-[#6F8375]'
+                    ? 'bg-[#968470] text-white border-[#968470]'
+                    : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white hover:border-[#968470]'
                 }
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -353,7 +353,7 @@ export function BuyerManagement() {
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
                   >
                     ← Previous
                   </Button>
@@ -366,8 +366,8 @@ export function BuyerManagement() {
                         variant={currentPage === page ? 'default' : 'outline'}
                         className={
                           currentPage === page
-                            ? 'bg-[#6F8375] text-white border-[#6F8375] min-w-10 h-10 rounded-full'
-                            : 'bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white min-w-10 h-10 rounded-full'
+                            ? 'bg-[#968470] text-white border-[#968470] min-w-10 h-10 rounded-full'
+                            : 'bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white min-w-10 h-10 rounded-full'
                         }
                       >
                         {page}
@@ -379,7 +379,7 @@ export function BuyerManagement() {
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     variant="outline"
-                    className="bg-white text-black border-gray-200 hover:bg-[#6F8375] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
+                    className="bg-white text-black border-gray-200 hover:bg-[#968470] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4"
                   >
                     Next →
                   </Button>

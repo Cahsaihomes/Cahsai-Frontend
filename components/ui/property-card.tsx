@@ -274,7 +274,7 @@ export default function PropertyCard(props: PropertyCardProps) {
         <div className="flex gap-2">
           <Avatar className="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0">
             <AvatarImage src={getAvatarUrl(comment.user)} alt={getDisplayName(comment.user)} />
-            <AvatarFallback className="text-xs bg-[#6F8375] text-white">
+            <AvatarFallback className="text-xs bg-[#968470] text-white">
               {getDisplayName(comment.user)
                 .split(" ")
                 .map((n) => n[0])
@@ -289,7 +289,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                 {getDisplayName(comment.user)}
               </span>
               {isCommentOwner && (
-                <span className="text-[9px] sm:text-[10px] bg-[#6F8375] px-1.5 py-0.5 rounded text-white">
+                <span className="text-[9px] sm:text-[10px] bg-[#968470] px-1.5 py-0.5 rounded text-white">
                   You
                 </span>
               )}
@@ -351,7 +351,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                         handleReply(comment.id);
                       }
                     }}
-                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 pr-24 text-xs sm:text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent transition-all"
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 pr-24 text-xs sm:text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent transition-all"
                     disabled={submitting || isOwnPost}
                     autoFocus
                   />
@@ -376,7 +376,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                     onClick={() => handleReply(comment.id)}
                     disabled={submitting || !replyText.trim() || isOwnPost}
                     size="sm"
-                    className="h-7 px-3 text-xs bg-[#6F8375] hover:bg-[#5b6c62] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="h-7 px-3 text-xs bg-[#968470] hover:bg-[#7a6d5e] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     {submitting ? (
                       <>
@@ -432,7 +432,7 @@ export default function PropertyCard(props: PropertyCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
         {/* {(isRental || isStay) && (
-          <div className="absolute top-3 left-3 z-20 bg-[#6F8375] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
+          <div className="absolute top-3 left-3 z-20 bg-[#968470] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
             {isRental ? "FOR RENT" : "SHORT-TERM STAY"}
           </div>
         )} */}
@@ -445,7 +445,7 @@ export default function PropertyCard(props: PropertyCardProps) {
 
 {/* Fallback to listing type badge if no topBadgeText */}
 {!topBadgeText && (isRental || isStay) && (
-  <div className="absolute top-3 left-3 z-20 bg-[#6F8375] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
+  <div className="absolute top-3 left-3 z-20 bg-[#968470] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">>
     {isRental ? "FOR RENT" : "SHORT-TERM STAY"}
   </div>
 )}
@@ -483,7 +483,7 @@ export default function PropertyCard(props: PropertyCardProps) {
               <div className="flex items-center gap-2">
                 <Avatar className="h-6 w-6 border-2 border-white/50">
                   <AvatarImage src={profile} alt={name} />
-                  <AvatarFallback className="bg-[#6F8375] text-white text-xs">
+                  <AvatarFallback className="bg-[#968470] text-white text-xs">
                     {`${first_name?.charAt(0) || ""}${last_name?.charAt(0) || ""}`}
                   </AvatarFallback>
                 </Avatar>
@@ -554,7 +554,7 @@ export default function PropertyCard(props: PropertyCardProps) {
               <Link href="/buyerdashboard/moodboards">
                 <Button
                   size="sm"
-                  className="rounded-md bg-[#6F8375] hover:bg-[#5b6c62] shadow-lg transition-all hover:scale-105"
+                  className="rounded-md bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
                 >
                   <Bookmark className="w-4 h-4 mr-2" /> Dreamboard
                 </Button>
@@ -566,7 +566,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                   <Button
                     onClick={() => window.open(productLink, '_blank')}
                     size="sm"
-                     className="rounded-md bg-[#6F8375] hover:bg-[#5b6c62] shadow-lg transition-all hover:scale-105"
+                     className="rounded-md bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
                   >
                     Buy Product
                   </Button>
@@ -583,7 +583,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                     className={`rounded-md text-white ${
                       props.buttonColor
                         ? `bg-[${props.buttonColor}] hover:bg-[${props.buttonColor}]/80`
-                        : "bg-[#5a6b60] hover:bg-[#4a5b50]"
+                        : "bg-[#968470] hover:bg-[#7a6d5e]"
                     } shadow-lg transition-all hover:scale-105`}
                   >
                     Apply Now
@@ -596,7 +596,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                   className={`rounded-md text-white ${
                     props.buttonColor
                       ? `bg-[${props.buttonColor}] hover:bg-[${props.buttonColor}]/80`
-                      : "bg-[#6F8375] hover:bg-[#5b6c62]"
+                      : "bg-[#968470] hover:bg-[#7a6d5e]"
                   } shadow-lg transition-all hover:scale-105`}
                 >
                   {isRental || isStay ? "Schedule Tour" : "Book Tour"}
@@ -678,7 +678,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                       }
                     }}
                     maxLength={500}
-                    className="w-full bg-white/10 border border-white/20 rounded-full pl-4 pr-24 py-2.5 text-xs sm:text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent transition-all"
+                    className="w-full bg-white/10 border border-white/20 rounded-full pl-4 pr-24 py-2.5 text-xs sm:text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent transition-all"
                     disabled={submitting}
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -701,7 +701,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                   onClick={handleAddComment}
                   disabled={submitting || !newComment.trim()}
                   size="icon"
-                  className="rounded-full h-9 w-9 sm:h-10 sm:w-10 bg-[#6F8375] hover:bg-[#5b6c62] flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
+                  className="rounded-full h-9 w-9 sm:h-10 sm:w-10 bg-[#968470] hover:bg-[#7a6d5e] flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
                   aria-label="Send comment"
                 >
                   {submitting ? (
@@ -773,7 +773,7 @@ function IconPill({
         onClick={onClick}
         className={`cursor-pointer grid h-10 w-10 place-items-center rounded-full shadow-lg transition-all hover:scale-110 active:scale-95 ${
           active 
-            ? "bg-[#6F8375] text-white" 
+            ? "bg-[#968470] text-white" 
             : "bg-[#D5D7DA80] text-white hover:bg-[#D5D7DAA0]"
         }`}
       >

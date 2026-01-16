@@ -206,7 +206,7 @@ export default function Page() {
                         type="button"
                         className={`border-2 ${
                           mediaIndex === idx
-                            ? "border-[#6F8375]"
+                            ? "border-[#968470]"
                             : "border-transparent"
                         } rounded focus:outline-none`}
                         onClick={() => setMediaIndex(idx)}
@@ -319,7 +319,7 @@ export default function Page() {
                     variant={selected ? "default" : "outline"}
                     className={`text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5 cursor-pointer ${
                       selected
-                        ? "bg-[#6F8375] text-white"
+                        ? "bg-[#968470] text-white"
                         : "bg-white text-gray-500"
                     }`}
                     onClick={() => {
@@ -353,7 +353,7 @@ export default function Page() {
             <Button
               onClick={handleUpdate}
               disabled={loading}
-              className="w-full bg-[#6F8375] text-white px-6 py-2 rounded-lg hover:bg-[#4e5e53]"
+              className="w-full bg-[#968470] text-white px-6 py-2 rounded-lg hover:bg-[#4e5e53]"
             >
               {loading ? "Saving..." : "Save Changes"}
             </Button>

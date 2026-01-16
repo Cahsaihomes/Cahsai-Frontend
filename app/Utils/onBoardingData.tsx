@@ -7,11 +7,11 @@ export const sliderData = {
       id: 0,
       topContent: (
         <div
-          className="flex items-center justify-center mx-auto mb-6"
-          style={{ width: 230, height: 230 }}
+          className="flex items-center justify-center mx-auto mb-0"
+          style={{ width: 320, height: 220 }}
         >
-          <div className="p-4">
-            <Image src="/images/logo.png" alt="logo" width={253} height={212} />
+          <div className="p-0">
+            <Image src="/images/cahsai-logo1.png" alt="logo" width={400} height={400} />
           </div>
         </div>
       ),
@@ -56,11 +56,11 @@ export const sliderData = {
       id: 0,
       topContent: (
         <div
-          className="flex items-center justify-center mx-auto mb-6"
-          style={{ width: 230, height: 230 }}
+          className="flex items-center justify-center mx-auto mb-0"
+          style={{ width: 320, height: 220 }}
         >
-          <div className="p-4">
-            <Image src="/images/logo.png" alt="logo" width={253} height={212} />
+          <div className="p-0">
+            <Image src="/images/cahsai-logo1.png" alt="logo" width={400} height={400} />
           </div>
         </div>
       ),
@@ -105,11 +105,11 @@ export const sliderData = {
       id: 0,
       topContent: (
         <div
-          className="flex items-center justify-center mx-auto mb-6"
-          style={{ width: 230, height: 230 }}
+          className="flex items-center justify-center mx-auto mb-0"
+          style={{ width: 320, height: 220 }}
         >
-          <div className="p-4">
-            <Image src="/images/logo.png" alt="logo" width={253} height={212} />
+          <div className="p-0">
+            <Image src="/images/cahsai-logo1.png" alt="logo" width={400} height={400} />
           </div>
         </div>
       ),

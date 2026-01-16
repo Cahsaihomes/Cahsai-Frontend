@@ -292,7 +292,7 @@ export default function UpgradeRentalPage() {
           </div>
           <Button
             onClick={handleViewApplications}
-            className="bg-[#6F8375] hover:bg-[#6F8375] text-white flex items-center gap-2"
+            className="bg-[#968470] hover:bg-[#968470] text-white flex items-center gap-2"
           >
             <FileText className="h-4 w-4" />
             My Applications
@@ -704,7 +704,7 @@ export default function UpgradeRentalPage() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-[#6F8375] hover:bg-[#6F8375] text-white"
+                  className="w-full bg-[#968470] hover:bg-[#968470] text-white"
                   size="lg"
                 >
                   {isLoading ? "Submitting..." : "Submit Application"}

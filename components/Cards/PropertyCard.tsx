@@ -97,7 +97,7 @@ export default function PropertyCard({ post }: { post: any }) {
       </div>
       <div className="text-gray-500 text-xs mb-2">{post.description || "No description provided."}</div>
       <button
-        className="w-full py-2 rounded-lg bg-[#6F8375] text-white font-medium"
+        className="w-full py-2 rounded-lg bg-[#968470] text-white font-medium"
         onClick={() => setOpenRequest(true)}
       >
         Book a tour

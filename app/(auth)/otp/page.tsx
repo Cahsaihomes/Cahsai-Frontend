@@ -152,7 +152,7 @@ export default function OTPVerificationPage() {
               value={digit}
               onChange={(e) => handleOtpChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6F8375] focus:border-transparent"
+              className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent"
               maxLength={1}
             />
           ))}
@@ -163,7 +163,7 @@ export default function OTPVerificationPage() {
           {canResend ? (
             <button
               onClick={handleReset}
-              className="text-sm text-gray-600 hover:text-[#6F8375] hover:underline"
+              className="text-sm text-gray-600 hover:text-[#968470] hover:underline"
             >
               Resent code
             </button>
@@ -177,7 +177,7 @@ export default function OTPVerificationPage() {
         {/* Submit Button */}
         <button
           type="submit"
-          className={`w-full cursor-pointer flex items-center justify-center bg-[#6F8375] hover:bg-[#5a6b60] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+          className={`w-full cursor-pointer flex items-center justify-center bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
             loading ? "cursor-not-allowed opacity-70" : ""
           }`}
           disabled={otp.some((digit) => !digit) || loading}

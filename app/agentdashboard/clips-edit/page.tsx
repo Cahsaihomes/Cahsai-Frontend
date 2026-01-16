@@ -146,7 +146,7 @@ export default function EditClipsPage() {
               </button>
               <Button
                 onClick={handleClick}
-                className="flex items-center bg-[#6F8375] hover:bg-[#6F8375] gap-2 lg:px-6 px-2 py-2 rounded-lg text-white font-medium text-base border-0 shadow-sm transition-colors duration-200"
+                className="flex items-center bg-[#968470] hover:bg-[#968470] gap-2 lg:px-6 px-2 py-2 rounded-lg text-white font-medium text-base border-0 shadow-sm transition-colors duration-200"
 
                 // className=" text-white"
               >
@@ -162,7 +162,7 @@ export default function EditClipsPage() {
               onClick={() => setPostTypeTab("listing")}
               className={`pb-2 px-4 font-medium text-sm transition-colors ${
                 postTypeTab === "listing"
-                  ? "border-b-2 border-[#6F8375] text-[#6F8375]"
+                  ? "border-b-2 border-[#968470] text-[#968470]"
                   : "text-gray-600 hover:text-gray-800"
               }`}
             >
@@ -172,7 +172,7 @@ export default function EditClipsPage() {
               onClick={() => setPostTypeTab("video")}
               className={`pb-2 px-4 font-medium text-sm transition-colors ${
                 postTypeTab === "video"
-                  ? "border-b-2 border-[#6F8375] text-[#6F8375]"
+                  ? "border-b-2 border-[#968470] text-[#968470]"
                   : "text-gray-600 hover:text-gray-800"
               }`}
             >
@@ -283,7 +283,7 @@ export default function EditClipsPage() {
                                 <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex gap-4 z-30">
                                   <button
                                     onClick={goPrev}
-                                    className="bg-white/20 backdrop-blur-md hover:bg-[#6F8375]/80 text-[#6F8375] hover:text-white rounded-full shadow-xl p-1.5 transition-all duration-200 ring-1 ring-[#6F8375]/10 hover:ring-white/40 scale-100 hover:scale-105 drop-shadow"
+                                    className="bg-white/20 backdrop-blur-md hover:bg-[#968470]/80 text-[#968470] hover:text-white rounded-full shadow-xl p-1.5 transition-all duration-200 ring-1 ring-[#968470]/10 hover:ring-white/40 scale-100 hover:scale-105 drop-shadow"
                                     style={{
                                       fontSize: 20,
                                       width: 36,
@@ -311,7 +311,7 @@ export default function EditClipsPage() {
                                   </button>
                                   <button
                                     onClick={goNext}
-                                    className="bg-white/20 backdrop-blur-md hover:bg-[#6F8375]/80 text-[#6F8375] hover:text-white rounded-full shadow-xl p-1.5 transition-all duration-200 ring-1 ring-[#6F8375]/10 hover:ring-white/40 scale-100 hover:scale-105 drop-shadow"
+                                    className="bg-white/20 backdrop-blur-md hover:bg-[#968470]/80 text-[#968470] hover:text-white rounded-full shadow-xl p-1.5 transition-all duration-200 ring-1 ring-[#968470]/10 hover:ring-white/40 scale-100 hover:scale-105 drop-shadow"
                                     style={{
                                       fontSize: 20,
                                       width: 36,
@@ -348,7 +348,7 @@ export default function EditClipsPage() {
                                   key={idx}
                                   className={`inline-block w-2 h-2 rounded-full ${
                                     idx === currentIdx
-                                      ? "bg-[#6F8375]"
+                                      ? "bg-[#968470]"
                                       : "bg-gray-300"
                                   }`}
                                 />
@@ -455,11 +455,11 @@ export default function EditClipsPage() {
                                   <Bookmark
                                     className={`w-4 h-4 mr-1 ${
                                       savedIds.has(clip.id)
-                                        ? "text-[#6F8375] fill-[#6F8375]"
+                                        ? "text-[#968470] fill-[#968470]"
                                         : "text-gray-500"
                                     }`}
                                     fill={
-                                      savedIds.has(clip.id) ? "#6F8375" : "none"
+                                      savedIds.has(clip.id) ? "#968470" : "none"
                                     }
                                   />
                                 </button>

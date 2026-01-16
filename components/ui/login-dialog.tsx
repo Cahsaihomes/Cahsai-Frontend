@@ -77,7 +77,7 @@ export function LoginDialog({ isOpen, setIsOpen }: LoginDialogProps) {
           </Button>
           <Button
             type="submit"
-           className="flex-1 bg-[#6B8E6E] hover:bg-[#6B8E6E]/90 text-white rounded-md px-5 py-2.5"
+           className="flex-1 bg-[#968470] hover:bg-[#7a6d5e] text-white rounded-md px-5 py-2.5"
           >
             Log In
           </Button>

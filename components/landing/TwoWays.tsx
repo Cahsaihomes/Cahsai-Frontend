@@ -15,13 +15,13 @@ export default function TwoWays() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center text-gray-900 mb-3 sm:mb-6">
           Two Ways to Experience Homes
         </h2>
-        <p className="flex justify-center mb-8 sm:mb-10 text-[#737373] text-sm sm:text-base lg:text-lg">
+        <p className="flex justify-center mb-8 sm:mb-10 text-text-secondary text-sm sm:text-base lg:text-lg">
           Choose your journey
         </p>
 
         {/* Tab Switch */}
         <div className="flex justify-center mb-8 sm:mb-12 lg:mb-16">
-          <div className="flex items-center bg-[#f5f6f7] shadow-sm rounded-full p-1 gap-1 border border-gray-200">
+          <div className="flex items-center bg-bg-secondary shadow-sm rounded-full p-1 gap-1 border border-gray-200">
             
             <button
               onClick={() => setActiveTab("watch")}

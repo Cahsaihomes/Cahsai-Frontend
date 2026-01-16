@@ -90,7 +90,7 @@ const TopPerformingClips = () => {
               {clip.productLink && (
                 <button
                   onClick={() => window.open(clip.productLink, '_blank')}
-                  className="font-[500] font-inter text-white text-[16px] whitespace-nowrap px-4 py-2 bg-[#6F8375] hover:bg-[#5a6a61] rounded-md transition-colors"
+                  className="font-[500] font-inter text-white text-[16px] whitespace-nowrap px-4 py-2 bg-[#968470] hover:bg-[#5a6a61] rounded-md transition-colors"
                 >
                   View Product
                 </button>

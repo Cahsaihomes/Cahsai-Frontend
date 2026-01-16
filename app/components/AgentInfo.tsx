@@ -214,7 +214,7 @@ const AgentInfo: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={addArea}
-                className="p-2 text-[#717680] hover:text-[#6F8375]"
+                className="p-2 text-[#717680] hover:text-[#968470]"
               >
                 <Plus size={20} />
               </button>
@@ -248,7 +248,7 @@ const AgentInfo: React.FC<Props> = ({
                 onClick={() => toggleSpecialization(tag)}
                 className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
                   isSelected
-                    ? "bg-[#6F8375] text-white"
+                    ? "bg-[#968470] text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >

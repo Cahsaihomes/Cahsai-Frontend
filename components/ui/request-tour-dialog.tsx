@@ -314,7 +314,7 @@ function PaymentFormContent({
           Cancel
         </Button>
         <Button
-          className="w-full bg-[#6F8375] hover:bg-[#5b6c62] text-white"
+          className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white"
           onClick={handleBookTour}
           disabled={loading || !stripe || !cardComplete}
         >
@@ -485,7 +485,7 @@ export function RequestTourDialog({
                       className={cn(
                         "flex-shrink-0 flex flex-col items-center justify-center h-20 w-28 rounded-lg border",
                         isSelected
-                          ? "border-[#6B8E6E] bg-[#F0F4F0]"
+                          ? "border-[#968470] bg-[#F0F4F0]"
                           : "border-gray-200 bg-white hover:bg-gray-50"
                       )}
                       onClick={() => setSelectedDate(new Date(dateItem.date))}
@@ -538,7 +538,7 @@ export function RequestTourDialog({
                 <Button
                   type="button"
                   size="sm"
-                  className="w-full bg-[#6B8E6E] text-white hover:bg-[#5b6c62]"
+                  className="w-full bg-[#968470] text-white hover:bg-[#7a6d5e]"
                   onClick={() => setIsTimePickerOpen(false)}
                 >
                   OK
@@ -557,7 +557,7 @@ export function RequestTourDialog({
               Cancel
             </Button>
             <Button
-              className="w-full sm:w-auto bg-[#6B8E6E] text-white hover:bg-[#5b6c62]"
+              className="w-full sm:w-auto bg-[#968470] text-white hover:bg-[#7a6d5e]"
               onClick={handleApply}
             >
               Apply
@@ -620,7 +620,7 @@ export function RequestTourDialog({
                   type="checkbox"
                   checked={consentChecked}
                   onChange={(e) => setConsentChecked(e.target.checked)}
-                  className="accent-[#6F8375] w-4 h-4"
+                  className="accent-[#968470] w-4 h-4"
                 />
                 <span className="text-sm text-gray-700">
                   I agree to receive calls and/or SMS from{" "}
@@ -632,7 +632,7 @@ export function RequestTourDialog({
           </div>
           <DialogFooter className="mt-4">
             <Button
-              className="w-full bg-[#6F8375] hover:bg-[#5b6c62] text-white"
+              className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white"
               onClick={() => {
                 setOpenAgentDialog(false);
                 setOpenRequest(true);
@@ -740,7 +740,7 @@ export function RequestTourDialog({
           </div>
 
           <DialogFooter className="mt-4">
-            <Button className="w-full bg-[#6F8375] hover:bg-[#5b6c62] text-white">
+            <Button className="w-full bg-[#968470] hover:bg-[#7a6d5e] text-white">
               Call Agent
             </Button>
           </DialogFooter>
