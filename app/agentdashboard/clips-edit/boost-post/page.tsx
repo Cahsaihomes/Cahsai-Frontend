@@ -591,7 +591,7 @@ export default function BoostPostPage() {
                             }}
                             style={{
                               background:
-                                "linear-gradient(95.09deg, #69AD7D 0%, #3D6E4B 100%)",
+                                "linear-gradient(95.09deg, #968470 0%, #7a6d5e 100%)",
                             }}
                           >
                             <svg

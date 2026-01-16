@@ -40,7 +40,7 @@ export default function CreatorClipsPage() {
               <div className="flex flex-row gap-1">
                 <button
                   onClick={() => setShowPostBoost(true)}
-                  className="  bg-gradient-to-r from-[#69AD7D] to-[#3D6E4B]  text-white px-4 py-2 rounded-md shadow-sm whitespace-nowrap w-full sm:w-auto flex  gap-x-1"
+                  className="  bg-gradient-to-r from-[#968470] to-[#7a6d5e]  text-white px-4 py-2 rounded-md shadow-sm whitespace-nowrap w-full sm:w-auto flex  gap-x-1"
                 >
                   <Flame className="h-6 w-8 mr-1" /> <span>Post Boost</span>
                 </button>

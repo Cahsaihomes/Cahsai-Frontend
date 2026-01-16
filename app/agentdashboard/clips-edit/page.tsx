@@ -124,7 +124,7 @@ export default function EditClipsPage() {
                 className="flex items-center gap-2 lg:px-6 px-2 py-2 rounded-lg text-white font-medium text-base border-0 shadow-sm transition-colors duration-200"
                 style={{
                   background:
-                    "linear-gradient(95.09deg, #69AD7D 0%, #3D6E4B 100%)",
+                    "linear-gradient(95.09deg, #968470 0%, #7a6d5e 100%)",
                 }}
               >
                 <svg
@@ -509,7 +509,7 @@ export default function EditClipsPage() {
                                 style={{
                                   marginTop: "8px",
                                   background:
-                                    "linear-gradient(95.09deg, #69AD7D 0%, #3D6E4B 100%)",
+                                    "linear-gradient(95.09deg, #968470 0%, #7a6d5e 100%)",
                                 }}
                                 onClick={() => {
                                   setBoostModalOpen(true);
