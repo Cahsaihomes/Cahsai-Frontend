@@ -73,7 +73,7 @@ export default function Page() {
             className={[
               "px-4 py-2 rounded-md text-sm font-medium border transition",
               activeTab === tab
-                ? "bg-[#6C806F] text-white border-transparent shadow-sm"
+                ? "bg-[#968470] text-white border-transparent shadow-sm"
                 : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50",
             ].join(" ")}
           >
@@ -85,7 +85,7 @@ export default function Page() {
       {/* Loader */}
       {isLoading ? (
         <div className="flex justify-center items-center h-40">
-          <div className="w-10 h-10 border-4 border-[#6C806F] border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : filtered.length === 0 ? (
         <p className="text-center text-gray-500 w-full">No Record found!</p>

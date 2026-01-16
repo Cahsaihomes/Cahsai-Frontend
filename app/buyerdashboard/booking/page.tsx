@@ -81,7 +81,7 @@ export default function TourBookedPage() {
             {/* Loader */}
             {isLoading ? (
               <div className="flex justify-center items-center h-40 col-span-full">
-                <div className="w-10 h-10 border-4 border-[#6C806F] border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : tours?.length === 0 || toursArray?.length === 0 ? (
               <p className="text-center text-gray-500 col-span-full py-10">

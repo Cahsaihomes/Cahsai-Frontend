@@ -452,7 +452,7 @@ export default function Home() {
             <div className="px-3 py-2 w-full">
               {isLoading ? (
                 <div className="flex justify-center items-center h-40">
-                  <div className="w-10 h-10 border-4 border-[#6C806F] border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
                 </div>
               ) : filteredWatchPosts && filteredWatchPosts.length === 0 ? (
                 <p className="text-center text-gray-500 w-full">
@@ -575,7 +575,7 @@ export default function Home() {
               {/* Cards Grid */}
               {isLoading ? (
                 <div className="flex justify-center items-center h-40">
-                  <div className="w-10 h-10 border-4 border-[#6C806F] border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
                 </div>
               ) : filteredPosts && filteredPosts.length === 0 ? (
                 <p className="text-center text-gray-500 w-full">
