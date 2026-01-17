@@ -17,6 +17,7 @@ import { editProfileService } from "../services/auth.service";
 import { toast } from "sonner";
 import { validateFile } from "../Utils/helper";
 import { updateUser } from "../redux/slices/authSlice";
+import { handleApiError } from "../utils/errorHandler";
 
 const EditProfile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -164,7 +165,7 @@ const EditProfile = () => {
       setHasChanges(false);
       setFile(null);
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Profile update failed");
+      toast.error(handleApiError(err, "Profile update failed"));
     }
   };
 

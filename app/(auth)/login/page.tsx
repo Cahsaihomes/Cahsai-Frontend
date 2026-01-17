@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import Cookies from "js-cookie";
 import { loginSuccess } from "@/app/redux/slices/authSlice";
 import { loginApi } from "@/app/services/auth.service";
+import { handleApiError } from "@/app/utils/errorHandler";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function LoginPage() {
@@ -61,19 +62,12 @@ export default function LoginPage() {
         router.push(`/otp?id=true&email=${encodeURIComponent(data?.email)}`);
       }
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        const msg = err.response.data.message;
-
-        if (msg.includes("not verified")) {
-          toast.error(msg);
-          router.push(`/otp?id=true&email=${encodeURIComponent(data?.email)}`);
-        } else {
-          toast.error(msg);
-        }
+      const errorMsg = handleApiError(err, "Login failed!");
+      if (errorMsg.includes("not verified")) {
+        toast.error(errorMsg);
+        router.push(`/otp?id=true&email=${encodeURIComponent(data?.email)}`);
       } else {
-        toast.error("Login failed!");
+        toast.error(errorMsg);
       }
     } finally {
       setLoading(false);

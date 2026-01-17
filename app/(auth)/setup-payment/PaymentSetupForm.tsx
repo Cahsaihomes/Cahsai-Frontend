@@ -21,6 +21,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import { handleApiError } from "@/app/utils/errorHandler";
 
 const PaymentSetupForm = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -121,13 +122,7 @@ const PaymentSetupForm = () => {
       toast.success(res.message || "Payment Details Added successful!");
       router.push("/create-profile");
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Agent Payment Creation failed!");
-      }
+      toast.error(handleApiError(err, "Agent Payment Creation failed!"));
     } finally {
       setLoading(false);
     }

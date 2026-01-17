@@ -14,6 +14,7 @@ import {
   ResetPasswordFormValues,
   resetPasswordSchema,
 } from "@/app/validation/signupSchema";
+import { handleApiError } from "@/app/utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,13 +40,7 @@ export default function CreateNewPasswordPage() {
       toast.success(res.message || "Password reset successful!");
       router.push("/password-updated");
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Reset Password failed!");
-      }
+      toast.error(handleApiError(err, "Reset Password failed!"));
     } finally {
       setLoading(false);
     }

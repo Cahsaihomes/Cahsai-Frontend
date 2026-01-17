@@ -12,6 +12,7 @@ import {
 } from "@/app/services/auth.service";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { handleApiError } from "@/app/utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,13 +87,7 @@ export default function OTPVerificationPage() {
         router.push(`/new-password?email=${encodeURIComponent(email)}`);
       }
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("OTP Verification failed!");
-      }
+      toast.error(handleApiError(err, "OTP Verification failed!"));
     } finally {
       setLoading(false);
     }
@@ -107,13 +102,7 @@ export default function OTPVerificationPage() {
         setCanResend(false);
       }
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("OTP Resend failed!");
-      }
+      toast.error(handleApiError(err, "OTP Resend failed!"));
     }
   };
   return (

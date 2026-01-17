@@ -14,6 +14,7 @@ import { signupSuccess } from "@/app/redux/slices/authSlice";
 import { signup } from "@/app/services/auth.service";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { handleApiError } from "@/app/utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -67,13 +68,7 @@ export default function SignUpPage() {
         router.push("/success");
       }
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Sign up failed!");
-      }
+      toast.error(handleApiError(err, "Sign up failed!"));
     } finally {
       setLoading(false);
     }

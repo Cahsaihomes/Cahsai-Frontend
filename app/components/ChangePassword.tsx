@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import ConfirmModal from "./Modal/ConfirmModal";
 import { changePassword, forgotPassword } from "../services/auth.service";
 import { toast } from "sonner";
+import { handleApiError } from "../utils/errorHandler";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
@@ -88,13 +89,7 @@ const ChangePassword = () => {
       toast.success(res.message || "Password changed successful!");
       resetForm();
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Change Password failed!");
-      }
+      toast.error(handleApiError(err, "Change Password failed!"));
     } finally {
       setIsLoading(false);
     }

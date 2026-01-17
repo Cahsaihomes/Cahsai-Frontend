@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux";
 import { toast } from "sonner";
 import { agentCreateProfile } from "@/app/services/auth.service";
+import { handleApiError } from "@/app/utils/errorHandler";
 import { validateFile } from "@/app/Utils/helper";
 import Link from "next/link";
 
@@ -101,13 +102,7 @@ export default function CreateProfilePage() {
       toast.success(res.message || "Profile Created successful!");
       router.push("/onboarding");
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        toast.error(err.response.data.errors);
-      } else if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Profile Creation failed!");
-      }
+      toast.error(handleApiError(err, "Profile Creation failed!"));
     } finally {
       setLoading(false);
     }
