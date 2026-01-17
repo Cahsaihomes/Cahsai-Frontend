@@ -27,7 +27,7 @@ export default function AccountSuccessPage() {
         {/* Success Illustration */}
         <div className="w-60 h-60 mx-auto mb-8 flex items-center justify-center">
           <Image
-            src="/images/Chatting (2) 1.png"
+            src="/images/Chatting-1.svg"
             alt="Account Created Successfully - Person pointing to completed checklist"
             width={240}
             height={240}

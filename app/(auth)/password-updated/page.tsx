@@ -16,7 +16,7 @@ export default function PasswordUpdatedPage() {
         {/* Success Illustration */}
         <div className="w-60 h-60 mx-auto mb-8 flex items-center justify-center">
           <Image
-            src="\images\Approval 5 1.png"
+            src="\images\Approval-1.svg"
             alt="Password Updated Successfully - Person giving OK gesture with checkmark"
             width={240}
             height={240}

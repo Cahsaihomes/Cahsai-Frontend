@@ -23,7 +23,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/Manager 1.png"
+            src="/images/Manager-1.svg"
             alt="Tour on Your Terms - Professional at desk with laptop"
             width={240}
             height={240}
@@ -72,7 +72,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/Manager 1.png"
+            src="/images/Manager-1.svg"
             alt="Tour on Your Terms"
             width={240}
             height={240}
@@ -88,7 +88,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/Chatting (2) 1.png"
+            src="/images/Chatting-1.svg"
             alt="Save and Share"
             width={240}
             height={240}
@@ -121,7 +121,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/Manager 1.png"
+            src="/images/Manager-1.svg"
             alt="Tour on Your Terms"
             width={240}
             height={240}
@@ -137,7 +137,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/Chatting (2) 1.png"
+            src="/images/Chatting-1.svg"
             alt="Save and Share"
             width={240}
             height={240}
