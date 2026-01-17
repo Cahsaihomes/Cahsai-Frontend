@@ -21,7 +21,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 
 const PaymentSetupForm = () => {
   const user = useSelector((state: RootState) => state.auth.user);

@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux";
 import { toast } from "sonner";
 import { agentCreateProfile } from "@/app/services/auth.service";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 import { validateFile } from "@/app/Utils/helper";
 import Link from "next/link";
 

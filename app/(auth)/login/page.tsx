@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import Cookies from "js-cookie";
 import { loginSuccess } from "@/app/redux/slices/authSlice";
 import { loginApi } from "@/app/services/auth.service";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function LoginPage() {

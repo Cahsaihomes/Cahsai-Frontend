@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 

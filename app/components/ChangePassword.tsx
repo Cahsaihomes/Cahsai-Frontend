@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import ConfirmModal from "./Modal/ConfirmModal";
 import { changePassword, forgotPassword } from "../services/auth.service";
 import { toast } from "sonner";
-import { handleApiError } from "../utils/errorHandler";
+import { handleApiError } from "../Utils/errorHandler";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";

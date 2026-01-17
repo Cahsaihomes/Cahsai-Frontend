@@ -17,7 +17,7 @@ import { editProfileService } from "../services/auth.service";
 import { toast } from "sonner";
 import { validateFile } from "../Utils/helper";
 import { updateUser } from "../redux/slices/authSlice";
-import { handleApiError } from "../utils/errorHandler";
+import { handleApiError } from "../Utils/errorHandler";
 
 const EditProfile = () => {
   const user = useSelector((state: RootState) => state.auth.user);

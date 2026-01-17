@@ -14,7 +14,7 @@ import {
   ResetPasswordFormValues,
   resetPasswordSchema,
 } from "@/app/validation/signupSchema";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 

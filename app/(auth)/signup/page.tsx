@@ -14,7 +14,7 @@ import { signupSuccess } from "@/app/redux/slices/authSlice";
 import { signup } from "@/app/services/auth.service";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -12,7 +12,7 @@ import {
 } from "@/app/services/auth.service";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { handleApiError } from "@/app/utils/errorHandler";
+import { handleApiError } from "@/app/Utils/errorHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
