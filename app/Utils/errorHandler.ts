@@ -1,38 +1,38 @@
 /**
  * Handle API errors and return a user-friendly error message
- * Displays both 'errors' and 'message' fields if they exist
+ * Shows the first available error from 'errors' field, falls back to 'message'
  */
 export const handleApiError = (err: any, defaultMessage: string = "Something went wrong!"): string => {
   try {
-    const errorMessages: string[] = [];
-
-    // Add specific error details if available
+    // Check for errors field first
     if (err.response?.data?.errors) {
       const errors = err.response.data.errors;
       if (typeof errors === "string") {
-        errorMessages.push(errors);
+        return errors;
       } else if (typeof errors === "object") {
-        // Handle object-type errors
-        Object.values(errors).forEach((error: any) => {
-          if (typeof error === "string") {
-            errorMessages.push(error);
-          } else if (Array.isArray(error)) {
-            errorMessages.push(...error.filter((e) => typeof e === "string"));
-          }
+        // Handle object-type errors - return the first one
+        const firstError = Object.values(errors).find((error: any) => {
+          if (typeof error === "string") return true;
+          if (Array.isArray(error) && error.length > 0 && typeof error[0] === "string") return true;
+          return false;
         });
+
+        if (firstError) {
+          if (typeof firstError === "string") {
+            return firstError;
+          } else if (Array.isArray(firstError)) {
+            return firstError[0];
+          }
+        }
       }
     }
 
-    // Add main message if different from errors
+    // Fall back to message field
     if (err.response?.data?.message) {
-      const message = err.response.data.message;
-      if (!errorMessages.includes(message)) {
-        errorMessages.push(message);
-      }
+      return err.response.data.message;
     }
 
-    // Return combined error message or default
-    return errorMessages.length > 0 ? errorMessages.join(" | ") : defaultMessage;
+    return defaultMessage;
   } catch {
     return defaultMessage;
   }
