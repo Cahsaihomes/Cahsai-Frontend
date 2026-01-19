@@ -5,6 +5,7 @@ export const setPaymentSchema = z.object({
   licenseNumber: z.string().min(1, "MLS License Number is required"),
   customBrokerage: z.string().optional(),
   mlsAssociation: z.string().min(1, "MLS Association is required"),
+  customMlsAssociation: z.string().optional(),
   // cardNumber: z
   //   .string()
   //   .min(13, "Card number must be at least 13 digits")

@@ -39,7 +39,7 @@ export const sliderData = {
       topContent: (
         <div className="w-60 h-60 mx-auto mb-6 flex items-center justify-center">
           <Image
-            src="/images/smart.png"
+            src="/images/Survey-1.svg"
             alt="Smart Matching"
             width={240}
             height={240}

@@ -46,6 +46,7 @@ const PaymentSetupForm = () => {
   });
 
   const brokerageValue = watch("brokerageName");
+  const mlsAssociationValue = watch("mlsAssociation");
 
   const onSubmit = async (data: SetupPaymentFormValues) => {
     let finalData = { ...data };
@@ -54,6 +55,11 @@ const PaymentSetupForm = () => {
       finalData.brokerageName = data.customBrokerage || "";
     }
     delete (finalData as any).customBrokerage;
+
+    if (data.mlsAssociation === "Not Listed") {
+      finalData.mlsAssociation = data.customMlsAssociation || "";
+    }
+    delete (finalData as any).customMlsAssociation;
     setLoading(true);
 
     if (!user || !stripe || !elements) return;
@@ -206,10 +212,28 @@ const PaymentSetupForm = () => {
             <option value="Bright">Bright MLS (East Coast)</option>
             <option value="HARMLS">HARMLS (Texas)</option>
             <option value="Stellar">Stellar MLS (Florida)</option>
+            <option value="Not Listed">Not in the list - enter manually</option>
           </select>
+
+          {mlsAssociationValue === "Not Listed" && (
+            <input
+              type="text"
+              placeholder="Enter your MLS Association"
+              {...register("customMlsAssociation", {
+                required: "Please enter your MLS Association",
+              })}
+              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+            />
+          )}
+
           {errors.mlsAssociation && (
             <span className="text-sm text-red-500">
               {errors.mlsAssociation.message}
+            </span>
+          )}
+          {errors.customMlsAssociation && (
+            <span className="text-sm text-red-500">
+              {errors.customMlsAssociation.message}
             </span>
           )}
         </div>
