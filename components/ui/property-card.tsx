@@ -441,7 +441,7 @@ export default function PropertyCard(props: PropertyCardProps) {
         )} */}
         {/* Top Badge - FOR RENT/STAY or Custom Badge */}
 {topBadgeText && (
-  <div className="absolute top-3 left-3 z-20 bg-[#D4EDDA] text-[#28A745] px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
+  <div className="absolute top-3 left-3 z-20 bg-[#968470] text-white px-3 py-1.5 rounded-md text-xs font-semibold shadow-lg">
     {topBadgeText}
   </div>
 )}
