@@ -528,7 +528,7 @@ export default function PropertyCard(props: PropertyCardProps) {
             )}
 
             {title && (
-              <div className={`absolute left-4 right-4 text-white z-20 ${isStay ? "bottom-[68px]" : "bottom-28"}`}>
+              <div className={`absolute left-4 right-4 text-white z-20 ${isStay ? "bottom-[86px]" : "bottom-28"}`}>
                 <div className="text-lg sm:text-xl font-bold drop-shadow-xl line-clamp-2">{title}</div>
                 {description && (
                   <div className="text-xs sm:text-sm opacity-90 mt-1 drop-shadow-lg line-clamp-2">
@@ -549,7 +549,7 @@ export default function PropertyCard(props: PropertyCardProps) {
         )}
 
         {!isSponsored && (
-          <div className="absolute left-0 right-0 bottom-8 flex items-center justify-between gap-3 px-3 z-20">
+          <div className="absolute left-0 right-0 bottom-10 flex items-center justify-between gap-3 px-3 z-20">
             {location && (
               <div className="text-white text-xs flex items-center gap-1 drop-shadow-lg">
                 <MapPin size={14} />
