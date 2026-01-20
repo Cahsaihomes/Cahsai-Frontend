@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { useComments } from "@/hooks/useComments";
 import { Comment } from "@/app/services/comment.service";
+import { deserialize } from "v8";
 
 type Variant = "Cahsai Creator" | "Cahsai Agent" | "sponsored";
 
@@ -39,6 +40,7 @@ export interface PropertyCardProps {
   name: string;
   title: string;
   blurb?: string;
+  description?: string;
   location: string;
   beds: number;
   baths: number;
@@ -85,6 +87,7 @@ export default function PropertyCard(props: PropertyCardProps) {
     name,
     title,
     blurb,
+    description,
     location,
     beds,
     baths,
@@ -129,8 +132,8 @@ export default function PropertyCard(props: PropertyCardProps) {
   const isRental = listing_type === "FOR_RENT";
   const isStay = listing_type === "STAY";
   const displayPrice =
-    isRental || isStay
-      ? `$${monthly_rent || area} / ${isStay ? "night" : "month"}`
+    isRental
+      ? `$${monthly_rent || area} / month`
       : null;
   const displayAmenities = amenities.slice(0, 3);
 
@@ -524,31 +527,35 @@ export default function PropertyCard(props: PropertyCardProps) {
               </div>
             )}
 
-            <div className="absolute left-4 right-4 bottom-28 text-white z-20">
-              <div className="text-sm font-medium drop-shadow-lg">{title}</div>
-              {(isRental || isStay) && (
-                <div className="text-xs opacity-90 mt-1 drop-shadow">
-                  Managed by {name}
-                </div>
-              )}
-            </div>
+            {title && (
+              <div className={`absolute left-4 right-4 text-white z-20 ${isStay ? "bottom-[68px]" : "bottom-28"}`}>
+                <div className="text-lg sm:text-xl font-bold drop-shadow-xl line-clamp-2">{title}</div>
+                {description && (
+                  <div className="text-xs sm:text-sm opacity-90 mt-1 drop-shadow-lg line-clamp-2">
+                    {description || ''}
+                  </div>
+                )}
+              </div>
+            )}
           </>
         )}
 
-        {!isSponsored && (
+        {!isSponsored && (beds || baths || area) && (
           <div className="absolute left-4 bottom-20 flex items-center gap-4 text-white/95 text-xs z-20">
-            <Meta icon={<Bed size={14} />} label={`${beds}BR`} />
-            <Meta icon={<Bath size={14} />} label={`${baths}BA`} />
-            <Meta icon={<Ruler size={14} />} label={`${area} sq ft`} />
+            {beds && <Meta icon={<Bed size={14} />} label={`${beds}BR`} />}
+            {baths && <Meta icon={<Bath size={14} />} label={`${baths}BA`} />}
+            {area && <Meta icon={<Ruler size={14} />} label={`${area} sq ft`} />}
           </div>
         )}
 
         {!isSponsored && (
           <div className="absolute left-0 right-0 bottom-8 flex items-center justify-between gap-3 px-3 z-20">
-            <div className="text-white text-xs flex items-center gap-1 drop-shadow-lg">
-              <MapPin size={14} />
-              <span className="truncate max-w-[150px] sm:max-w-none">{location}</span>
-            </div>
+            {location && (
+              <div className="text-white text-xs flex items-center gap-1 drop-shadow-lg">
+                <MapPin size={14} />
+                <span className="truncate max-w-[150px] sm:max-w-none">{location}</span>
+              </div>
+            )}
 
             {/* {isCreator && (
               <Link href="/buyerdashboard/moodboards">

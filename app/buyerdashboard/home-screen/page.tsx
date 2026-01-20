@@ -489,7 +489,7 @@ export default function Home() {
                         location={`${post.city}, ${post.location}`}
                         beds={post.bedrooms}
                         baths={post.bathrooms}
-                        area="1200"
+                        area=""
                         likes={post?.likeCount}
                         comments={post?.commentCount}
                         shares={post?.shareCount}
