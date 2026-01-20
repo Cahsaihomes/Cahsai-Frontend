@@ -44,6 +44,7 @@ export default function AgentUploadPage() {
   const [squareFeet, setSquareFeet] = useState("");
   const [description, setDescription] = useState("");
   const [amenities, setAmenities] = useState<string[]>([]);
+  const [amenitiesInput, setAmenitiesInput] = useState("");
   const [homeStyle, setHomeStyle] = useState<string[]>([]);
   const [postImages, setPostImages] = useState<File[]>([]);
   const [postVideos, setPostVideos] = useState<File[]>([]);
@@ -76,6 +77,7 @@ export default function AgentUploadPage() {
   const [lotSize, setLotSize] = useState("");
   const [yearBuilt, setYearBuilt] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
+  const [featuresInput, setFeaturesInput] = useState("");
   const [hoaFees, setHoaFees] = useState("");
   const [agentName, setAgentName] = useState(
     currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : ""
@@ -1105,17 +1107,23 @@ export default function AgentUploadPage() {
             </Label>
             <Input
               id="amenities"
-              placeholder="Write Amenities"
+              placeholder="Write Amenities (separate with commas, e.g. Pool, Parking, Gym)"
               className="w-full"
-              value={amenities.join(", ")}
-              onChange={(e) =>
-                setAmenities(
-                  e.target.value
+              value={amenitiesInput}
+              onChange={(e) => {
+                const input = e.target.value;
+                setAmenitiesInput(input);
+                // Parse the input into array
+                if (input.trim() === "") {
+                  setAmenities([]);
+                } else {
+                  const newAmenities = input
                     .split(",")
                     .map((a) => a.trim())
-                    .filter(Boolean)
-                )
-              }
+                    .filter((a) => a.length > 0);
+                  setAmenities(newAmenities);
+                }
+              }}
             />
           </div>
 
@@ -1158,10 +1166,12 @@ export default function AgentUploadPage() {
               id="features"
               placeholder="Write features (comma-separated, max 5)"
               className="w-full"
-              value={features.join(", ")}
+              value={featuresInput}
               disabled={features.length >= 5}
               onChange={(e) => {
-                const newFeatures = e.target.value
+                const input = e.target.value;
+                setFeaturesInput(input);
+                const newFeatures = input
                   .split(",")
                   .map((f) => f.trim())
                   .filter((f) => f.length > 0)
