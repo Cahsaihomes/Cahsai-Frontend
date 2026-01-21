@@ -219,7 +219,7 @@ export default function PublicHomeFeed() {
                   location={`${post.city}, ${post.location}`}
                   beds={post.bedrooms ?? 0}
                   baths={post.bathrooms ?? 0}
-                  area="1200"
+                  area=""
                   likes={post.likeCount ?? 0}
                   comments={post.commentCount ?? 0}
                   shares={post.shareCount ?? 0}
@@ -229,6 +229,7 @@ export default function PublicHomeFeed() {
                   pet_policy={post.pet_policy}
                   parking={post.parking}
                   furnished={post.furnished}
+                  productLink={post.productLink}
                   buttonColor="#968470"
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
@@ -259,7 +260,7 @@ export default function PublicHomeFeed() {
                 agentAvatarUrl={post.user?.avatarUrl}
                 bedrooms={String(post.bedrooms ?? 0)}
                 bathrooms={String(post.bathrooms ?? 0)}
-                area="2000"
+                area=""
                 location={`${post.city}, ${post.location}`}
                 description={post.description}
                 topBadgeText={
