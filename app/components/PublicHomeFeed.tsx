@@ -197,6 +197,8 @@ export default function PublicHomeFeed() {
           <div className="grid gap-6 max-w-lg mx-auto px-3">
             {isLoading ? (
               <p>Loading...</p>
+            ) : filteredWatchPosts.length === 0 ? (
+              <p className="text-center text-gray-500 py-10">No posts found</p>
             ) : (
               filteredWatchPosts.map((post) => (
                 <PropertyCard
@@ -246,8 +248,11 @@ export default function PublicHomeFeed() {
         {/* SEARCH */}
         {activeButton === "search" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
-            {filteredPosts.map((post) => (
-              <DetailedListingCard
+            {filteredPosts.length === 0 ? (
+              <div className="col-span-full text-center text-gray-500 py-10">No posts found</div>
+            ) : (
+              filteredPosts.map((post) => (
+                <DetailedListingCard
                 key={post.id}
                 id={post.id}
                 images={post.images ?? []}
@@ -279,8 +284,9 @@ export default function PublicHomeFeed() {
                   handleUnauthenticatedAction("save posts")
                 }
                 isLike={false}
-              />
-            ))}
+                />
+              ))
+            )}
           </div>
         )}
       </div>
