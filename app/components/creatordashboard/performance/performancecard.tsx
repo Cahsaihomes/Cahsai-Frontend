@@ -15,9 +15,10 @@ type StatItem = {
 
 interface EarningsCardGridProps {
   stats: StatItem[];
+  loading?: boolean;
 }
 
-export default function PerformanceCardGrid({ stats }: EarningsCardGridProps) {
+export default function PerformanceCardGrid({ stats, loading = false }: EarningsCardGridProps) {
   return (
     // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(220px,1fr))] mt-4">

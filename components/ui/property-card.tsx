@@ -575,7 +575,7 @@ export default function PropertyCard(props: PropertyCardProps) {
                     size="sm"
                      className="rounded-md bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
                   >
-                    Buy Product
+                    Shop Look
                   </Button>
                 )}
 

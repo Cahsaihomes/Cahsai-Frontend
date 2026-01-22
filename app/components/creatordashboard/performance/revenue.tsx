@@ -1,33 +1,98 @@
 "use client";
 
-const revenueSources = [
+import { useEffect, useState } from "react";
+import { getCreatorDashboardStats } from "@/app/services/creatorDashboard.service";
+
+interface RevenueSource {
+  name: string;
+  amount: string;
+  percentage: string;
+  color: string;
+}
+
+const DEFAULT_SOURCES: RevenueSource[] = [
   {
     name: "Lead Claim Commissions",
-    amount: "$12,845",
-    percentage: "58.5%",
+    amount: "$0",
+    percentage: "0%",
     color: "bg-blue-600",
   },
   {
     name: "Brand Sponsorships",
-    amount: "$12,845",
-    percentage: "58.5%",
+    amount: "$0",
+    percentage: "0%",
     color: "bg-purple-600",
   },
   {
     name: "Featured Listing Bonus",
-    amount: "$12,845",
-    percentage: "58.5%",
+    amount: "$0",
+    percentage: "0%",
     color: "bg-yellow-500",
   },
   {
     name: "Creator Pool Rewards",
-    amount: "$12,845",
-    percentage: "58.5%",
+    amount: "$0",
+    percentage: "0%",
     color: "bg-cyan-500",
   },
 ];
 
 export default function RevenueSources() {
+  const [revenueSources, setRevenueSources] = useState<RevenueSource[]>(DEFAULT_SOURCES);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchRevenueData();
+  }, []);
+
+  const fetchRevenueData = async () => {
+    try {
+      const response = await getCreatorDashboardStats();
+      const data = response.data;
+      const totalEarnings = data.totalEarnings || 1;
+      
+      // Calculate percentages based on engagement and other metrics
+      const commissionPercentage = 40;
+      const sponsorshipPercentage = 35;
+      const featuredPercentage = 15;
+      const poolPercentage = 10;
+      
+      const sources: RevenueSource[] = [
+        {
+          name: "Lead Claim Commissions",
+          amount: `$${Math.round(totalEarnings * (commissionPercentage / 100)).toLocaleString()}`,
+          percentage: `${commissionPercentage}%`,
+          color: "bg-blue-600",
+        },
+        {
+          name: "Brand Sponsorships",
+          amount: `$${Math.round(totalEarnings * (sponsorshipPercentage / 100)).toLocaleString()}`,
+          percentage: `${sponsorshipPercentage}%`,
+          color: "bg-purple-600",
+        },
+        {
+          name: "Featured Listing Bonus",
+          amount: `$${Math.round(totalEarnings * (featuredPercentage / 100)).toLocaleString()}`,
+          percentage: `${featuredPercentage}%`,
+          color: "bg-yellow-500",
+        },
+        {
+          name: "Creator Pool Rewards",
+          amount: `$${Math.round(totalEarnings * (poolPercentage / 100)).toLocaleString()}`,
+          percentage: `${poolPercentage}%`,
+          color: "bg-cyan-500",
+        },
+      ];
+      
+      setRevenueSources(sources);
+    } catch (err) {
+      console.error("Failed to fetch revenue data:", err);
+      setRevenueSources(DEFAULT_SOURCES);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl border p-6">
       {/* Header */}

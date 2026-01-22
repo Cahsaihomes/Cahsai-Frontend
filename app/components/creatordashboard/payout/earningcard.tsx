@@ -8,16 +8,17 @@ type StatItem = {
   value: string;
   badge: {
     text: string;
-    color: string; // Tailwind classes like "bg-blue-100 text-blue-600"
-    icon: LucideIcon; // Lucide icon component
+    color: string;
+    icon: LucideIcon;
   };
 };
 
 interface EarningsCardGridProps {
   stats: StatItem[];
+  loading?: boolean;
 }
 
-export default function EarningsCardGrid({ stats }: EarningsCardGridProps) {
+export default function EarningsCardGrid({ stats, loading = false }: EarningsCardGridProps) {
   return (
     <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(220px,1fr))] mt-4">
       {stats.map((stat, idx) => {
