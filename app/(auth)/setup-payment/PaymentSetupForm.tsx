@@ -224,7 +224,7 @@ const PaymentSetupForm = () => {
             {/* MLS License Number */}
             <div className="flex flex-col gap-2">
               <label className="font-medium text-[16px] leading-6 text-[#414651]">
-                MLS ID (required)
+                MLS license number (required)
               </label>
               <input
                 {...register("licenseNumber")}
@@ -239,7 +239,7 @@ const PaymentSetupForm = () => {
             </div>
 
             {/* MLS Association */}
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               <label className="font-medium text-[16px] leading-6 text-[#414651]">
                 License State
               </label>
@@ -253,7 +253,7 @@ const PaymentSetupForm = () => {
                   {errors.licenseState.message}
                 </span>
               )}
-            </div>
+            </div> */}
 
             {/* MLS Association */}
             <div className="flex flex-col gap-2">
