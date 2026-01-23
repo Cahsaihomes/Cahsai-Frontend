@@ -1,29 +1,38 @@
 import { z } from "zod";
 
 export const setPaymentSchema = z.object({
-  brokerageName: z.string().min(1, "Brokerage name is required"),
-  licenseNumber: z.string().min(1, "MLS License Number is required"),
+  userType: z.enum(["real-estate-agent", "property-partner"], {
+    errorMap: () => ({ message: "User type is required" }),
+  }),
+  brokerageName: z.string().optional(),
+  licenseNumber: z.string().optional(),
   customBrokerage: z.string().optional(),
-  mlsAssociation: z.string().min(1, "MLS Association is required"),
+  mlsAssociation: z.string().optional(),
   customMlsAssociation: z.string().optional(),
-  // cardNumber: z
-  //   .string()
-  //   .min(13, "Card number must be at least 13 digits")
-  //   .max(19, "Card number must be at most 19 digits")
-  //   .regex(/^\d+$/, "Card number must contain only digits"),
-
-  // expiryDate: z
-  //   .string()
-  //   .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry must be in MM/YY format"),
-  // cvv: z
-  //   .string()
-  //   .min(3, "CVV must be 3 or 4 digits")
-  //   .max(4, "CVV must be 3 or 4 digits")
-  //   .regex(/^\d+$/, "CVV must contain only digits"),
-
+  licenseState: z.string().optional(),
   billing: z.string().min(1, "Billing address is required"),
   cardHolderName: z.string().min(1, "Card holder name is required"),
-});
+}).refine(
+  (data) => {
+    // If user is real estate agent, require MLS fields
+    if (data.userType === "real-estate-agent") {
+      return (
+        data.brokerageName &&
+        data.brokerageName.length > 0 &&
+        data.licenseNumber &&
+        data.licenseNumber.length > 0 &&
+        data.mlsAssociation &&
+        data.mlsAssociation.length > 0
+      );
+    }
+    // Property partner doesn't need MLS fields
+    return true;
+  },
+  {
+    message: "MLS fields are required for Real Estate Agents",
+    path: ["brokerageName"],
+  }
+);
 
 export type SetupPaymentFormValues = z.infer<typeof setPaymentSchema>;
 

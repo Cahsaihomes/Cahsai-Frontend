@@ -43,23 +43,31 @@ const PaymentSetupForm = () => {
     formState: { errors },
   } = useForm<SetupPaymentFormValues>({
     resolver: zodResolver(setPaymentSchema),
+    defaultValues: {
+      userType: "real-estate-agent",
+    },
   });
 
+  const userTypeValue = watch("userType");
   const brokerageValue = watch("brokerageName");
   const mlsAssociationValue = watch("mlsAssociation");
 
   const onSubmit = async (data: SetupPaymentFormValues) => {
     let finalData = { ...data };
 
-    if (data.brokerageName === "Not Listed") {
-      finalData.brokerageName = data.customBrokerage || "";
-    }
-    delete (finalData as any).customBrokerage;
+    // Handle brokerage name for Real Estate Agents
+    if (data.userType === "real-estate-agent") {
+      if (data.brokerageName === "Not Listed") {
+        finalData.brokerageName = data.customBrokerage || "";
+      }
+      delete (finalData as any).customBrokerage;
 
-    if (data.mlsAssociation === "Not Listed") {
-      finalData.mlsAssociation = data.customMlsAssociation || "";
+      if (data.mlsAssociation === "Not Listed") {
+        finalData.mlsAssociation = data.customMlsAssociation || "";
+      }
+      delete (finalData as any).customMlsAssociation;
     }
-    delete (finalData as any).customMlsAssociation;
+
     setLoading(true);
 
     if (!user || !stripe || !elements) return;
@@ -112,17 +120,24 @@ const PaymentSetupForm = () => {
       const expMonth = String(cardInfo?.exp_month).padStart(2, "0");
       const expYear = String(cardInfo?.exp_year).slice(-2);
 
-      const payload = {
+      // Build payload based on user type
+      const payload: any = {
         userId: user?.id,
-        brokerageName: data?.brokerageName,
-        mlsLicenseNumber: data?.licenseNumber,
-        mlsAssociation: data?.mlsAssociation,
+        userType: data.userType,
         cardNumber: String(cardInfo?.last4),
         cardExpiryDate: `${expMonth}/${expYear}`,
         cardBrand: cardInfo?.brand || "",
         billingAddress: data?.billing,
         cardHolderName: data?.cardHolderName,
       };
+
+      // Only add MLS fields if user is Real Estate Agent
+      if (data.userType === "real-estate-agent") {
+        payload.brokerageName = data?.brokerageName;
+        payload.mlsLicenseNumber = data?.licenseNumber;
+        payload.mlsAssociation = data?.mlsAssociation;
+        payload.licenseState = data?.licenseState;
+      }
 
       const res = await agentPymentDetails(payload);
       toast.success(res.message || "Payment Details Added successful!");
@@ -137,106 +152,150 @@ const PaymentSetupForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Brokerage Name */}
+        {/* User Type Selection */}
         <div className="flex flex-col gap-2">
           <label className="font-medium text-[16px] leading-6 text-[#414651]">
-            Brokerage Name
+            Account Type
           </label>
 
           <select
-            {...register("brokerageName")}
+            {...register("userType")}
             className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
           >
-            <option value="">Select your Brokerage</option>
-            <option value="Compass">Compass</option>
-            <option value="Coldwell Banker">Coldwell Banker</option>
-            <option value="Keller Williams">Keller Williams</option>
-            <option value="Century 21">Century 21</option>
-            <option value="Not Listed">
-              {" "}
-              Not in the list - enter manually
-            </option>
+            <option value="">Select your account type</option>
+            <option value="real-estate-agent">Real Estate Agent</option>
+            <option value="property-partner">Property Partner</option>
           </select>
 
-          {brokerageValue === "Not Listed" && (
-            <input
-              type="text"
-              placeholder="Enter your Brokerage"
-              {...register("customBrokerage", {
-                required: "Please enter your brokerage name",
-              })}
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
-            />
-          )}
-
-          {errors.brokerageName && (
+          {errors.userType && (
             <span className="text-sm text-red-500">
-              {errors.brokerageName.message}
-            </span>
-          )}
-          {errors.customBrokerage && (
-            <span className="text-sm text-red-500">
-              {errors.customBrokerage.message}
+              {errors.userType.message}
             </span>
           )}
         </div>
 
-        {/* MLS License Number */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium text-[16px] leading-6 text-[#414651]">
-            MLS License Number
-          </label>
-          <input
-            {...register("licenseNumber")}
-            placeholder="Enter your MLS license number"
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
-          />
-          {errors.licenseNumber && (
-            <span className="text-sm text-red-500">
-              {errors.licenseNumber.message}
-            </span>
-          )}
-        </div>
+        {/* MLS Fields - Only show for Real Estate Agent / Broker */}
+        {userTypeValue === "real-estate-agent" && (
+          <>
+            {/* Brokerage Name */}
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-[16px] leading-6 text-[#414651]">
+                Brokerage (required)
+              </label>
 
-        {/* MLS Association */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium text-[16px] leading-6 text-[#414651]">
-            MLS Association
-          </label>
-          <select
-            {...register("mlsAssociation")}
-            className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
-          >
-            <option value="">Select MLS Association</option>
-            <option value="CRMLS">CRMLS (California)</option>
-            <option value="Bright">Bright MLS (East Coast)</option>
-            <option value="HARMLS">HARMLS (Texas)</option>
-            <option value="Stellar">Stellar MLS (Florida)</option>
-            <option value="Not Listed">Not in the list - enter manually</option>
-          </select>
+              <select
+                {...register("brokerageName")}
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+              >
+                <option value="">Select your Brokerage</option>
+                <option value="Compass">Compass</option>
+                <option value="Coldwell Banker">Coldwell Banker</option>
+                <option value="Keller Williams">Keller Williams</option>
+                <option value="Century 21">Century 21</option>
+                <option value="Not Listed">
+                  {" "}
+                  Not in the list - enter manually
+                </option>
+              </select>
 
-          {mlsAssociationValue === "Not Listed" && (
-            <input
-              type="text"
-              placeholder="Enter your MLS Association"
-              {...register("customMlsAssociation", {
-                required: "Please enter your MLS Association",
-              })}
-              className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
-            />
-          )}
+              {brokerageValue === "Not Listed" && (
+                <input
+                  type="text"
+                  placeholder="Enter your Brokerage"
+                  {...register("customBrokerage", {
+                    required: "Please enter your brokerage name",
+                  })}
+                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+                />
+              )}
 
-          {errors.mlsAssociation && (
-            <span className="text-sm text-red-500">
-              {errors.mlsAssociation.message}
-            </span>
-          )}
-          {errors.customMlsAssociation && (
-            <span className="text-sm text-red-500">
-              {errors.customMlsAssociation.message}
-            </span>
-          )}
-        </div>
+              {errors.brokerageName && (
+                <span className="text-sm text-red-500">
+                  {errors.brokerageName.message}
+                </span>
+              )}
+              {errors.customBrokerage && (
+                <span className="text-sm text-red-500">
+                  {errors.customBrokerage.message}
+                </span>
+              )}
+            </div>
+
+            {/* MLS License Number */}
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-[16px] leading-6 text-[#414651]">
+                MLS ID (required)
+              </label>
+              <input
+                {...register("licenseNumber")}
+                placeholder="Enter your MLS license number"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+              />
+              {errors.licenseNumber && (
+                <span className="text-sm text-red-500">
+                  {errors.licenseNumber.message}
+                </span>
+              )}
+            </div>
+
+            {/* MLS Association */}
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-[16px] leading-6 text-[#414651]">
+                License State
+              </label>
+              <input
+                {...register("licenseState")}
+                placeholder="Enter your license state"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+              />
+              {errors.licenseState && (
+                <span className="text-sm text-red-500">
+                  {errors.licenseState.message}
+                </span>
+              )}
+            </div>
+
+            {/* MLS Association */}
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-[16px] leading-6 text-[#414651]">
+                MLS Association
+              </label>
+              <select
+                {...register("mlsAssociation")}
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+              >
+                <option value="">Select MLS Association</option>
+                <option value="CRMLS">CRMLS (California)</option>
+                <option value="Bright">Bright MLS (East Coast)</option>
+                <option value="HARMLS">HARMLS (Texas)</option>
+                <option value="Stellar">Stellar MLS (Florida)</option>
+                <option value="Not Listed">Not in the list - enter manually</option>
+              </select>
+
+              {mlsAssociationValue === "Not Listed" && (
+                <input
+                  type="text"
+                  placeholder="Enter your MLS Association"
+                  {...register("customMlsAssociation", {
+                    required: "Please enter your MLS Association",
+                  })}
+                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+                />
+              )}
+
+              {errors.mlsAssociation && (
+                <span className="text-sm text-red-500">
+                  {errors.mlsAssociation.message}
+                </span>
+              )}
+              {errors.customMlsAssociation && (
+                <span className="text-sm text-red-500">
+                  {errors.customMlsAssociation.message}
+                </span>
+              )}
+            </div>
+          </>
+        )}
 
         {/* Payment Setup Title */}
         <span className="font-inter font-medium text-[18px] leading-7 text-[#414651] block">
