@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 // Public routes that don't require authentication
 const PUBLIC_ROUTES = [
   "/login",
+  "/admin/login",
   "/signup",
   "/create-profile",
   "/forgot-password",
@@ -87,9 +88,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Admin (admin, finance_admin, moderator_admin)
-  if (pathname.startsWith("/admin") && (!token || !["admin", "finance_admin", "moderator_admin"].includes(role || ""))) {
-    url.pathname = "/login";
+  // Admin (admin, finance_admin, moderator_admin) - but allow /admin/login
+  if (
+    pathname.startsWith("/admin") &&
+    pathname !== "/admin/login" &&
+    (!token || !["admin", "finance_admin", "moderator_admin"].includes(role || ""))
+  ) {
+    url.pathname = "/admin/login";
     return NextResponse.redirect(url);
   }
 

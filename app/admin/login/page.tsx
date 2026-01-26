@@ -1,0 +1,206 @@
+"use client";
+
+import { Inter } from "next/font/google";
+import { useState } from "react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { LoginFormValues, loginSchema } from "@/app/validation/signupSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
+import { loginSuccess } from "@/app/redux/slices/authSlice";
+import { loginApi } from "@/app/services/auth.service";
+import { handleApiError } from "@/app/Utils/errorHandler";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export default function AdminLoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const {
+    register: login,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormValues) => {
+    setLoading(true);
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+
+      const res = await loginApi(payload);
+
+      // Check if user has admin role
+      const userRole = res.data.user.role;
+      if (
+        userRole !== "admin" &&
+        userRole !== "finance_admin" &&
+        userRole !== "moderator_admin"
+      ) {
+        toast.error("This login is for admins only!");
+        setLoading(false);
+        return;
+      }
+
+      dispatch(loginSuccess({ token: res.data.token, user: res.data.user }));
+
+      Cookies.set("token", res.data.token, { path: "/" });
+      Cookies.set("role", res.data.user.role, { path: "/" });
+
+      toast.success(res.message || "Admin login successful!");
+
+      if (res.data.user?.emailVerified) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push(`/otp?id=true&email=${encodeURIComponent(data?.email)}`);
+      }
+    } catch (err: any) {
+      const errorMsg = handleApiError(err, "Login failed!");
+      if (errorMsg.includes("not verified")) {
+        toast.error(errorMsg);
+        router.push(`/otp?id=true&email=${encodeURIComponent(data?.email)}`);
+      } else {
+        toast.error(errorMsg);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div
+      className={`min-h-screen bg-[#F9F6F1] flex items-center justify-center p-4 ${inter.className}`}
+    >
+      <div
+        className="bg-white rounded-lg shadow-sm p-8 max-w-md w-full"
+        style={{
+          boxShadow: `
+      8px 11px 30px 0px #00000008,
+      30px 45px 54px 0px #00000008,
+      68px 102px 73px 0px #00000005,
+      120px 181px 87px 0px #00000000,
+      188px 283px 95px 0px #00000000
+    `,
+        }}
+      >
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">
+            Admin Login
+          </h1>
+          <p className="text-gray-600 text-sm">
+            Enter your admin credentials to access the admin dashboard.
+          </p>
+        </div>
+
+        {/* Form */}
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              {...login("email")}
+              placeholder="Enter your email"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+            />
+            {errors.email && (
+              <span className="text-sm text-red-500">
+                {errors.email.message}
+              </span>
+            )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                {...login("password")}
+                placeholder="Enter password"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#968470] focus:border-transparent text-sm"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-gray-400" />
+                ) : (
+                  <Eye className="h-4 w-4 text-gray-400" />
+                )}
+              </button>
+              {errors.password && (
+                <span className="text-sm text-red-500">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+            {/* Forgot Password Link */}
+            <div className="text-right mt-2">
+              <span
+                onClick={() => router.push("/forgot-password")}
+                className="text-sm cursor-pointer text-gray-700 hover:text-[#968470] hover:underline"
+              >
+                Forgot password
+              </span>
+            </div>
+          </div>
+
+          {/* Login Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full flex items-center justify-center gap-2 bg-[#968470] hover:bg-[#7a6d5e] text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 ${
+              loading ? "cursor-not-allowed opacity-70" : ""
+            }`}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin h-5 w-5" />
+              </>
+            ) : (
+              "Admin Login"
+            )}
+          </button>
+        </form>
+
+        {/* Back Link */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-600">
+            <span
+              onClick={() => router.push("/")}
+              className="text-[#968470] hover:underline cursor-pointer"
+            >
+              Back to Home
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
