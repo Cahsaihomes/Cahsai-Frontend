@@ -36,6 +36,9 @@ const PaymentSetupForm = () => {
   const isFormComplete =
     cardNumberComplete && cardExpiryComplete && cardCvcComplete;
 
+  // Check if payment is required based on environment variable
+  const requirePayment = process.env.NEXT_PUBLIC_REQUIRE_PAYMENT_ON_SIGNUP === "true";
+
   const {
     register,
     handleSubmit,
@@ -70,9 +73,13 @@ const PaymentSetupForm = () => {
 
     setLoading(true);
 
-    if (!user || !stripe || !elements) return;
+    if (!user) return;
 
     try {
+      // COMMENTED: Stripe payment processing
+      /* 
+      if (!stripe || !elements) return;
+
       if (!stripe) throw new Error("Stripe failed to load.");
 
       const cardNumber = elements.getElement(CardNumberElement);
@@ -119,17 +126,82 @@ const PaymentSetupForm = () => {
       const cardInfo = paymentMethod.card;
       const expMonth = String(cardInfo?.exp_month).padStart(2, "0");
       const expYear = String(cardInfo?.exp_year).slice(-2);
+      */
 
       // Build payload based on user type
       const payload: any = {
         userId: user?.id,
         userType: data.userType,
-        cardNumber: String(cardInfo?.last4),
-        cardExpiryDate: `${expMonth}/${expYear}`,
-        cardBrand: cardInfo?.brand || "",
-        billingAddress: data?.billing,
-        cardHolderName: data?.cardHolderName,
       };
+
+      // Add payment details only if required
+      if (requirePayment) {
+        // PRODUCTION: Use real payment details from Stripe
+        /* 
+        if (!stripe || !elements) return;
+        if (!stripe) throw new Error("Stripe failed to load.");
+        
+        const cardNumber = elements.getElement(CardNumberElement);
+        const cardExpiry = elements.getElement(CardExpiryElement);
+        const cardCvc = elements.getElement(CardCvcElement);
+        
+        if (!cardNumber || !cardExpiry || !cardCvc) {
+          toast.error("Please enter complete card details.");
+          setLoading(false);
+          return;
+        }
+        
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+          type: "card",
+          card: cardNumber,
+          billing_details: {
+            name: data.cardHolderName,
+            address: { line1: data.billing },
+            email: user?.email,
+          },
+        });
+
+        if (error || !paymentMethod) {
+          console.error("Stripe Token Error:", error);
+          toast.error(error?.message || "Failed to generate Stripe token.");
+          return;
+        }
+
+        const customerRes = await axios.post("/api/add-customer", {
+          name: data.cardHolderName,
+          email: user?.email,
+          paymentMethodId: paymentMethod.id,
+        });
+
+        const customerData = await customerRes.data;
+        if (customerRes.status !== 200) {
+          throw new Error(customerData.error || "Failed to create Stripe customer.");
+        }
+
+        const cardInfo = paymentMethod.card;
+        const expMonth = String(cardInfo?.exp_month).padStart(2, "0");
+        const expYear = String(cardInfo?.exp_year).slice(-2);
+        
+        payload.cardNumber = String(cardInfo?.last4);
+        payload.cardExpiryDate = `${expMonth}/${expYear}`;
+        payload.cardBrand = cardInfo?.brand || "";
+        payload.billingAddress = data?.billing;
+        payload.cardHolderName = data?.cardHolderName;
+        */
+        // TEMPORARY: Use test card values for production
+        // payload.cardNumber = "4242";
+        // payload.cardExpiryDate = "12/25";
+        // payload.cardBrand = "visa";
+        // payload.billingAddress = data?.billing || "N/A";
+        // payload.cardHolderName = data?.cardHolderName || "N/A";
+      } else {
+        // TESTING/DEVELOPMENT: Skip payment fields (backend has these as optional)
+        // payload.cardNumber = commented out
+        // payload.cardExpiryDate = commented out
+        // payload.cardBrand = commented out
+        // payload.billingAddress = commented out
+        // payload.cardHolderName = commented out
+      }
 
       // Only add MLS fields if user is Real Estate Agent
       if (data.userType === "real-estate-agent") {
@@ -140,10 +212,10 @@ const PaymentSetupForm = () => {
       }
 
       const res = await agentPymentDetails(payload);
-      toast.success(res.message || "Payment Details Added successful!");
+      toast.success(res.message || "Agent details saved successfully!");
       router.push("/create-profile");
     } catch (err: any) {
-      toast.error(handleApiError(err, "Agent Payment Creation failed!"));
+      toast.error(handleApiError(err, "Failed to save agent details!"));
     } finally {
       setLoading(false);
     }
@@ -298,13 +370,13 @@ const PaymentSetupForm = () => {
         )}
 
         {/* Payment Setup Title */}
-        <span className="font-inter font-medium text-[18px] leading-7 text-[#414651] block">
+        {/* <span className="font-inter font-medium text-[18px] leading-7 text-[#414651] block">
           Payment Setup
-        </span>
+        </span> */}
 
         {/* Card Number */}
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <label className="font-medium text-[16px] leading-6 text-[#414651]">
             Card Number
           </label>
@@ -332,9 +404,9 @@ const PaymentSetupForm = () => {
           <span className="text-sm text-[#535862]">
             Your card will only be charged when you claim leads.
           </span>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
             <label className="font-medium text-[16px] leading-6 text-[#414651]">
               Expiry Date
@@ -388,9 +460,10 @@ const PaymentSetupForm = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
         {/* card holder name */}
-        <div className="flex flex-col gap-2">
+
+        {/* <div className="flex flex-col gap-2">
           <label className="font-medium text-[16px] leading-6 text-[#414651]">
             Card Holder Name
           </label>
@@ -404,9 +477,10 @@ const PaymentSetupForm = () => {
               {errors.cardHolderName.message}
             </span>
           )}
-        </div>
+        </div> */}
         {/* Billing */}
-        <div className="flex flex-col gap-2">
+
+        {/* <div className="flex flex-col gap-2">
           <label className="font-medium text-[16px] leading-6 text-[#414651]">
             Billing Address
           </label>
@@ -420,7 +494,7 @@ const PaymentSetupForm = () => {
               {errors.billing.message}
             </span>
           )}
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <button

@@ -10,8 +10,9 @@ export const setPaymentSchema = z.object({
   mlsAssociation: z.string().optional(),
   customMlsAssociation: z.string().optional(),
   licenseState: z.string().optional(),
-  billing: z.string().min(1, "Billing address is required"),
-  cardHolderName: z.string().min(1, "Card holder name is required"),
+  // COMMENTED: Payment fields are no longer required
+  billing: z.string().optional(), // Was: z.string().min(1, "Billing address is required")
+  cardHolderName: z.string().optional(), // Was: z.string().min(1, "Card holder name is required")
 }).refine(
   (data) => {
     // If user is real estate agent, require MLS fields
