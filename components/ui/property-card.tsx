@@ -32,6 +32,9 @@ import { useComments } from "@/hooks/useComments";
 import { Comment } from "@/app/services/comment.service";
 import { deserialize } from "v8";
 import ShareModal from "./share-modal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/redux";
+import { toast } from "sonner";
 
 type Variant = "Cahsai Creator" | "Cahsai Agent" | "sponsored";
 
@@ -74,6 +77,8 @@ export interface PropertyCardProps {
 
 export default function PropertyCard(props: PropertyCardProps) {
   const router = useRouter();
+  const currentUser = useSelector((state: RootState) => state.auth.user);
+  
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [privacy, setPrivacy] = useState("Public");
@@ -172,6 +177,17 @@ export default function PropertyCard(props: PropertyCardProps) {
       }, 300);
     }
   }, [showComments, isOwnPost]);
+
+  // Handle dreamboard click with authentication check
+  const handleDreamboardClick = () => {
+    if (!currentUser) {
+      toast.error("Please login first");
+      router.push("/auth/login");
+      return;
+    }
+    router.push("/buyerdashboard/moodboards");
+  };
+
 
   const handleAddComment = async () => {
     if (!newComment.trim() || isOwnPost || submitting) return;
@@ -532,9 +548,9 @@ export default function PropertyCard(props: PropertyCardProps) {
 
             {title && (
               <div className={`absolute left-4 right-4 text-white z-20 ${isStay ? "bottom-[86px]" : "bottom-28"}`}>
-                <div className="text-lg sm:text-xl font-bold drop-shadow-xl line-clamp-2">{title}</div>
+                <div className="text-xs sm:text-lg sm:text-xl font-bold drop-shadow-xl whitespace-normal break-words">{title}</div>
                 {description && (
-                  <div className="text-xs sm:text-sm opacity-90 mt-1 drop-shadow-lg line-clamp-2">
+                  <div className="text-[10px] sm:text-xs sm:text-sm opacity-90 mt-0.5 sm:mt-1 drop-shadow-lg line-clamp-2">
                     {description || ''}
                   </div>
                 )}
@@ -560,27 +576,27 @@ export default function PropertyCard(props: PropertyCardProps) {
               </div>
             )}
 
-            {/* {isCreator && (
-              <Link href="/buyerdashboard/moodboards">
+            <div className="flex gap-1 sm:gap-2 flex-wrap items-center">
+              {isCreator && (
                 <Button
+                  onClick={handleDreamboardClick}
                   size="sm"
-                  className="rounded-md bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
+                  className="rounded-md text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5 h-auto bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
                 >
-                  <Bookmark className="w-4 h-4 mr-2" /> Dreamboard
+                  <Bookmark className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" /> Dreamboard
                 </Button>
-                 
-              </Link>
-            
-            )} */}
-             {productLink && (
-                  <Button
-                    onClick={() => window.open(productLink, '_blank')}
-                    size="sm"
-                     className="rounded-md bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
-                  >
-                    Shop Look
-                  </Button>
-                )}
+              )}
+              
+              {productLink && (
+                <Button
+                  onClick={() => window.open(productLink, '_blank')}
+                  size="sm"
+                  className="rounded-md text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5 h-auto bg-[#968470] hover:bg-[#7a6d5e] shadow-lg transition-all hover:scale-105"
+                >
+                  Shop Look
+                </Button>
+              )}
+            </div>
 
             {isAgent && (
               <div className="flex gap-2 flex-wrap">
