@@ -31,6 +31,7 @@ import {
 import { useComments } from "@/hooks/useComments";
 import { Comment } from "@/app/services/comment.service";
 import { deserialize } from "v8";
+import ShareModal from "./share-modal";
 
 type Variant = "Cahsai Creator" | "Cahsai Agent" | "sponsored";
 
@@ -79,6 +80,7 @@ export default function PropertyCard(props: PropertyCardProps) {
   const [replyingTo, setReplyingTo] = useState<number | null>(null);
   const [replyText, setReplyText] = useState("");
   const [replyPrivacy, setReplyPrivacy] = useState("Public");
+  const [showShareModal, setShowShareModal] = useState(false);
   const commentsListRef = useRef<HTMLDivElement>(null);
   const commentInputRef = useRef<HTMLInputElement>(null);
 
@@ -475,6 +477,7 @@ export default function PropertyCard(props: PropertyCardProps) {
           />
 
           <IconPill
+            onClick={() => setShowShareModal(true)}
             icon={<Share2 size={18} fill="currentColor" />}
             count={shares}
           />
@@ -759,6 +762,18 @@ export default function PropertyCard(props: PropertyCardProps) {
           background: rgba(111, 131, 117, 0.8);
         }
       `}</style>
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        postId={postId}
+        title={title}
+        description={description}
+        location={location}
+        price={props.buttonColor ? undefined : area}
+        beds={beds}
+        baths={baths}
+      />
     </Card>
   );
 }
