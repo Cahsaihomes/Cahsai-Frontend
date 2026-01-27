@@ -235,7 +235,7 @@ export default function UpgradeRentalPage() {
 
       console.log("Application submitted:", response);
       toast.success("✓ Application submitted successfully!", {
-        description: `You will receive a confirmation email shortly.`,
+        description: `${formData.fullName}, you will receive a confirmation email shortly.`,
         duration: 5000,
       });
       
