@@ -78,13 +78,15 @@ export default function CreateProfilePage() {
   const onSubmit = async (data: CreateProfileFormValues) => {
     setLoading(true);
     try {
-      const fileError = validateFile(data.profileImage as File);
-      if (fileError) {
-        toast.error(fileError);
-        setLoading(false);
-        return;
+      if (data.profileImage) {
+        const fileError = validateFile(data.profileImage as File);
+        if (fileError) {
+          toast.error(fileError);
+          setLoading(false);
+          return;
+        }
       }
-      const formattedAreas = data.areasServed.map((area) => area.value);
+      const formattedAreas = data.areasServed?.map((area) => area.value) || [];
       const formData = new FormData();
       formData.append("userId", String(user?.id));
       formData.append("linkedinUrl", data.linkedin || "");
@@ -93,7 +95,7 @@ export default function CreateProfilePage() {
         "specializations",
         JSON.stringify(data.specializations || [])
       );
-      formData.append("areasServed", JSON.stringify(formattedAreas || []));
+      formData.append("areasServed", JSON.stringify(formattedAreas));
       if (data.profileImage instanceof File) {
         formData.append("profilePic", data.profileImage);
       }

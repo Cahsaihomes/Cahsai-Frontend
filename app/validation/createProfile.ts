@@ -38,22 +38,20 @@ export const setPaymentSchema = z.object({
 export type SetupPaymentFormValues = z.infer<typeof setPaymentSchema>;
 
 export const createProfileSchema = z.object({
-  linkedin: z.string().url("Enter a valid LinkedIn URL").optional(),
+  linkedin: z.string().optional(),
   instagram: z.string().optional(),
   areasServed: z
     .array(
       z.object({
         value: z
-          .string()
-          .min(1, "ZIP code is required")
-          .regex(/^\d+$/, "ZIP code must be a number"),
+          .string(),
       })
     )
-    .min(1, "At least one ZIP code is required"),
+    .optional(),
   specializations: z
     .array(z.string())
-    .min(1, "Please select at least one specialization"),
-  profileImage: z.instanceof(File).optional().or(z.string().url().optional()),
+    .optional(),
+  profileImage: z.instanceof(File).optional(),
 });
 
 export type CreateProfileFormValues = z.infer<typeof createProfileSchema>;
