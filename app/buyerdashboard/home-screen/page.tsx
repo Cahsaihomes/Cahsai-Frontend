@@ -124,6 +124,7 @@ export default function Home() {
 
   function getListingBadgeText(
     listingType?: "FOR_SALE" | "FOR_RENT" | "STAY",
+    discoveryStay?: boolean | string,
   ) {
     switch (listingType) {
       case "FOR_SALE":
@@ -131,7 +132,9 @@ export default function Home() {
       case "FOR_RENT":
         return "FOR RENT";
       case "STAY":
-        return "SHORT-TERM STAY";
+        // Handle both boolean and string values from backend
+        const isDiscoveryStay = discoveryStay === true || discoveryStay === "true";
+        return isDiscoveryStay ? "DISCOVERY STAY" : "SHORT-TERM STAY";
       default:
         return "FOR YOU";
     }
@@ -497,7 +500,7 @@ export default function Home() {
                         topBadgeText={
                           post.isPromoted
                             ? "PROMOTED"
-                            : getListingBadgeText(post.listing_type)
+                            : getListingBadgeText(post.listing_type, post.discoveryStay)
                         }
                         monthly_rent={post.monthly_rent}
                         amenities={post.amenities}
@@ -609,7 +612,7 @@ export default function Home() {
                         topBadgeText={
                           post.isPromoted
                             ? "PROMOTED"
-                            : getListingBadgeText(post.listing_type)
+                            : getListingBadgeText(post.listing_type, post.discoveryStay)
                         }
                         listing_type={post.listing_type}
                         monthly_rent={post.monthly_rent}

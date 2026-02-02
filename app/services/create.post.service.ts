@@ -43,6 +43,9 @@ export interface CreatePostPayload {
   postType?: "CREATE_LISTING" | "LISTING_VIDEO";
   linkedPostId?: string | null;
   publishToWatchHomes?: boolean;
+
+  // 🔹 DISCOVERY STAY FIELD
+  discoveryStay?: boolean;
 }
 
 export const createPostService = async (
@@ -98,6 +101,11 @@ export const createPostService = async (
 
   if (typeof data.furnished === "boolean") {
     formData.append("furnished", String(data.furnished));
+  }
+
+  // 🔹 DISCOVERY STAY FIELD
+  if (typeof data.discoveryStay === "boolean") {
+    formData.append("discoveryStay", String(data.discoveryStay));
   }
 
   // 🔹 PROPERTY LISTING FIELDS

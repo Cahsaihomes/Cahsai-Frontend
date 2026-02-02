@@ -64,6 +64,7 @@ export default function PublicHomeFeed() {
 
   function getListingBadgeText(
     listingType?: "FOR_SALE" | "FOR_RENT" | "STAY",
+    discoveryStay?: boolean | string,
   ) {
     switch (listingType) {
       case "FOR_SALE":
@@ -71,7 +72,9 @@ export default function PublicHomeFeed() {
       case "FOR_RENT":
         return "FOR RENT";
       case "STAY":
-        return "SHORT-TERM STAY";
+        // Handle both boolean and string values from backend
+        const isDiscoveryStay = discoveryStay === true || discoveryStay === "true";
+        return isDiscoveryStay ? "DISCOVERY STAY" : "SHORT-TERM STAY";
       default:
         return "FOR YOU";
     }
@@ -232,6 +235,11 @@ export default function PublicHomeFeed() {
                   parking={post.parking}
                   furnished={post.furnished}
                   productLink={post.productLink}
+                  topBadgeText={
+                    post.isPromoted
+                      ? "PROMOTED"
+                      : getListingBadgeText(post.listing_type, post.discoveryStay)
+                  }
                   buttonColor="#968470"
                   onToggleSave={() =>
                     handleUnauthenticatedAction("like posts")
@@ -271,7 +279,7 @@ export default function PublicHomeFeed() {
                 topBadgeText={
                   post.isPromoted
                     ? "PROMOTED"
-                    : getListingBadgeText(post.listing_type)
+                    : getListingBadgeText(post.listing_type, post.discoveryStay)
                 }
                 listing_type={post.listing_type}
                 monthly_rent={post.monthly_rent}

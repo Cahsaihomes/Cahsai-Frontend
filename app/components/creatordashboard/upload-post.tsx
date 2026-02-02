@@ -25,6 +25,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadStatus, setUploadStatus] = useState("");
   const [currentMedia, setCurrentMedia] = useState(0);
+  const [discoveryStay, setDiscoveryStay] = useState(false);
 
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -95,6 +96,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
       bedrooms: "",
       bathrooms: "",
       postType: "LISTING_VIDEO",
+      discoveryStay: discoveryStay,
     };
     
     try {
@@ -123,6 +125,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
         setPostVideos([]);
         setUploadProgress(0);
         setUploadStatus("");
+        setDiscoveryStay(false);
       }, 800);
       
     } catch (error: any) {
@@ -233,6 +236,29 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+          </div>
+
+          {/* Discovery Stay Toggle */}
+          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <Label
+              htmlFor="discoveryStay"
+              className="text-sm font-medium text-gray-700"
+            >
+              Enable Discovery Stay
+            </Label>
+            <button
+              type="button"
+              onClick={() => setDiscoveryStay(!discoveryStay)}
+              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
+                discoveryStay ? "bg-[#968470]" : "bg-gray-300"
+              }`}
+            >
+              <span
+                className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
+                  discoveryStay ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
           </div>
         </div>
 
