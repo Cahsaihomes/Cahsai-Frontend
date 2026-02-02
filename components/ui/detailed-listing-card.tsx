@@ -85,8 +85,8 @@ export default function DetailedListingCard({
   // Format price display
   const displayPrice =
     isRental || isStay
-      ? `$${monthly_rent || price.replace("$", "")} / ${isStay ? "night" : "month"}`
-      : price;
+      ? `$${monthly_rent || (price ? price.replace("$", "") : "0")} / ${isStay ? "night" : "month"}`
+      : price || "$0";
 
   // Get amenity chips (2-3 for display)
   const displayAmenities = amenities.slice(0, 3);
