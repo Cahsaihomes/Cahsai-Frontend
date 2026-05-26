@@ -9,6 +9,7 @@ interface SignedUploadData {
   folder: string;
   resourceType: CloudinaryResourceType;
   timestamp: number;
+  eager?: string;
   signature: string;
 }
 
@@ -57,6 +58,9 @@ const uploadSingleFile = async (
   formData.append("timestamp", String(signed.timestamp));
   formData.append("signature", signed.signature);
   formData.append("folder", signed.folder);
+  if (signed.eager) {
+    formData.append("eager", signed.eager);
+  }
 
   const response = await axios.post(
     `https://api.cloudinary.com/v1_1/${signed.cloudName}/${signed.resourceType}/upload`,
@@ -70,7 +74,7 @@ const uploadSingleFile = async (
 
   return {
     kind: task.kind,
-    url: response.data.secure_url,
+    url: response.data.eager?.[0]?.secure_url || response.data.secure_url,
   };
 };
 
