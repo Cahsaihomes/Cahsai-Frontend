@@ -51,7 +51,12 @@ export default function PublicHomeFeed() {
   const { data: affilateProduct, isLoading: isAffLoading, error } = useAffiliateProducts("laptop");
 
 
-  const { data: posts = [], isLoading: isAllPostsLoading, isError } = useQuery<Post[]>({
+  const {
+    data: posts = [],
+    isLoading: isAllPostsLoading,
+    isFetching: isAllPostsFetching,
+    isError,
+  } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: getAllPosts,
     enabled: activeButton === "search",
@@ -329,7 +334,11 @@ export default function PublicHomeFeed() {
         {/* SEARCH */}
         {activeButton === "search" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
-            {filteredPosts.length === 0 ? (
+            {isAllPostsLoading || (isAllPostsFetching && posts.length === 0) ? (
+              <div className="col-span-full flex justify-center py-10">
+                <div className="w-8 h-8 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            ) : filteredPosts.length === 0 ? (
               <div className="col-span-full text-center text-gray-500 py-10">No posts found</div>
             ) : (
               filteredPosts.map((post) => (

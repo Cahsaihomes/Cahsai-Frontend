@@ -99,6 +99,7 @@ export default function Home() {
   const {
     data: posts,
     isLoading: isAllPostsLoading,
+    isFetching: isAllPostsFetching,
     isError,
     refetch,
   } = useQuery<Post[]>({
@@ -647,7 +648,7 @@ export default function Home() {
                 )}
               </div>
               {/* Cards Grid */}
-              {isAllPostsLoading ? (
+              {isAllPostsLoading || (isAllPostsFetching && !posts?.length) ? (
                 <div className="flex justify-center items-center h-40">
                   <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
                 </div>
