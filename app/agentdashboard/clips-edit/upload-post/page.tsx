@@ -350,8 +350,15 @@ export default function AgentUploadPage() {
       }
     });
 
-    setPostImages((prev) => [...prev, ...images].slice(0, 5));
-    setPostVideos((prev) => [...prev, ...videos].slice(0, postType === "LISTING_VIDEO" ? 5 : 2));
+    if (postImages.length + images.length > 5) {
+      toast.error("You can upload a maximum of 5 images.");
+    }
+    if (postVideos.length + videos.length > 5) {
+      toast.error("You can upload a maximum of 5 videos.");
+    }
+
+    setPostImages([...postImages, ...images].slice(0, 5));
+    setPostVideos([...postVideos, ...videos].slice(0, 5));
     setCurrentMedia(0);
     
     // Reset file input value to allow selecting the same file again

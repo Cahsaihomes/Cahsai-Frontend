@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { Post } from "@/app/Utils/post-types";
 import { getPostById } from "@/app/services/post.service";
 import PropertyCard from "@/components/ui/property-card";
+import OptimizedVideoPlayer from "@/components/OptimizedVideoPlayer";
+import { useCloudinaryVideo } from "@/hooks/useCloudinaryVideo";
 
 export default function PostDetailPage() {
   const params = useParams();
@@ -23,6 +25,9 @@ export default function PostDetailPage() {
   // Get user from Redux
   const user = useSelector((state: any) => state.auth.user);
   const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+
+  // Optimize video URL
+  const { posterUrl } = useCloudinaryVideo(post?.video || "");
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -138,11 +143,11 @@ export default function PostDetailPage() {
           <div className="lg:col-span-2">
             <div className="rounded-2xl overflow-hidden mb-6 bg-gray-100">
               {post.video ? (
-                <video
+                <OptimizedVideoPlayer
                   src={post.video}
                   controls
                   className="w-full h-96 object-cover"
-                  poster={post.images?.[0]}
+                  poster={posterUrl || post.images?.[0]}
                 />
               ) : post.images?.[0] ? (
                 <Image

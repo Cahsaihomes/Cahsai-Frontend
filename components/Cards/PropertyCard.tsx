@@ -8,9 +8,12 @@ import {
 } from '@/components/ui/carousel';
 import { useState } from "react";
 import { RequestTourDialog } from "@/components/ui/request-tour-dialog";
+import OptimizedVideoPlayer from '@/components/OptimizedVideoPlayer';
+import { useCloudinaryVideo } from '@/hooks/useCloudinaryVideo';
 
 export default function PropertyCard({ post }: { post: any }) {
   const [openRequest, setOpenRequest] = useState(false);
+  const { posterUrl } = useCloudinaryVideo(post.video);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 flex flex-col gap-3">
@@ -51,13 +54,11 @@ export default function PropertyCard({ post }: { post: any }) {
             {/* Show video if exists */}
             {post.video && (
               <CarouselItem key="video" className="h-40">
-                <video
+                <OptimizedVideoPlayer
                   src={post.video}
                   controls
                   className="object-cover w-full h-full rounded-xl"
-                  width={400}
-                  height={160}
-                  poster={post.images && post.images.length > 0 ? post.images[0] : "/images/house1.jpg"}
+                  poster={posterUrl || (post.images && post.images.length > 0 ? post.images[0] : "/images/house1.jpg")}
                 />
               </CarouselItem>
             )}

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
-import { getAllPosts } from "@/hooks/post-service";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getAllPosts, getFeedPosts } from "@/hooks/post-service";
 import { Post } from "@/app/Utils/post-types";
 import { RootState } from "@/app/redux";
 
@@ -25,6 +25,7 @@ import ListingFeedFilter from "@/components/ui/listing-feed-filter";
 import { dislikePost, likePost } from "@/app/services/get.my-posts.service";
 import { toast } from "sonner";
 import { useBuyerLikes } from "@/hooks/useHooks";
+import { isDisabledCloudinaryUrl } from "@/lib/cloudinary-video";
 
 interface SelectedPost {
   id: number;
@@ -72,6 +73,7 @@ export default function Home() {
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [zipCode, setZipCode] = useState<string>("");
   const [localSaved, setLocalSaved] = useState<{ [key: number]: boolean }>({});
+  const watchLoadMoreRef = useRef<HTMLDivElement | null>(null);
   const { data: buyerLikes, refetch: likeRefetch } = useBuyerLikes();
 
   const { token, savedProperties, fetchSavedProperties, loadingSaved } = useMlsToken();
@@ -96,13 +98,60 @@ export default function Home() {
 
   const {
     data: posts,
-    isLoading,
+    isLoading: isAllPostsLoading,
     isError,
     refetch,
   } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: getAllPosts,
+    enabled: activeButton === "search",
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
+
+  const {
+    data: feedPages,
+    isLoading: isFeedLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isError: isFeedError,
+    refetch: refetchFeed,
+  } = useInfiniteQuery({
+    queryKey: ["posts-feed", propertyType],
+    queryFn: ({ pageParam }) =>
+      getFeedPosts({
+        type: propertyType,
+        cursor: pageParam as string | null,
+        limit: 10,
+      }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+    enabled: activeButton === "watch",
+  });
+
+  useEffect(() => {
+    const node = watchLoadMoreRef.current;
+    if (!node || activeButton !== "watch") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { rootMargin: "900px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [activeButton, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
  
 
@@ -140,9 +189,13 @@ export default function Home() {
     }
   }
 
-  const videoPosts = postsByPropertyType?.filter(
+  const watchPosts = feedPages?.pages.flatMap((page) => page.data) ?? [];
+  const videoPosts = watchPosts.filter(
     (post) =>
-      post.video && typeof post.video === "string" && post.video.trim() !== "",
+      post.video &&
+      typeof post.video === "string" &&
+      post.video.trim() !== "" &&
+      !isDisabledCloudinaryUrl(post.video),
   );
 
   const filteredWatchPosts =
@@ -453,9 +506,21 @@ export default function Home() {
           {/* Watch Feed → Property Cards */}
           {activeButton === "watch" && (
             <div className="px-3 py-2 w-full">
-              {isLoading ? (
+              {isFeedLoading ? (
                 <div className="flex justify-center items-center h-40">
                   <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              ) : isFeedError ? (
+                <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                  <p className="text-sm text-red-500">Failed to load posts.</p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => refetchFeed()}
+                    className="border-[#968470] text-[#968470] hover:bg-[#968470] hover:text-white"
+                  >
+                    Retry
+                  </Button>
                 </div>
               ) : filteredWatchPosts && filteredWatchPosts.length === 0 ? (
                 <p className="text-center text-gray-500 w-full">
@@ -533,6 +598,12 @@ export default function Home() {
                       />
                     );
                   })}
+                  <div ref={watchLoadMoreRef} className="h-8" />
+                  {isFetchingNextPage && (
+                    <div className="flex justify-center py-4">
+                      <div className="w-8 h-8 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -576,7 +647,7 @@ export default function Home() {
                 )}
               </div>
               {/* Cards Grid */}
-              {isLoading ? (
+              {isAllPostsLoading ? (
                 <div className="flex justify-center items-center h-40">
                   <div className="w-10 h-10 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
                 </div>
@@ -724,7 +795,7 @@ export default function Home() {
         isOpen={isListingCardOpen}
         onClose={() => setIsListingCardOpen(false)}
         post={posts}
-        isLoading={isLoading}
+        isLoading={isAllPostsLoading}
       />
       <RequestTourDialog
         isOpen={isRequestTourDialogOpen}

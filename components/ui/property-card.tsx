@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import OptimizedVideoPlayer from "../OptimizedVideoPlayer";
+import { useCloudinaryVideo } from "@/hooks/useCloudinaryVideo";
 import {
   Heart,
   MessageCircle,
@@ -88,6 +90,9 @@ export default function PropertyCard(props: PropertyCardProps) {
   const [showShareModal, setShowShareModal] = useState(false);
   const commentsListRef = useRef<HTMLDivElement>(null);
   const commentInputRef = useRef<HTMLInputElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+  const [isActiveVideo, setIsActiveVideo] = useState(false);
 
   const {
     imageUrl,
@@ -131,7 +136,15 @@ export default function PropertyCard(props: PropertyCardProps) {
     createComment,
     replyToComment,
     likeComment,
-  } = useComments(postId);
+  } = useComments(postId, { enabled: showComments });
+
+  const { posterUrl } = useCloudinaryVideo(video, {
+    adaptive: true,
+    quality: "720p",
+    format: "hls",
+  });
+  const mediaPoster = posterUrl || imageUrl || "/images/Rectangle.png";
+  const hasVideo = Boolean(video);
 
   const isCreator = variant === "Cahsai Creator";
   const isAgent = variant === "Cahsai Agent";
@@ -148,26 +161,21 @@ export default function PropertyCard(props: PropertyCardProps) {
   const isOwnPost = Boolean(currentUserId && postOwnerId && currentUserId === postOwnerId);
 
   // Sort comments: latest first (by creation date descending)
-  const sortedComments = [...commentsList].sort((a, b) => {
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-  });
+  const visibleComments = useMemo(() => {
+    if (!showComments) return [];
 
-  // Filter comments based on privacy
-  const visibleComments = sortedComments.filter((comment) => {
-    // If it's a public comment, everyone can see it
-    if (!comment.isPrivate) return true;
-    
-    // If it's a private comment, only show to:
-    // 1. The post owner (postOwnerId)
-    // 2. The comment author (comment.user.id)
-    if (comment.isPrivate) {
-      const isCommentAuthor = currentUserId && comment.user?.id === currentUserId;
-      const isPostOwner = currentUserId && currentUserId === postOwnerId;
-      return isCommentAuthor || isPostOwner;
-    }
-    
-    return false;
-  });
+    return [...commentsList]
+      .sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      })
+      .filter((comment) => {
+        if (!comment.isPrivate) return true;
+
+        const isCommentAuthor = currentUserId && comment.user?.id === currentUserId;
+        const isPostOwner = currentUserId && currentUserId === postOwnerId;
+        return Boolean(isCommentAuthor || isPostOwner);
+      });
+  }, [commentsList, currentUserId, postOwnerId, showComments]);
 
   // Focus input when comments open
   useEffect(() => {
@@ -177,6 +185,26 @@ export default function PropertyCard(props: PropertyCardProps) {
       }, 300);
     }
   }, [showComments, isOwnPost]);
+
+  useEffect(() => {
+    const node = mediaRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsNearViewport(entry.isIntersecting);
+        setIsActiveVideo(entry.isIntersecting && entry.intersectionRatio >= 0.55);
+      },
+      {
+        root: null,
+        rootMargin: "420px 0px",
+        threshold: [0, 0.25, 0.55, 0.75],
+      }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   // Handle dreamboard click with authentication check
   const handleDreamboardClick = () => {
@@ -439,16 +467,29 @@ export default function PropertyCard(props: PropertyCardProps) {
   return (
     <Card className="relative overflow-hidden rounded-2xl shadow-sm">
       {/* Video Container */}
-      <div className="relative h-[560px] w-full">
-        <video
-          src={video}
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          controls
-        />
+      <div ref={mediaRef} className="relative h-[560px] w-full">
+        {hasVideo && isNearViewport ? (
+          <OptimizedVideoPlayer
+            src={video}
+            poster={mediaPoster}
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay={isActiveVideo}
+            loop
+            muted
+            playsInline
+            controls
+            preload={isActiveVideo ? "auto" : "metadata"}
+            showLoadingIndicator={false}
+          />
+        ) : (
+          <img
+            src={mediaPoster}
+            alt={title || "Property preview"}
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
@@ -548,9 +589,9 @@ export default function PropertyCard(props: PropertyCardProps) {
 
             {title && (
               <div className={`absolute left-4 right-4 text-white z-20 ${isStay ? "bottom-[86px]" : "bottom-28"}`}>
-                <div className="text-xs sm:text-lg sm:text-xl font-bold drop-shadow-xl whitespace-normal break-words">{title}</div>
+                <div className="text-xs sm:text-xl font-bold drop-shadow-xl whitespace-normal break-words">{title}</div>
                 {description && (
-                  <div className="text-[10px] sm:text-xs sm:text-sm opacity-90 mt-0.5 sm:mt-1 drop-shadow-lg line-clamp-2">
+                  <div className="text-[10px] sm:text-sm opacity-90 mt-0.5 sm:mt-1 drop-shadow-lg line-clamp-2">
                     {description || ''}
                   </div>
                 )}

@@ -7,6 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Heart, Share2, MapPin, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import OptimizedVideoPlayer from "@/components/OptimizedVideoPlayer";
+import { useCloudinaryVideo } from "@/hooks/useCloudinaryVideo";
 
 // LightGallery
 import LightGallery from "lightgallery/react";
@@ -76,6 +78,9 @@ export default function DetailedListingCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Optimize Cloudinary video URL
+  const { posterUrl } = useCloudinaryVideo(video);
+
   const remainingCount = images.length > 1 ? images.length - 1 : 0;
 
   // Determine if this is a rental
@@ -143,9 +148,9 @@ export default function DetailedListingCard({
               data-lg-size="1280-720"
               data-video={`{ "source": [ { "src":"${video}", "type":"video/mp4" } ], "attributes": { "controls": true } }`}
             >
-              <video
-                ref={videoRef}
+              <OptimizedVideoPlayer
                 src={video}
+                poster={posterUrl}
                 className="object-cover w-full h-[300px] rounded-md"
               />
             </a>
@@ -217,10 +222,11 @@ export default function DetailedListingCard({
       {/* MINI PLAYER (YouTube style) */}
       {showMiniPlayer && video && (
         <div className="fixed bottom-4 right-4 w-[230px] h-[140px] shadow-xl bg-black rounded-lg z-[9999]">
-          <video
+          <OptimizedVideoPlayer
             src={video}
-            autoPlay
+            poster={posterUrl}
             controls
+            autoPlay
             className="w-full h-full object-cover rounded-lg"
           />
           <button

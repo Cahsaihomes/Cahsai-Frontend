@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { commentService, Comment, CreateCommentRequest } from '@/app/services/comment.service';
 import { toast } from '@/hooks/use-toast';
 
-export const useComments = (postId: number) => {
+export const useComments = (postId: number, options?: { enabled?: boolean }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const enabled = options?.enabled ?? true;
 
   // Fetch comments
   const fetchComments = async () => {
@@ -183,10 +184,10 @@ export const useComments = (postId: number) => {
 
   // Fetch comments on mount
   useEffect(() => {
-    if (postId) {
+    if (postId && enabled) {
       fetchComments();
     }
-  }, [postId]);
+  }, [postId, enabled]);
 
   return {
     comments,

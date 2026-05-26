@@ -1,5 +1,6 @@
 
 import { multipartPrivateAxios } from "./axiosInstance";
+import { uploadPostMediaToCloudinary } from "./cloudinary-upload.service";
 
 export interface CreatePostPayload {
   title: string;
@@ -53,6 +54,8 @@ export const createPostService = async (
   onProgress?: (progress: number, status: string) => void
 ) => {
   const formData = new FormData();
+  const useDirectCloudinaryUpload =
+    process.env.NEXT_PUBLIC_DIRECT_CLOUDINARY_UPLOAD !== "false";
 
   // Basic fields
   formData.append("title", data.title);
@@ -166,27 +169,57 @@ export const createPostService = async (
     formData.append("publishToWatchHomes", String(data.publishToWatchHomes));
   }
 
-  // Images
-  if (data.post_images?.length) {
-    data.post_images.forEach((file) => {
-      formData.append("post_images", file);
-    });
-  }
-
-  // Videos
-  if (data.post_videos?.length) {
-    data.post_videos.forEach((file) => {
-      formData.append("post_videos", file);
-    });
-  }
-
   try {
-  onProgress?.(30, "Preparing upload...");
+  onProgress?.(5, "Preparing upload...");
+
+  const appendFilesForServerUpload = () => {
+    if (data.post_images?.length) {
+      data.post_images.forEach((file) => {
+        formData.append("post_images", file);
+      });
+    }
+
+    if (data.post_videos?.length) {
+      data.post_videos.forEach((file) => {
+        formData.append("post_videos", file);
+      });
+    }
+  };
+
+  if (
+    useDirectCloudinaryUpload &&
+    ((data.post_images?.length ?? 0) > 0 || (data.post_videos?.length ?? 0) > 0)
+  ) {
+    try {
+      const { imageUrls, videoUrls } = await uploadPostMediaToCloudinary(
+        data.post_images ?? [],
+        data.post_videos ?? [],
+        onProgress
+      );
+
+      if (imageUrls.length) {
+        formData.append("imageUrls", JSON.stringify(imageUrls));
+      }
+
+      if (videoUrls.length) {
+        formData.append("videoUrls", JSON.stringify(videoUrls));
+      }
+    } catch (directUploadError) {
+      console.warn("Direct Cloudinary upload failed. Falling back to backend upload.", directUploadError);
+      onProgress?.(15, "Retrying upload through server...");
+      appendFilesForServerUpload();
+    }
+  } else {
+    appendFilesForServerUpload();
+  }
+
+  onProgress?.(92, "Creating post...");
   const response = await multipartPrivateAxios.post(
     "/posts/create-post",
     formData,
     {
       onUploadProgress: (progressEvent: any) => {
+        if (useDirectCloudinaryUpload) return;
         const percentCompleted = Math.round(
           (progressEvent.loaded * 70) / progressEvent.total + 30
         );

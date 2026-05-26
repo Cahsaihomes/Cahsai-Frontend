@@ -2,6 +2,8 @@
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
+import OptimizedVideoPlayer from "./OptimizedVideoPlayer";
+import { useCloudinaryVideo } from "@/hooks/useCloudinaryVideo";
 
 interface VideoModalProps {
   videoUrl: string;
@@ -10,6 +12,7 @@ interface VideoModalProps {
 
 export default function VideoModal({ videoUrl, trigger }: VideoModalProps) {
   const [open, setOpen] = useState(false);
+  const { posterUrl } = useCloudinaryVideo(videoUrl);
 
   return (
     <>
@@ -17,20 +20,20 @@ export default function VideoModal({ videoUrl, trigger }: VideoModalProps) {
         {trigger ? (
           trigger
         ) : (
-          <video
+          <OptimizedVideoPlayer
             src={videoUrl}
+            poster={posterUrl}
             className="h-60 w-full object-cover rounded-lg"
             muted
-            loop
-            playsInline
           />
         )}
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-5xl p-0 bg-black">
-          <video
+          <OptimizedVideoPlayer
             src={videoUrl}
+            poster={posterUrl}
             controls
             autoPlay
             className="w-full h-[80vh] object-contain bg-black"

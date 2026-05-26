@@ -71,7 +71,10 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
       }
     });
 
-    setPostVideos((prev) => [...prev, ...videos].slice(0, 5));
+    if (postVideos.length + videos.length > 5) {
+      toast.error("You can upload a maximum of 5 videos.");
+    }
+    setPostVideos([...postVideos, ...videos].slice(0, 5));
     setCurrentMedia(0);
     
     if (fileInputRef.current) {

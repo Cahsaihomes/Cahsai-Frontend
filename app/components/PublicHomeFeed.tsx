@@ -1,9 +1,9 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import { getAllPosts } from "@/hooks/post-service";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getAllPosts, getFeedPosts } from "@/hooks/post-service";
 import { Post } from "@/app/Utils/post-types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -21,6 +21,7 @@ import { SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { IAProduct, useAffiliateProducts } from "@/hooks/useAffilateProduct";
 import AffilateProduct from "./Cards/affilateProduct";
+import { isDisabledCloudinaryUrl } from "@/lib/cloudinary-video";
 
 
 
@@ -44,15 +45,63 @@ export default function PublicHomeFeed() {
   const [sqftRange, setSqftRange] = useState<[number, number]>([0, 5000]);
   const [selectedCity, setSelectedCity] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const watchLoadMoreRef = useRef<HTMLDivElement | null>(null);
 
 
   const { data: affilateProduct, isLoading: isAffLoading, error } = useAffiliateProducts("laptop");
 
 
-  const { data: posts = [], isLoading, isError } = useQuery<Post[]>({
+  const { data: posts = [], isLoading: isAllPostsLoading, isError } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: getAllPosts,
+    enabled: activeButton === "search",
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
+
+  const {
+    data: feedPages,
+    isLoading: isFeedLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isError: isFeedError,
+    refetch: refetchFeed,
+  } = useInfiniteQuery({
+    queryKey: ["posts-feed-public", propertyType],
+    queryFn: ({ pageParam }) =>
+      getFeedPosts({
+        type: propertyType,
+        cursor: pageParam as string | null,
+        limit: 10,
+      }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+    enabled: activeButton === "watch",
+  });
+
+  useEffect(() => {
+    const node = watchLoadMoreRef.current;
+    if (!node || activeButton !== "watch") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { rootMargin: "900px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [activeButton, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   const filteredByType = posts.filter((post) => {
     if (!post.listing_type) return true;
@@ -81,8 +130,12 @@ export default function PublicHomeFeed() {
   }
 
 
-  const videoPosts = filteredByType.filter(
-    (p) => typeof p.video === "string" && p.video.trim() !== "",
+  const watchPosts = feedPages?.pages.flatMap((page) => page.data) ?? [];
+  const videoPosts = watchPosts.filter(
+    (p) =>
+      typeof p.video === "string" &&
+      p.video.trim() !== "" &&
+      !isDisabledCloudinaryUrl(p.video),
   );
 
   const filteredWatchPosts =
@@ -198,57 +251,77 @@ export default function PublicHomeFeed() {
         {/* WATCH */}
         {activeButton === "watch" && (
           <div className="grid gap-6 max-w-lg mx-auto px-3">
-            {isLoading ? (
+            {isFeedLoading ? (
               <p>Loading...</p>
+            ) : isFeedError ? (
+              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                <p className="text-sm text-red-500">Failed to load posts.</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => refetchFeed()}
+                  className="border-[#968470] text-[#968470] hover:bg-[#968470] hover:text-white"
+                >
+                  Retry
+                </Button>
+              </div>
             ) : filteredWatchPosts.length === 0 ? (
               <p className="text-center text-gray-500 py-10">No posts found</p>
             ) : (
-              filteredWatchPosts.map((post) => (
-                <PropertyCard
-                  key={post.id}
-                  id={post.user?.id ?? post.id}
-                  postId={post.id}
-                  variant={
-                    post.user?.role === "agent"
-                      ? "Cahsai Agent"
-                      : "Cahsai Creator"
-                  }
-                  imageUrl={post.images?.[0] || "/images/Rectangle.png"}
-                  video={post.video ?? ""}
-                  name={`${post.user?.first_name ?? ""} ${post.user?.last_name ?? ""
-                    }`}
-                  first_name={post.user?.first_name}
-                  last_name={post.user?.last_name}
-                  profile={post.user?.avatarUrl}
-                  title={post.title}
-                  location={`${post.city}, ${post.location}`}
-                  beds={post.bedrooms ?? 0}
-                  baths={post.bathrooms ?? 0}
-                  area=""
-                  likes={post.likeCount ?? 0}
-                  comments={post.commentCount ?? 0}
-                  shares={post.shareCount ?? 0}
-                  listing_type={post.listing_type}
-                  monthly_rent={post.monthly_rent}
-                  amenities={post.amenities}
-                  pet_policy={post.pet_policy}
-                  parking={post.parking}
-                  furnished={post.furnished}
-                  productLink={post.productLink}
-                  topBadgeText={
-                    post.isPromoted
-                      ? "PROMOTED"
-                      : getListingBadgeText(post.listing_type, post.discoveryStay)
-                  }
-                  buttonColor="#968470"
-                  onToggleSave={() =>
-                    handleUnauthenticatedAction("like posts")
-                  }
-                  onBookTour={() =>
-                    handleUnauthenticatedAction("book a tour")
-                  }
-                />
-              ))
+              <>
+                {filteredWatchPosts.map((post) => (
+                  <PropertyCard
+                    key={post.id}
+                    id={post.user?.id ?? post.id}
+                    postId={post.id}
+                    variant={
+                      post.user?.role === "agent"
+                        ? "Cahsai Agent"
+                        : "Cahsai Creator"
+                    }
+                    imageUrl={post.images?.[0] || "/images/Rectangle.png"}
+                    video={post.video ?? ""}
+                    name={`${post.user?.first_name ?? ""} ${post.user?.last_name ?? ""
+                      }`}
+                    first_name={post.user?.first_name}
+                    last_name={post.user?.last_name}
+                    profile={post.user?.avatarUrl}
+                    title={post.title}
+                    location={`${post.city}, ${post.location}`}
+                    beds={post.bedrooms ?? 0}
+                    baths={post.bathrooms ?? 0}
+                    area=""
+                    likes={post.likeCount ?? 0}
+                    comments={post.commentCount ?? 0}
+                    shares={post.shareCount ?? 0}
+                    listing_type={post.listing_type}
+                    monthly_rent={post.monthly_rent}
+                    amenities={post.amenities}
+                    pet_policy={post.pet_policy}
+                    parking={post.parking}
+                    furnished={post.furnished}
+                    productLink={post.productLink}
+                    topBadgeText={
+                      post.isPromoted
+                        ? "PROMOTED"
+                        : getListingBadgeText(post.listing_type, post.discoveryStay)
+                    }
+                    buttonColor="#968470"
+                    onToggleSave={() =>
+                      handleUnauthenticatedAction("like posts")
+                    }
+                    onBookTour={() =>
+                      handleUnauthenticatedAction("book a tour")
+                    }
+                  />
+                ))}
+                <div ref={watchLoadMoreRef} className="h-8" />
+                {isFetchingNextPage && (
+                  <div className="flex justify-center py-4">
+                    <div className="w-8 h-8 border-4 border-[#968470] border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}

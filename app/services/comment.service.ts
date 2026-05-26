@@ -56,9 +56,7 @@ export const commentService = {
   // Get all comments for a post
   getCommentsByPostId: async (postId: number): Promise<Comment[]> => {
     try {
-      console.log('Fetching comments for postId:', postId);
       const response = await publicAxios.get<CommentResponse>(`/post-comments/${postId}`);
-      console.log('Comments API response:', response.data);
       
       if (response.data.success && Array.isArray(response.data.data)) {
         return response.data.data;

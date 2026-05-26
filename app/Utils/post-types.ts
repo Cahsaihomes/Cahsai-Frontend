@@ -24,6 +24,7 @@ export interface Post {
   amenities: string[];
   images: string[];
   video: string | null;
+  videos?: string[];
   forYou: boolean;
   isPromoted: boolean;
   createdAt: string;
