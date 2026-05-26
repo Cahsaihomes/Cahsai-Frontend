@@ -16,6 +16,8 @@ interface OptimizedVideoPlayerProps {
   preload?: "none" | "metadata" | "auto";
   className?: string;
   showLoadingIndicator?: boolean;
+  showPlaybackOverlay?: boolean;
+  pauseWhen?: boolean;
   onLoadStart?: () => void;
   onCanPlay?: () => void;
   onBuffering?: () => void;
@@ -38,6 +40,8 @@ export default function OptimizedVideoPlayer({
   preload = "metadata",
   className = "",
   showLoadingIndicator = true,
+  showPlaybackOverlay = true,
+  pauseWhen = false,
   onLoadStart,
   onCanPlay,
   onBuffering,
@@ -95,6 +99,11 @@ export default function OptimizedVideoPlayer({
     };
 
     const handlePlay = () => {
+      document.querySelectorAll("video").forEach((otherVideo) => {
+        if (otherVideo !== video && !otherVideo.paused) {
+          otherVideo.pause();
+        }
+      });
       setIsPlaying(true);
       flashPlaybackIcon();
     };
@@ -241,6 +250,15 @@ export default function OptimizedVideoPlayer({
     }
   }, [autoPlay, src]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !pauseWhen) return;
+
+    video.pause();
+    setIsPlaying(false);
+    setShowPlaybackIcon(true);
+  }, [pauseWhen]);
+
   const togglePlayback = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -301,20 +319,22 @@ export default function OptimizedVideoPlayer({
         preload={preload}
       />
 
-      <button
-        type="button"
-        aria-label={isPlaying ? "Pause video" : "Play video"}
-        onClick={togglePlayback}
-        className={`absolute left-1/2 top-1/2 z-50 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur-sm transition-opacity duration-200 ${
-          showPlaybackIcon || !isPlaying ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {isPlaying ? (
-          <Pause className="h-8 w-8 fill-white" />
-        ) : (
-          <Play className="ml-1 h-8 w-8 fill-white" />
-        )}
-      </button>
+      {showPlaybackOverlay && (
+        <button
+          type="button"
+          aria-label={isPlaying ? "Pause video" : "Play video"}
+          onClick={togglePlayback}
+          className={`absolute left-1/2 top-1/2 z-50 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur-sm transition-opacity duration-200 ${
+            showPlaybackIcon || !isPlaying ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {isPlaying ? (
+            <Pause className="h-8 w-8 fill-white" />
+          ) : (
+            <Play className="ml-1 h-8 w-8 fill-white" />
+          )}
+        </button>
+      )}
 
       {showLoadingIndicator && isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/10">
