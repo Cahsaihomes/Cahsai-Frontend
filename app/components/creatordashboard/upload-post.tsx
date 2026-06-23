@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +29,20 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
 
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const videoPreviewItems = useMemo(
+    () =>
+      postVideos.map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+      })),
+    [postVideos]
+  );
+
+  useEffect(() => {
+    return () => {
+      videoPreviewItems.forEach((item) => URL.revokeObjectURL(item.url));
+    };
+  }, [videoPreviewItems]);
 
   const handleBrowseClick = () => {
     if (fileInputRef.current) {
@@ -133,7 +147,7 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
       
     } catch (error: any) {
       console.error("Create post error:", error);
-      toast.error(error?.response?.data?.message || "Failed to create post!");
+      toast.error(error?.response?.data?.message || error?.message || "Failed to create post!");
       setUploadProgress(0);
       setUploadStatus("");
     } finally {
@@ -291,10 +305,11 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
                     ) : (
                       <div className="w-full flex flex-col items-center">
                         {(() => {
-                          const file = postVideos[currentMedia];
+                          const item = videoPreviewItems[currentMedia];
+                          if (!item) return null;
                           return (
                             <video
-                              src={URL.createObjectURL(file)}
+                              src={item.url}
                               controls
                               className="mx-auto object-cover rounded border"
                               style={{ maxWidth: 150, maxHeight: 150 }}
@@ -302,10 +317,10 @@ export default function Home({ setShowUploadPost }: { setShowUploadPost: (show: 
                           );
                         })()}
                         <div className="flex justify-center mt-2 gap-2 w-full flex-wrap">
-                          {postVideos.map((file, idx) => (
-                            <div key={idx} className="relative inline-block">
+                          {videoPreviewItems.map((item, idx) => (
+                            <div key={item.url} className="relative inline-block">
                               <video
-                                src={URL.createObjectURL(file)}
+                                src={item.url}
                                 className={`object-cover rounded border cursor-pointer ${
                                   currentMedia === idx
                                     ? "ring-2 ring-primary"
