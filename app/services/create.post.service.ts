@@ -56,6 +56,7 @@ export const createPostService = async (
   const formData = new FormData();
   const useDirectCloudinaryUpload =
     process.env.NEXT_PUBLIC_DIRECT_CLOUDINARY_UPLOAD !== "false";
+  let usingServerMediaUpload = false;
 
   // Basic fields
   formData.append("title", data.title);
@@ -173,6 +174,8 @@ export const createPostService = async (
   onProgress?.(5, "Preparing upload...");
 
   const appendFilesForServerUpload = () => {
+    usingServerMediaUpload = true;
+
     if (data.post_images?.length) {
       data.post_images.forEach((file) => {
         formData.append("post_images", file);
@@ -205,7 +208,14 @@ export const createPostService = async (
         formData.append("videoUrls", JSON.stringify(videoUrls));
       }
     } catch (directUploadError) {
-      console.warn("Direct Cloudinary upload failed. Falling back to backend upload.", directUploadError);
+      if ((data.post_videos?.length ?? 0) > 0) {
+        console.warn("Direct Cloudinary video upload failed.", directUploadError);
+        throw new Error(
+          "Video upload failed. Please try again, or export the video as MP4 under 100MB."
+        );
+      }
+
+      console.warn("Direct Cloudinary image upload failed. Falling back to backend upload.", directUploadError);
       onProgress?.(15, "Retrying upload through server...");
       appendFilesForServerUpload();
     }
@@ -219,7 +229,7 @@ export const createPostService = async (
     formData,
     {
       onUploadProgress: (progressEvent: any) => {
-        if (useDirectCloudinaryUpload) return;
+        if (!usingServerMediaUpload) return;
         const percentCompleted = Math.round(
           (progressEvent.loaded * 70) / progressEvent.total + 30
         );

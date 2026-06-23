@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ArrowLeft } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
   createPostService,
@@ -89,6 +89,27 @@ export default function AgentUploadPage() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [currentMedia, setCurrentMedia] = useState(0);
   const STORAGE_KEY = "agentUploadFormData";
+  const mediaItems = useMemo(
+    () => [
+      ...postImages.map((file) => ({
+        file,
+        kind: "image" as const,
+        url: URL.createObjectURL(file),
+      })),
+      ...postVideos.map((file) => ({
+        file,
+        kind: "video" as const,
+        url: URL.createObjectURL(file),
+      })),
+    ],
+    [postImages, postVideos]
+  );
+
+  useEffect(() => {
+    return () => {
+      mediaItems.forEach((item) => URL.revokeObjectURL(item.url));
+    };
+  }, [mediaItems]);
 
   // Load form data from localStorage on mount
   useEffect(() => {
@@ -475,7 +496,7 @@ export default function AgentUploadPage() {
       }, 800);
     } catch (error: any) {
       console.error("Create post error:", error);
-      toast.error(error?.response?.data?.message || "Failed to create post!");
+      toast.error(error?.response?.data?.message || error?.message || "Failed to create post!");
       setUploadProgress(0);
       setUploadStatus("");
     } finally {
@@ -563,20 +584,18 @@ export default function AgentUploadPage() {
                     ) : (
                       <div className="w-full flex flex-col items-center">
                         {(() => {
-                          const allMedia = [...postImages, ...postVideos];
-                          if (allMedia.length === 0) return null;
-                          const isImage = currentMedia < postImages.length;
-                          const file = allMedia[currentMedia];
-                          return isImage ? (
+                          const item = mediaItems[currentMedia];
+                          if (!item) return null;
+                          return item.kind === "image" ? (
                             <img
-                              src={URL.createObjectURL(file)}
-                              alt={file.name}
+                              src={item.url}
+                              alt={item.file.name}
                               className="mx-auto object-cover rounded border"
                               style={{ maxWidth: 150, maxHeight: 150 }}
                             />
                           ) : (
                             <video
-                              src={URL.createObjectURL(file)}
+                              src={item.url}
                               controls
                               className="mx-auto object-cover rounded border"
                               style={{ maxWidth: 150, maxHeight: 150 }}
@@ -584,14 +603,14 @@ export default function AgentUploadPage() {
                           );
                         })()}
                         <div className="flex justify-center mt-2 gap-2 w-full flex-wrap">
-                          {[...postImages, ...postVideos].map((file, idx) => {
-                            const isImage = idx < postImages.length;
+                          {mediaItems.map((item, idx) => {
+                            const isImage = item.kind === "image";
                             return (
-                              <div key={idx} className="relative inline-block">
+                              <div key={item.url} className="relative inline-block">
                                 {isImage ? (
                                   <img
-                                    src={URL.createObjectURL(file)}
-                                    alt={file.name}
+                                    src={item.url}
+                                    alt={item.file.name}
                                     className={`object-cover rounded border cursor-pointer ${
                                       currentMedia === idx ? "ring-2 ring-[#968470]" : ""
                                     }`}
@@ -600,7 +619,7 @@ export default function AgentUploadPage() {
                                   />
                                 ) : (
                                   <video
-                                    src={URL.createObjectURL(file)}
+                                    src={item.url}
                                     className={`object-cover rounded border cursor-pointer ${
                                       currentMedia === idx ? "ring-2 ring-[#968470]" : ""
                                     }`}

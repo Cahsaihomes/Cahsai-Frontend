@@ -10,6 +10,7 @@ interface SignedUploadData {
   resourceType: CloudinaryResourceType;
   timestamp: number;
   eager?: string;
+  eagerAsync?: boolean;
   signature: string;
 }
 
@@ -60,6 +61,9 @@ const uploadSingleFile = async (
   formData.append("folder", signed.folder);
   if (signed.eager) {
     formData.append("eager", signed.eager);
+  }
+  if (signed.eagerAsync) {
+    formData.append("eager_async", "true");
   }
 
   const response = await axios.post(
