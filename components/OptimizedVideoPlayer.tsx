@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import HLS from "hls.js";
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { isCloudinaryUrl } from "@/lib/cloudinary-video";
 
 interface OptimizedVideoPlayerProps {
@@ -50,6 +50,7 @@ export default function OptimizedVideoPlayer({
   const [isLoading, setIsLoading] = useState(Boolean(src));
   const [isReady, setIsReady] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(muted);
   const [showPlaybackIcon, setShowPlaybackIcon] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const hlsRef = useRef<HLS | null>(null);
@@ -272,6 +273,15 @@ export default function OptimizedVideoPlayer({
     }
   };
 
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    setIsMuted(nextMuted);
+  };
+
   if (error) {
     return (
       <div className={`${className} bg-gray-900 flex items-center justify-center text-white`}>
@@ -309,7 +319,7 @@ export default function OptimizedVideoPlayer({
         ref={videoRef}
         controls={controls}
         autoPlay={autoPlay}
-        muted={muted}
+        muted={isMuted}
         loop={loop}
         playsInline={playsInline}
         poster={poster}
@@ -318,6 +328,21 @@ export default function OptimizedVideoPlayer({
         }`}
         preload={preload}
       />
+
+      {controls && (
+        <button
+          type="button"
+          aria-label={isMuted ? "Turn sound on" : "Turn sound off"}
+          onClick={toggleMute}
+          className="absolute right-3 top-3 z-50 grid h-9 w-9 place-items-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/75"
+        >
+          {isMuted ? (
+            <VolumeX className="h-5 w-5" />
+          ) : (
+            <Volume2 className="h-5 w-5" />
+          )}
+        </button>
+      )}
 
       {showPlaybackOverlay && (
         <button
